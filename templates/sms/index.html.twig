@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SmsController!{% endblock %}
+
+{% block body %}
+
+<h1> Envoie de message par sms </h1>
+
+<form method="post" action="{{path('sms')}}">
+<table>
+
+<tr> 
+
+<td><label>Ecris ton numéro </label></td>
+<td><input type="text" name="mobile"/></td>
+</tr>
+
+<tr> 
+
+<td><label>Ecris le message </label></td>
+<td><textarea name="message" rows="5" cols="22"></textarea></td>
+</tr>
+
+
+<tr> 
+
+
+<td><input type="submit" value="Envoie"/></td>
+</tr>
+
+
+
+</table
+
+
+</form>
+{% endblock %}
