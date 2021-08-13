@@ -32,50 +32,13 @@ class SmsController extends AbstractController
     }
 
     /**
-         * @Route("/sendSms", name="sendsms")
+         * @Route("/treant", name="treantGraph")
          */
-    public function sendMessage(Request $request)
+    public function treant(Request $request)
     {
-        $mobile = $request->get('mobile');
-        $message = $request->get('message');
-        $encodeMessage = urldecode($message);
-        $authKey = '7lQlJGp6XJlxA5UFHMisnrb3zUBFigtS/t1jCF+G8DWKcGX0hcRxMqljWDfhtoigyFq9x8SMxpauTmhYYXJ/Aw==';
-        $senderId = 'EBC52519-57DD-49EB-A636-FB47C7DBC02F';
-        $route = 4;
-        $url ='';
-        $postData = array(
-        'mobile' => $mobile,
-        'encodeMessage' => $encodeMessage,
-        'authKey' => $authKey,
-        'sendId'=>$senderId,
-        'route' => $route,
-
-       );
-
-        $url ='';
-        $ch = curl_init();
-        curl_setopt_array($ch, array(
-
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => True,
-        CURLOPT_POST => true,
-        CURLOPT_POSTFIELDS => $postData,
-
-        ));
-
-        Curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        Curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        $output = curl_exec($ch);
-
-        if(Curl_error($ch)){
-            echo '' . curl_error($ch);
-
-
-        }
-
-        curl_close($ch);
         
-        return $this->render('sms/success.html.twig', [
+        
+        return $this->render('sms/treant.html.twig', [
             'controller_name' => 'SmsController',
             
         ]);

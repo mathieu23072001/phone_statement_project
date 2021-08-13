@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+     {% block stylesheets %}
+     {{  parent() }}
+      {% endblock %}
+      
+      {% block javascripts %}
+      {{  parent() }}
+       {% endblock %}
+
+  {% block body %}
+
+    <div class="chart" id="basic-example"></div>
+    
+  
+    <script>
+        new Treant( chart_config );
+
+
+    </script>
+
+ {% endblock %}

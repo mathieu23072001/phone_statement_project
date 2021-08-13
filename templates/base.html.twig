@@ -7,10 +7,18 @@
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
             {#{{ encore_entry_link_tags('app') }}#}
+    <link rel="stylesheet" href="{{asset('Graphe/css/Treant.css')}}">
+    <link rel="stylesheet" href="{{asset('Graphe/css/basic-example.css')}}">
+
+
         {% endblock %}
 
         {% block javascripts %}
             {#{{ encore_entry_script_tags('app') }}#}
+            <script src="{{asset('Graphe/js/raphael.js')}}"></script>
+            <script src="{{asset('Graphe/js/Treant.js')}}"></script> 
+         <script src="{{asset('Graphe/js/basic-example.js')}}"></script>
+
         {% endblock %}
     </head>
     <body>
