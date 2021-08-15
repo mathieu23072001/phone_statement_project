@@ -66,26 +66,26 @@ class ExpController extends AbstractController
 
 
            // $hubdata->insertCsvData($entityManager,$fileFolder."".$filePathName);
-             // $hubdata->datahubUpdateAb($entityManager);
-             // $hubdata->datahubUpdateAp($entityManager);
-            //  $hubdata->datahubUpdateIdentiteAppele($entityManager);
-            //  $hubdata->datahubUpdateDate($entityManager);
-            //  $hubdata->datahubUpdateHeure($entityManager);
-           //  $hubdata->datahubUpdateDuree($entityManager);
-           //  $hubdata->datahubUpdateTypeAppel($entityManager);
-           //   $hubdata->datahubUpdateSensAppel($entityManager);
-           //   $hubdata->datahubUpdateIMEI($entityManager);
-           //   $hubdata->datahubUpdateIMSI($entityManager);
-           //   $hubdata->datahubUpdateLocalisation($entityManager);
-            //  $hubdata->insertNumeroAb($entityManager);
-            //  $hubdata->insertNumeroApp($entityManager);    
-            //  $hubdata->insertNumOp($entityManager);
-             // $hubdata->insertpersonneAb($entityManager);
-             // $hubdata->insertpersonneAp($entityManager);
-              // $hubdata->insertIdNumToPerson($entityManager);    
-           //  $hubdata->insertAppel($entityManager);
-            //  $hubdata->insertAntenne($entityManager);
-            //  $hubdata->insertPortable($entityManager);
+             $hubdata->datahubUpdateAb($entityManager);
+             $hubdata->datahubUpdateAp($entityManager);
+              $hubdata->datahubUpdateIdentiteAppele($entityManager);
+            $hubdata->datahubUpdateDate($entityManager);
+            $hubdata->datahubUpdateHeure($entityManager);
+             $hubdata->datahubUpdateDuree($entityManager);
+            $hubdata->datahubUpdateTypeAppel($entityManager);
+             $hubdata->datahubUpdateSensAppel($entityManager);
+              $hubdata->datahubUpdateIMEI($entityManager);
+              $hubdata->datahubUpdateIMSI($entityManager);
+             $hubdata->datahubUpdateLocalisation($entityManager);
+             $hubdata->insertNumeroAb($entityManager);
+              $hubdata->insertNumeroApp($entityManager);    
+            $hubdata->insertNumOp($entityManager);
+              $hubdata->insertpersonneAb($entityManager);
+              $hubdata->insertpersonneAp($entityManager);
+                 $hubdata->insertAppel($entityManager);
+             $hubdata->insertAntenne($entityManager);
+              $hubdata->insertPortable($entityManager);
+              $hubdata->insertIdNumToPerson($entityManager); 
               
             
             

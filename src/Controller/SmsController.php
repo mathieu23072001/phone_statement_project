@@ -36,10 +36,11 @@ class SmsController extends AbstractController
          */
     public function treant(Request $request)
     {
-        
+        $nom = "koffi";
         
         return $this->render('sms/treant.html.twig', [
             'controller_name' => 'SmsController',
+            'n'=> json_encode($nom)
             
         ]);
     }

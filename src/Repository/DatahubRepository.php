@@ -554,8 +554,9 @@ public function insertAppel($em){
     try {
         $sqlrech = "
         INSERT into appel(peronne_one_id,personne_two_id,date,duree,type_appel,sens_appel)
+        SELECT a1.id, a2.id,STR_TO_DATE(CONCAT(d.date,d.heure),'%d/%m/%Y %h:%i:%s') ,d.duree,d.type_appel,d.sens_appel from datahub d INNER JOIN personne a1 on a1.contact = d.abonne INNER JOIN personne a2 ON a2.contact = d.appele WHERE
+ CONCAT(a1.id,a2.id,STR_TO_DATE(CONCAT(d.date,d.heure),'%d/%m/%Y %h:%i:%s')) not in (SELECT concat(peronne_one_id,personne_two_id,date) as temps from appel) ;
 
-        SELECT a1.id, a2.id,STR_TO_DATE(d.date,'%d/%m/%Y %h:%i:%s'),d.duree,d.type_appel,d.sens_appel from datahub d INNER JOIN personne a1 on a1.contact = d.abonne INNER JOIN personne a2 ON a2.contact = d.appele;
   
             ";
            
@@ -612,10 +613,9 @@ public function insertPortable($em){
     try {
         $sqlrech = "         
             INSERT IGNORE INTO portable (personne_id,antenne_id,imei,imsi)
-            SELECT  p.id ,a.id,d.imei,d.imsi
-            FROM personne p, datahub d ,antenne a    
-            WHERE p.contact = d.abonne
-            AND a.nom = d.localisation 
+            SELECT  a1.id ,a.id,d.imei,d.imsi
+            FROM antenne a,datahub d INNER JOIN personne a1 on a1.contact = d.abonne INNER JOIN personne a2 ON a2.contact = d.appele   
+            WHERE CONCAT(a1.id,a2.id,STR_TO_DATE(CONCAT(d.date,d.heure),'%d/%m/%Y %h:%i:%s')) not in (SELECT concat(peronne_one_id,personne_two_id,date) as temps from appel) 
             ";
            
                       
