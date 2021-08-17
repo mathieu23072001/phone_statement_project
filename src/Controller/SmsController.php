@@ -44,4 +44,24 @@ class SmsController extends AbstractController
             
         ]);
     }
+
+
+
+
+     /**
+         * @Route("/vis", name="visGraph")
+         */
+        public function vis(Request $request)
+        {
+            
+            
+            return $this->render('sms/vis.html.twig', [
+                'controller_name' => 'SmsController'
+                
+                
+            ]);
+        }
+    
+    
+
 }

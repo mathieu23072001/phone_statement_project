@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content=""/>
+  
+<title>{% block title %}
+{% if is_granted('ROLE_ADMIN') %}
+        Espace administrateur
+ {% endif %} 
+{% if is_granted('ROLE_USER') %}
+        Espace operateur de saisi
+        {% endif %} 
+        {% endblock %}
+</title>
+<link  href = " //fonts.googleapis.com/icon?family=Material+Icons " rel = " stylesheet " > 
+<link  href = ' //fonts.googleapis.com/css?family=Source+Sans+Pro: 300,400,600,700 ' rel =' feuille de style ' >
+        {% block stylesheets %}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" >  
+ <!-- Bootstrap Core CSS -->
+    <link href="{{ asset('optimum/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('optimum/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css')}}" rel="stylesheet">
+    
+	<!-- Menu CSS -->
+    <link href="{{ asset('optimum/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('optimum/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css" />
+    
+	<!-- animation CSS -->
+    <link href="{{ asset('optimum/css/animate.css')}}" rel="stylesheet">
+    
+	<!-- Custom CSS -->
+    <link href="{{ asset('optimum/css/style.css')}}" rel="stylesheet">
+    <!-- Card CSS -->
+    <link href="{{ asset('optimum/css/styles.css')}}" rel="stylesheet">
+    
+	<!-- color CSS -->
+    <link href="{{ asset('optimum/css/colors/green.css')}}" id="theme" rel="stylesheet">
+    
+	
+	<!-- color CSS -->
+	<link rel="stylesheet" href="{{ asset('optimum/plugins/bower_components/dropify/dist/css/dropify.min.css')}}">
+	<link href="{{ asset('optimum/plugins/bower_components/dropzone-master/dist/dropzone.css')}}" rel="stylesheet" type="text/css" />
+	
+	<!-- Bootstrap Core CSS -->
+    <link href="{{ asset('optimum/plugins/bower_components/bootstrap-table/dist/bootstrap-table.min.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('optimum/plugins/bower_components/html5-editor/bootstrap-wysihtml5.css')}}" />
+	
+	<link href="{{ asset('optimum/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('optimum/plugins/bower_components/custom-select/custom-select.css" rel="stylesheet')}}" type="text/css" />
+    <link href="{{ asset('optimum/plugins/bower_components/switchery/dist/switchery.min.css" rel="stylesheet')}}" />
+    <link href="{{ asset('optimum/plugins/bower_components/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" />
+    <link href="{{ asset('optimum/plugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')}}" rel="stylesheet" />
+    <link href="{{ asset('optimum/plugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" />
+    <link href="{{ asset('optimum/plugins/bower_components/multiselect/css/multi-select.css')}}" rel="stylesheet" type="text/css" />
+	
+	    <link href="{{ asset('optimum/plugins/bower_components/Magnific-Popup-master/dist/magnific-popup.css')}}" rel="stylesheet">
+		<link href="{{ asset('optimum/plugins/bower_components/icheck/skins/all.css')}}" rel="stylesheet">
+		<link href="{{ asset('optimum/plugins/bower_components/tablesaw-master/dist/tablesaw.css')}}" rel="stylesheet">
+		<link href="{{ asset('optimum/plugins/bower_components/bootstrap-switch/bootstrap-switch.min.css')}}" rel="stylesheet">
+		 <!-- summernotes CSS -->
+    <link href="{{ asset('optimum/plugins/bower_components/summernote/dist/summernote.css')}}" rel="stylesheet" />
+	
+		<!--alerts CSS -->
+    <link href="{{ asset('optimum/plugins/bower_components/sweetalert/sweetalert.css')}}" rel="stylesheet" type="text/css">
+	
+	 <!-- Typehead CSS -->
+    <link href="{{ asset('optimum/plugins/bower_components/typeahead.js-master/dist/typehead-min.css')}}" rel="stylesheet">
+	
+	
+		<!-- Wizard CSS -->
+    <link href="{{ asset('optimum/plugins/bower_components/jquery-wizard-master/css/wizard.css')}}" rel="stylesheet">
+	
+		 <!-- Cropper CSS -->
+    <link href="{{ asset('optimum/plugins/bower_components/cropper/cropper.min.css')}}" rel="stylesheet">
+		<!-- Dropzone css -->
+    <link href="{{ asset('optimum/plugins/bower_components/dropzone-master/dist/dropzone.css')}}" rel="stylesheet" type="text/css" />
+	
+	<link rel="stylesheet" type="text/css" href="{{ asset('optimum/plugins/bower_components/gallery/css/animated-masonry-gallery.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('optimum/plugins/bower_components/fancybox/ekko-lightbox.min.css')}}" />
+
+    <link href="{{ asset('optimum/plugins/bower_components/datatables/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('optimum/plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('optimum/plugins/bower_components/calendar/dist/fullcalendar.css')}}" rel="stylesheet" />
+    <link href="{{ asset('optimum/plugins/bower_components/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
+	
+	<!-- Timeline CSS -->
+    <link href="{{ asset('optimum/plugins/bower_components/horizontal-timeline/css/horizontal-timeline.css')}}" rel="stylesheet">
+	
+	 <!--nestable CSS -->
+    <link href="{{ asset('optimum/plugins/bower_components/nestable/nestable.css')}}" rel="stylesheet" type="text/css" />
+	
+	
+	 <!--Range slider CSS -->
+    <link href="{{ asset('optimum/plugins/bower_components/ion-rangeslider/css/ion.rangeSlider.css')}}" rel="stylesheet">
+    <link href="{{ asset('optimum/plugins/bower_components/ion-rangeslider/css/ion.rangeSlider.skinModern.css')}}" rel="stylesheet">
+	
+	<!-- Wizard CSS -->
+	<link href="{{ asset('optimum/plugins/bower_components/register-steps/steps.css')}}" rel="stylesheet">
+	
+	 <!--Owl carousel CSS -->
+    <link href="{{ asset('optimum/plugins/bower_components/owl.carousel/owl.carousel.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('optimum/plugins/bower_components/owl.carousel/owl.theme.default.css')}}" rel="stylesheet" type="text/css" />
+	<script src="{{ asset('optimum/js/jquery-1.11.0.min.js')}}"></script>
+	
+	
+	<!-- Editable CSS -->
+    <link rel="{{ asset('optimum/plugins/bower_components/jquery-datatables-editable/datatables.css')}}" />
+	
+	 <!-- Footable CSS -->
+    <link href="{{ asset('optimum/plugins/bower_components/footable/css/footable.core.css')}}" rel="stylesheet">
+	
+<!-- FormValidation -->
+    <link rel="stylesheet" href="{{asset('optimum/plugins/bower_components/jquery-wizard-master/libs/formvalidation/formValidation.min.css')}}">
+
+	<link href="{{ asset('optimum/fullcalendar/css/style.css')}}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{asset('optimum/date/daterangepicker.css')}}" />
+    <!-- Flashy CSS -->
+
+     
+    
+    {% endblock %}
+
+ {% block javascripts %}
+
+    
+	 <script src="{{asset('optimum/bootstrap/dist/js/tether.min.js')}}"></script> 
+    <script src="{{asset('optimum/plugins/bower_components/jquery/dist/jquery.min.js')}}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{asset('optimum/bootstrap/dist/js/tether.min.js')}}"></script>
+    <script src="{{asset('optimum/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('optimum/plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js')}}"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="{{asset('optimum/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js')}}"></script>
+    <!--slimscroll JavaScript -->
+	 <!-- icheck -->
+    <script src="{{asset('optimum/plugins/bower_components/icheck/icheck.min.js')}}"></script>
+    <script src="{{asset('optimum/plugins/bower_components/icheck/icheck.init.js')}}"></script>
+    <script src="{{asset('optimum/js/jquery.slimscroll.js')}}"></script>
+    
+   
+
+    <!--Morris JavaScript -->
+    <script src="{{asset('optimum/plugins/bower_components/raphael/raphael-min.js')}}"></script>
+    <script src="{{asset('optimum/plugins/bower_components/morrisjs/morris.js')}}"></script>
+    <!-- Sparkline chart JavaScript -->
+    <script src="{{asset('optimum/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
+    <!-- jQuery peity -->
+    <script src="{{asset('optimum/plugins/bower_components/peity/jquery.peity.min.js')}}"></script>
+    <script src="{{asset('optimum/plugins/bower_components/peity/jquery.peity.init.js')}}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{{asset('optimum/js/custom.min.js')}}"></script>
+    <script src="{{asset('optimum/js/dashboard1.js')}}"></script>
+ 
+   
+    
+	  
+	
+	<!-- Dropzone Plugin JavaScript -->
+    <script src="{{asset('optimum/plugins/bower_components/dropzone-master/dist/dropzone.js')}}"></script>
+	
+	 <!--Wave Effects -->
+    
+	 
+	  
+	
+	 
+
+    <!-- /#wrapper -->
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+    
+    </head>
+    <body>
+
+    {{ include ('layout/menuSupAd.html.twig')}}
+     <div id="page-wrapper">
+        <div class="container-fluid">
+        {% block body %}{% endblock %} 
+        </div>
+
+        {{ include ("layout/footer.html.twig") }}
+      </div>
+
+
+
+
+    
+ 
+</body>
+</html>
