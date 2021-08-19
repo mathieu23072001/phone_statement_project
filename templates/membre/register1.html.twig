@@ -1,0 +1,140 @@
+{% extends "baseI.html.twig" %}
+
+{% block stylesheets %} {{  parent() }} {% endblock %}
+
+{% block title %} {{  parent() }} {% endblock %}
+
+{% block javascript %} {{  parent() }} {% endblock %}
+
+
+{% block body %}
+
+
+ {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+
+<div class="row bg-title">
+ 
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Membre</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-4 col-xs-12"> 
+                    <o class="breadcrumb">
+                        <li>membre </li>
+                        <li class="active"> Enregistrement d'un membre de centre</li>
+                    </o>
+                </div>
+                
+                <!-- /.col-lg-12 -->
+            </div>
+  
+
+               <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Formulaire de validation</h3>
+                            <p class="text-muted m-b-30"> Information du membre </p>
+                            {{ form_start(form,{'attr':{'data-toogle':'validator',}}) }} 
+                            
+                                <div class="form-group">
+                                    
+                                    <label> Centre </label>
+                                    <input type="text" name="centre" class="form-control" placeholder="recherchez votre centre" id="centre">
+                                    
+                                </div>
+
+                                <div style="margin-top: 20px">
+                                <div id="result"></div>
+                                </div>
+                           
+    
+                                <div class="form-group">
+                                
+                                    {{form_row(form.nom)}}
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                
+                                    
+                                    {{form_row(form.prenoms)}}
+                                    <div class="help-block with-errors"></div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    
+                                    {{form_widget(form.user)}}
+                                    <div class="help-block with-errors"></div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    
+                                    {{form_widget(form.role)}}
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                
+                                
+                               
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-rounded btn-sm btn-primary">valider</button>
+                                </div>
+
+                               </div>
+                    
+                                   
+                </div>
+            </div>
+        </div>
+    </div>
+  
+
+
+ {{ form_end(form) }}
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+ 
+  $('#centre').keyup(function(){
+       $('#result').html('');
+     var utilisateur= $(this).val();
+     if(utilisateur != ""){
+         $.ajax({
+             type: 'GET',
+             url: 'fonction/recherche_centre.php'
+            data: 'user=' + encodeURIComponent(utilisateur),
+            success: function(data){
+                    if(data != "") {
+                        $('#result').append(data);
+                        
+                    } else {
+                      document.getElementById('result').innerHTML = "<div style='font-size: 20px; text-align: center; margin-top: 10px'>Aucun utilisateur</div>"
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
+
+                    }
+            }
+            
+         });
+     }
+});
+
+
+});
+</script>   
+ {% endblock %}
+
+ 
+

@@ -1,0 +1,73 @@
+{% extends "baseI.html.twig" %}
+
+{% block stylesheets %} {{  parent() }} {% endblock %}
+
+{% block title %} {{  parent() }} {% endblock %}
+
+{% block javascript %} {{  parent() }} {% endblock %}
+
+
+{% block body %}
+
+
+ 
+
+<div class="row bg-title">
+ 
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Membre</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-4 col-xs-12"> 
+                    <o class="breadcrumb">
+                        <li>membre </li>
+                        <li class="active"> Enregistrement d'un membre de centre</li>
+                    </o>
+                </div>
+                
+                <!-- /.col-lg-12 -->
+            </div>
+  
+
+               
+
+
+
+               <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Centres de sante</h3>
+                            <p class="text-muted m-b-30">Selectionnez un centre de sante et inscrivez-vous</p>
+                            <div class="table-responsive">
+                                <table id="myTable" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Quartier</th>
+                                            <th>Enregistrer le</th>
+                                            <th>Action</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    {% for cds in cds %}
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ cds.nom }}</td>
+                                            <td>{{ cds.quartier }}</td>
+                                            <td>Edinburgh</td>
+                                            <td><a href="{{ path('membre_register',{'id': cds.id}) }}"><button type="button" class="btn btn-primary">S'inscrire</button></a></td>
+                                            
+                                        </tr>
+                                        
+                                    </tbody>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  </div>
+       
+ {% endblock %}
+
+ 
+

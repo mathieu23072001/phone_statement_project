@@ -52,7 +52,11 @@
         </div>
         {% endif %}
 
-        
+         {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
 
 						<form class="form-horizontal form-material" id="login-form"  method="post"> 
 
@@ -94,12 +98,6 @@
 <button class="btn btn-info style1 btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" style="width:100%; color:white">
 Login
 </button>
-
-
-<h5>Inscrivez vous en tant que :</h5><a href="">Entreprise</a>
-<br />
-<p> Ou</p>
-<a href="">Etudiant</a>
 
 
 
@@ -213,8 +211,8 @@ label .password-icon {
   display: flex;
   align-items: center;
   position: absolute;
-  top: 53%;
-  right: 20px;
+  top: 58%;
+  right: 24px;
   transform: translateY(-50%);
   width: 20px;
   color: black;

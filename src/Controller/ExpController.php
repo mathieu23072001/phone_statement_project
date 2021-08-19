@@ -25,7 +25,7 @@ class ExpController extends AbstractController
     /**
      * @Route("/exp", name="exp",methods={"GET","POST"})
      * @param Request $request
-     * @throws \Exception
+     * @throws \Exception@throws \Exception
      */
     public function index(Request $request,  EntityManagerInterface $entityManager,DatahubRepository $hubdata):Response
     {
@@ -65,7 +65,9 @@ class ExpController extends AbstractController
 
 
 
-           // $hubdata->insertCsvData($entityManager,$fileFolder."".$filePathName);
+            $hubdata->insertCsvData($entityManager,$fileFolder."".$filePathName);
+            $hubdata->datahubAb($entityManager);
+            $hubdata->datahubAp($entityManager);
              $hubdata->datahubUpdateAb($entityManager);
              $hubdata->datahubUpdateAp($entityManager);
               $hubdata->datahubUpdateIdentiteAppele($entityManager);

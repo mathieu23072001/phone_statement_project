@@ -16,13 +16,13 @@
 
                
 
-          {% if is_granted('ROLE_ETUDIANT') %}      
+          {% if is_granted('ROLE_ADS') %}      
 
-{% for etudiant in app.user.etudiants %}
- {% if etudiant.niveau != null %} 
+{% for membre in app.user.membres %}
+
 
 <li class="user-pro">
-                        <a href="#" class="waves-effect">{% for etudiant in app.user.etudiants %} {% if etudiant.image != null %}  <img src="{{asset('images/etudiants/' ~ etudiant.image)}} " alt="user-img"  class="img-circle">{% endif %} {% if etudiant.image == null %}<img src="{{ asset('optimum/images/admin.jpg')}}" alt="user-img"  class="img-circle"> {% endif %} {% endfor %} <span class="hide-menu">{% for etudiant in app.user.etudiants %} {{etudiant.nom}}{% endfor %}<span class="fa arrow"></span></span>
+                        <a href="#" class="waves-effect"> <img src="{{ asset('optimum/images/pp.png')}}" alt="user-img"  class="img-circle"> <span class="hide-menu">{% for membre in app.user.membres %} {{membre.nom}}{% endfor %}<span class="fa arrow"></span></span>
                         </a>
                         <ul class="nav nav-second-level">
                             <li><a href="javascript:void(0)"><i class="ti-user"></i> My Profile</a></li>
@@ -31,11 +31,12 @@
                             <li><a href="{{ path('app_login') }}"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
                     </li>
-                    <li> <a href="{{ path('app_etudiant') }}" class="waves-effect"><i class="ti-dashboard p-r-10"></i> <span class="hide-menu"><B>Dashboard</B></span></a> </li>
-                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-envelope"></i> <span class="hide-menu"> Consulter offres <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">3</span></span></a>
+                    <li> <a href="{{ path('ads_accueil') }}" class="waves-effect"><i class="ti-dashboard p-r-10"></i> <span class="hide-menu"><B>Dashboard</B></span></a> </li>
+                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span class="hide-menu"> Gerer cas contact <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">3</span></span></a>
                         <ul class="nav nav-second-level">
 						
-                             <li> <a href="{{ path('app_offreList_etudiant') }}"><i class="ti-dashboard p-r-10" aria-hidden="true"></i><span class="hide-menu">Offre disponible</span></a></li>
+                             <li> <a href="{{ path('ads_import') }}"><i class="fa fa-file" aria-hidden="true"></i><span class="hide-menu">Importé fichier</span></a></li>
+                             <li> <a href="{{ path('ads_register_cas') }}"><i class="fa fa-link" aria-hidden="true"></i><span class="hide-menu">Associer nom</span></a></li>
 							 
 							  
 							
@@ -62,24 +63,7 @@
             </div>
         </div>
       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-                 {% endif %}
+                 
 
                 {% endfor %}
                      {% endif %}
@@ -89,7 +73,7 @@
 
  
                     <li class="user-pro">
-                        <a href="#" class="waves-effect"><img src="{{ asset('optimum/images/admin.jpg')}}" alt="user-img" class="img-circle"> <span class="hide-menu">Admin<span class="fa arrow"></span></span>
+                        <a href="#" class="waves-effect"><img src="{{ asset('optimum/images/pp.png')}}" alt="user-img" class="img-circle"> <span class="hide-menu">Admin<span class="fa arrow"></span></span>
                         </a>
                         <ul class="nav nav-second-level">
                             <li><a href="javascript:void(0)"><i class="ti-user"></i> My Profile</a></li>
@@ -99,10 +83,13 @@
                         </ul>
                     </li>
                     <li> <a href="" class="waves-effect"><i class="ti-dashboard p-r-10"></i> <span class="hide-menu"><B>Dashboard</B></span></a> </li>
-                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-book"></i> <span class="hide-menu"> Gerer formation <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">3</span></span></a>
+                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-book"></i> <span class="hide-menu"> Gerer CDS <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">3</span></span></a>
                         <ul class="nav nav-second-level">
 						
-                             <li> <a href=""><i class="fa fa-plus p-r-10"></i><span class="hide-menu">Ajouter une specialite</span></a></li>
+                             <li> <a href="{{ path('admin_add_cds') }}"><i class="fa fa-plus p-r-10"></i><span class="hide-menu">Ajouter un centre</span></a></li>
+
+                             <li> <a href=""><i class="fa fa-list"></i><span class="hide-menu">liste des centres</span></a></li>
+
 							 
 							  
 							

@@ -86,6 +86,53 @@ class DatahubRepository extends ServiceEntityRepository
         return 1;
     }
 
+
+    public function datahubAb($em){
+
+        try {
+            $sqlrech = " 
+            
+             UPDATE datahub SET abonne = REPLACE(abonne, ' ', '')
+                
+                
+                ";
+               
+                          
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
+    }
+
+
+
+    public function datahubAp($em){
+
+        try {
+            $sqlrech = " 
+            
+             UPDATE datahub SET appele = REPLACE(appele, ' ', '')
+                
+                
+                ";
+               
+                          
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
+    }
+    
+    
+
 public function datahubUpdateAb($em){
 
     try {
@@ -106,6 +153,10 @@ public function datahubUpdateAb($em){
     }
     return 1;
 }
+
+
+
+
 
 public function datahubUpdateAp($em){
     

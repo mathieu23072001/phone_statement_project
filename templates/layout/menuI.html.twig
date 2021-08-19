@@ -1,4 +1,5 @@
 
+
 <!-- Preloader -->
 <!--<div class="preloader">
     <div class="cssload-speeding-wheel"></div>
@@ -7,7 +8,7 @@
     <!-- Navigati*on -->
     <nav class="navbar navbar-default navbar-static-top m-b-0">
         <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="icon-grid"></i></a>
-            <div class="top-left-part"><a class="logo" href="<?php echo base_url('admin/dashboard/') ?>"><b><img src="{{ asset('optimum/small.png" alt="Codeig')}}" /></b><span class="hidden-xs">Espace Operateur de saisi</span></a></div>
+            <div class="top-left-part"><a class="logo" href="{{ asset('optimum/togo.svg.png" alt="Codeig')}}"><span class="hidden-xs"></span></a></div>
             <ul class="nav navbar-top-links navbar-left hidden-xs">
                 <li><a href="javascript:void(0)" class="open-close hidden-xs"><i class="icon-grid"></i></a></li>
 
@@ -315,19 +316,19 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a class="text-center" href="#"> <strong>See All Tasks</strong> <i class="fa fa-angle-right"></i> </a>    
+                                    <a class="text-center" href="#"> <strong>See All Tasks</strong> <i class="fa fa-angle-right"></i> </a>
                                 </li>
                             </ul>
                             <!-- /.dropdown-tasks -->
                         </li>
                         <!-- /.dropdown -->
                         <li class="dropdown">
-                            <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="{{ asset('optimum/images/admin.jpg')}}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs"> {{app}} <!--<?php echo $this->session->userdata('name'); ?>--></b> </a>
+                            <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="{{ asset('optimum/images/admin.jpg')}}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs"> <b class="hidden-xs"> {{ app.user.email.one|default('undefined') }}</b> </a>
                             <ul class="dropdown-menu dropdown-user animated flipInY">
-                                <li><a href="javascript:void(0)"><i class="ti-user"></i> My Profile</a></li>
-                                <li><a href="javascript:void(0)"><i class="ti-email"></i> Inbox</a></li>
-                                <li><a href="javascript:void(0)"><i class="ti-settings"></i> Account Setting</a></li>
-                                <li><a href="<?php echo base_url('auth/logout') ?>"><i class="fa fa-power-off"></i> Logout</a></li>
+                                <li><a href="#"><i class="ti-user"></i> Mon profil</a></li>
+                                
+                                <li><a href="#"></i> Changer mot de passe</a></li>
+                                <li><a href="#"><i class="fa fa-power-off"></i> deconnexion</a></li>
                             </ul>
                             <!-- /.dropdown-user -->
                         </li>
@@ -346,16 +347,16 @@
 
 
 
-<!-- MENU -->
+ <!-- MENU -->
 
 
     <!-- Left navbar-header -->
 
 
-    {{include ('layout/subheaderOperat.html.twig')}}
 
+   
 
-<!-- Left navbar-header end -->
+  <!-- Left navbar-header end -->
 
 
 </div>
