@@ -2,10 +2,14 @@
 
 namespace App\Controller\Ads;
 
+use App\Entity\Cas;
 use APP\Entity\User;
+use App\Form\CasType;
 use App\Entity\Upload;
 use App\Entity\Personne;
+use App\Form\NumeroType;
 use App\Form\UploadType;
+use App\Form\PersonneType;
 use App\Form\registerNomType;
 use App\Repository\DatahubRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -100,9 +104,10 @@ $user = $this->getUser();
 
 
 
-            $hubdata->insertCsvData($entityManager,$fileFolder."".$filePathName);
+            //$hubdata->insertCsvData($entityManager,$fileFolder."".$filePathName);
             $hubdata->datahubAb($entityManager);
-            $hubdata->datahubAp($entityManager);
+              $hubdata->datahubAp($entityManager);
+              
              $hubdata->datahubUpdateAb($entityManager);
              $hubdata->datahubUpdateAp($entityManager);
               $hubdata->datahubUpdateIdentiteAppele($entityManager);
@@ -119,11 +124,12 @@ $user = $this->getUser();
             $hubdata->insertNumOp($entityManager);
               $hubdata->insertpersonneAb($entityManager);
               $hubdata->insertpersonneAp($entityManager);
-                 $hubdata->insertAppel($entityManager);
+                
              $hubdata->insertAntenne($entityManager);
               $hubdata->insertPortable($entityManager);
               $hubdata->insertIdNumToPerson($entityManager); 
-              
+              $hubdata->insertAppel($entityManager);
+             
             
             
           
@@ -151,7 +157,7 @@ $user = $this->getUser();
         $form = $this->createForm(registerNomType::class, $personne);
         $form->handleRequest($request);
         $user = $this->getUser();
-        $form->handleRequest($request);
+       // $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
          
         if ($form->isSubmitted() && $form->isValid()) {
@@ -174,6 +180,56 @@ $user = $this->getUser();
             'form' => $form->createView()
         ]);
             
+    }
+
+     
+
+
+
+
+      /**
+     * @Route("/registerCasContact",name="ads_register_cas_contact")
+     */
+
+    public function RegisterCasContact(Request $request):Response
+    {
+        $user = $this->getUser();
+        $personne = new Personne();
+
+        $form = $this->createForm(PersonneType::class, $personne);
+        $form->handleRequest($request);
+        
+       // $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+         
+       
+        return $this->render('ads/registerCasInfo.html.twig',[
+            'user'=>$user,
+            'form' => $form->createView()
+        ]);
+            
+    }
+
+
+
+
+     /**
+     * @Route("/CasGraphe",name="ads_cas_graphe")
+     */
+
+    public function CasGraphe(Request $request):Response
+    {
+        $user = $this->getUser();
+        $nom = "koffi";
+        
+        return $this->render('sms/treant.html.twig', [
+            'n'=> json_encode($nom),
+            'user'=>$user
+            
+        ]);
+         
+       
+       
     }
 
      

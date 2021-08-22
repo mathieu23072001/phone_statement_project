@@ -59,11 +59,19 @@ class Personne
      */
     private $contact;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Cas::class, mappedBy="personne")
+     */
+    private $cas;
+
+    
     public function __construct()
     {
         $this->portables = new ArrayCollection();
         $this->appelsOne = new ArrayCollection();
         $this->appelsTwo = new ArrayCollection();
+        $this->cas = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -220,4 +228,39 @@ class Personne
 
         return $this;
     }
+
+    /**
+     * @return Collection|Cas[]
+     */
+    public function getCas(): Collection
+    {
+        return $this->cas;
+    }
+
+    public function addCa(Cas $ca): self
+    {
+        if (!$this->cas->contains($ca)) {
+            $this->cas[] = $ca;
+            $ca->setPersonne($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCa(Cas $ca): self
+    {
+        if ($this->cas->removeElement($ca)) {
+            // set the owning side to null (unless already changed)
+            if ($ca->getPersonne() === $this) {
+                $ca->setPersonne(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+
+   
+
 }

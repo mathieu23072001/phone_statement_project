@@ -1,0 +1,120 @@
+{% extends 'baseSupAd.html.twig' %}
+
+{% block stylesheets %} {{  parent() }} {% endblock %}
+
+{% block title %}{{  parent() }}{% endblock %}
+
+{% block body %}
+{% for membre in app.user.membres %}
+
+<div class="row bg-title">
+ 
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Centre :{{ membre.cds.nom}} </h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-4 col-xs-12"> 
+                    <o class="breadcrumb">
+                        <li>Agent de sante </li>
+                        <li class="active"> Enregistrement de cas contact</li>
+                    </o>
+                </div>
+                
+                <!-- /.col-lg-12 -->
+            </div>
+
+            <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Renseigné le numero du patient et enregistré ses cas contacts</h3>
+                            <p class="text-muted m-b-30">Informations cas contact </p>
+    <h1>Ajouter un cas contact</h1>
+    {{ form_start(form) }}
+       <div class="form-group">
+        {{ form_row(form.contact) }}
+          </div>
+
+          <div id="cas" data-prototype="{{ form_row(form.cas.vars.prototype)|e('html_attr') }}">
+            <span></span>
+              </div>
+
+
+           <div class="form-group">
+            {{ form_widget(form.cas) }}
+
+            </div>
+
+        
+        
+
+            
+       <div class="form-group">
+                                    <button type="submit" class="btn btn-rounded btn-sm btn-primary">valider</button>
+                                </div>
+
+
+
+                          
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+    {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let collection, boutonAjout, span;
+        window.onload = () => {
+            collection = document.querySelector("#cas");
+            span = collection.querySelector("span");
+
+            boutonAjout = document.createElement("button");
+            boutonAjout.className = "ajout-cas btn secondary";
+            boutonAjout.innerText = "Ajouter un cas contact";
+
+            let nouveauBouton = span.append(boutonAjout);
+
+            collection.dataset.index = collection.querySelectorAll("input").length;
+
+            boutonAjout.addEventListener("click", function(){
+                addButton(collection, nouveauBouton);
+            });
+        }
+
+        function addButton(collection, nouveauBouton){
+            let prototype = collection.dataset.prototype;
+
+            let index = collection.dataset.index;
+
+            prototype = prototype.replace(/__name__/g, index);
+
+            let content = document.createElement("html");
+            content.innerHTML = prototype;
+            let newForm = content.querySelector("div");
+
+            let boutonSuppr = document.createElement("button");
+            boutonSuppr.type = "button";
+            boutonSuppr.className = "btn red";
+            boutonSuppr.id = "delete-cas-" + index;
+            boutonSuppr.innerText = "Supprimer ce cas contact";
+
+            newForm.append(boutonSuppr);
+
+            collection.dataset.index++;
+
+            let boutonAjout = collection.querySelector(".ajout-cas");
+
+            span.insertBefore(newForm, boutonAjout);
+
+            boutonSuppr.addEventListener("click", function(){
+                this.previousElementSibling.parentElement.remove();
+            })
+        }
+
+    </script>
+
+
+    {{  parent() }} 
+{% endblock %}

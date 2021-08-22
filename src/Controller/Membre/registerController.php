@@ -38,13 +38,16 @@ class registerController extends AbstractController
 
     public function register(Request $request, $id, UserPasswordEncoderInterface $encoder):Response
     {
-        
+        $users = new User();
         $cds = $this->getDoctrine()->getRepository(CDS::class)->find($id);
-    
+        
+        
+    // var_dump($fonction);
+       $user= $this->getDoctrine()->getRepository(User::class)->findOneBy(['roles'=>["ROLE_RDC"] ]);
+        $r= $this->getDoctrine()->getRepository(Membre::class)->findBy(['cds'=> $cds,'user'=>$users]);
+       //$r = $cdsMembre->getUser()->getRoles();
        
-        $cdsMembre= $this->getDoctrine()->getRepository(Membre::class)->findOneBy(['cds'=> $cds]);
-        $r = $cdsMembre->getUser()->getRoles();
-       // var_dump($r);
+        var_dump($user);
         
         $membre = new Membre();
         $form = $this->createForm(MembreType::class, $membre);
@@ -55,15 +58,13 @@ class registerController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+           
             $role= $form->get('role')->getData();
-            if(!$r && $role== "agent de sante"){
-                return $this->json('Aucun chef affecté à ce centre. Patientez !!!', 200);
+            if($r == null && $role =="agent de sante"){
+                return $this->json('Aucun chef affecte a ce centre. Patientez !!!', 200);
             }
 
-            if( $r && $role == "responsable de centre"){
-                return $this->json('Ce centre possede deja un responsable !!!', 200);
-            }
-            if (!$r && $role == "responsable de centre") {
+            if($r == null && $role =="responsable de centre"){
                 $hash= $encoder->encodePassword($membre->getUser(), $membre->getUser()->getPassword());
                 $membre->getUser()->setPassword($hash);
                 $membre->getUser()->setRoles(["ROLE_RDC"]);
@@ -76,7 +77,12 @@ class registerController extends AbstractController
                 $this->addFlash('success', 'enregistrement réussie');
                 return $this->redirectToRoute("app_login");
             }
-            if (($r) && $role =="agent de sante") {
+           
+            if( $r!=null && $role == "responsable de centre"){
+                return $this->json('Ce centre possede deja un responsable !!!', 200);
+            }
+           
+            if ($r != null && $role =="agent de sante") {
                 $hash= $encoder->encodePassword($membre->getUser(), $membre->getUser()->getPassword());
                 $membre->getUser()->setPassword($hash);
                 $membre->getUser()->setRoles(["ROLE_ADS"]);

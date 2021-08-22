@@ -665,8 +665,11 @@ public function insertPortable($em){
         $sqlrech = "         
             INSERT IGNORE INTO portable (personne_id,antenne_id,imei,imsi)
             SELECT  a1.id ,a.id,d.imei,d.imsi
-            FROM antenne a,datahub d INNER JOIN personne a1 on a1.contact = d.abonne INNER JOIN personne a2 ON a2.contact = d.appele   
-            WHERE CONCAT(a1.id,a2.id,STR_TO_DATE(CONCAT(d.date,d.heure),'%d/%m/%Y %h:%i:%s')) not in (SELECT concat(peronne_one_id,personne_two_id,date) as temps from appel) 
+            FROM datahub d INNER JOIN personne a1 on a1.contact = d.abonne INNER JOIN personne a2 ON a2.contact = d.appele INNER JOIN antenne a ON a.nom= d.localisation
+            where CONCAT(a1.id,a2.id,STR_TO_DATE(CONCAT(d.date,d.heure),'%d/%m/%Y %h:%i:%s')) not in (SELECT concat(peronne_one_id,personne_two_id,date) as temps from appel) ;
+
+
+            
             ";
            
                       
