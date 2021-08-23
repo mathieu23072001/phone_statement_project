@@ -19,13 +19,13 @@ class CasType extends AbstractType
         ->add('nom', TextType::class, array(
             'required'=>true,
             'attr'=>array('class'=>'form-control','placeholder'=>'nom du cas contact'),
-            'mapped'=> false
+            
         ))
 
         ->add('numero', TextType::class, array(
             'required'=>true,
             'attr'=>array('class'=>'form-control','placeholder'=>'numero du cas contact'),
-            'mapped'=> false
+        
         ));
 
        

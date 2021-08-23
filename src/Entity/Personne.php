@@ -60,7 +60,7 @@ class Personne
     private $contact;
 
     /**
-     * @ORM\OneToMany(targetEntity=Cas::class, mappedBy="personne")
+     * @ORM\OneToMany(targetEntity=Cas::class, mappedBy="personne",cascade={"persist"})
      */
     private $cas;
 

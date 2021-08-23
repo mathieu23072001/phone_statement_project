@@ -20,15 +20,21 @@ class PersonneType extends AbstractType
             'required'=>true,
             'attr'=>array('class'=>'form-control','placeholder'=>'numero de la personne'),
             
+            
         ))
-            ->add('cas', CollectionType::class,[
-                'entry_type'=> CasType::class,
-                'entry_options'=> ['label'=>false],
-                'allow_add'=> true,
-                'allow_delete'=> true,
-                'by_reference'=> false,
-                
-            ])
+           
+            
+->add('cas', CollectionType::class,[
+    'entry_type'=> CasType::class,
+    'entry_options'=> ['label'=>false],
+    'allow_add'=> true,
+    'allow_delete'=> true,
+    'by_reference'=> false,
+
+
+    
+])
+
         
             
         ;

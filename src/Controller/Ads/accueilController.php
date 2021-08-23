@@ -191,16 +191,40 @@ $user = $this->getUser();
      * @Route("/registerCasContact",name="ads_register_cas_contact")
      */
 
-    public function RegisterCasContact(Request $request):Response
+    public function RegisterCasContact(Request $request)
     {
         $user = $this->getUser();
         $personne = new Personne();
+       // $cas = new Cas();
+        
 
         $form = $this->createForm(PersonneType::class, $personne);
         $form->handleRequest($request);
         
        // $form->handleRequest($request);
-        $em = $this->getDoctrine()->getManager();
+      
+
+        if($form->isSubmitted() && $form->isValid()){
+            $num= $form->get('contact')->getData();
+            $cas = $form->get('cas')->getData();
+            $per= $this->getDoctrine()->getRepository(Personne::class)->findOneBy(['contact'=> $num]);
+           // $cas->setPersonne($per);
+           foreach($cas as $c){
+               $per->addCa($c);
+
+            $em = $this->getDoctrine()->getManager();
+            // $em->persist($cas);
+             $em->persist($per);
+              
+              $em->flush();
+        
+               
+           }
+          
+           
+            $this->addFlash('success', 'enregistrement réussie');
+           return $this->redirectToRoute("ads_accueil");
+        }
          
        
         return $this->render('ads/registerCasInfo.html.twig',[
