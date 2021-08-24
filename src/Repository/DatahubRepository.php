@@ -52,16 +52,9 @@ class DatahubRepository extends ServiceEntityRepository
     }
     */
 
-    public function insertCsvData($em, $fichier) {
-
-       
-        
-      
-
+    public function insertCsvData($em, $fichier)
+    {
         try {
-        
-        
-        
             $sqlrech = " 
             LOAD DATA INFILE '".$fichier."' INTO TABLE datahub
             FIELDS TERMINATED BY ';' 
@@ -70,14 +63,13 @@ class DatahubRepository extends ServiceEntityRepository
             LINES TERMINATED BY '\\r\\n'
             IGNORE 1 LINES
             (abonne,appele,identite_appele,date,heure,
-            duree,type_appel, sens_appel,imsi, imei, localisation); ";           
+            duree,type_appel, sens_appel,imsi, imei, localisation); ";
             $stmt = $em->getConnection()->prepare($sqlrech);
         
             $stmt->execute();
     
 
             //exit;
-
         } catch (Exception $e) {
             $stmt = null;
             $res = null;
@@ -87,8 +79,8 @@ class DatahubRepository extends ServiceEntityRepository
     }
 
 
-    public function datahubAb($em){
-
+    public function datahubAb($em)
+    {
         try {
             $sqlrech = " 
             
@@ -110,8 +102,8 @@ class DatahubRepository extends ServiceEntityRepository
 
 
 
-    public function datahubAp($em){
-
+    public function datahubAp($em)
+    {
         try {
             $sqlrech = " 
             
@@ -133,10 +125,10 @@ class DatahubRepository extends ServiceEntityRepository
     
     
 
-public function datahubUpdateAb($em){
-
-    try {
-        $sqlrech = " 
+    public function datahubUpdateAb($em)
+    {
+        try {
+            $sqlrech = " 
         UPDATE datahub 
         SET abonne = TRIM(abonne)
             
@@ -144,24 +136,24 @@ public function datahubUpdateAb($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
-}
 
 
 
 
 
-public function datahubUpdateAp($em){
-    
-    try {
-        $sqlrech = " 
+    public function datahubUpdateAp($em)
+    {
+        try {
+            $sqlrech = " 
         UPDATE datahub 
         SET appele = TRIM(appele)
             
@@ -169,20 +161,20 @@ public function datahubUpdateAp($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
-}
 
-public function datahubUpdateIdentiteAppele($em){
-    
-    try {
-        $sqlrech = " 
+    public function datahubUpdateIdentiteAppele($em)
+    {
+        try {
+            $sqlrech = " 
         UPDATE datahub 
         SET identite_appele = TRIM(identite_appele)
             
@@ -190,20 +182,20 @@ public function datahubUpdateIdentiteAppele($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
-}
 
-public function datahubUpdateDate($em){
-    
-    try {
-        $sqlrech = " 
+    public function datahubUpdateDate($em)
+    {
+        try {
+            $sqlrech = " 
         UPDATE datahub 
         SET date = TRIM(date)
             
@@ -211,20 +203,20 @@ public function datahubUpdateDate($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
-}
 
-public function datahubUpdateHeure($em){
-    
-    try {
-        $sqlrech = " 
+    public function datahubUpdateHeure($em)
+    {
+        try {
+            $sqlrech = " 
         UPDATE datahub 
         SET heure = TRIM(heure)
             
@@ -232,20 +224,20 @@ public function datahubUpdateHeure($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
-}
 
-public function datahubUpdateDuree($em){
-    
-    try {
-        $sqlrech = " 
+    public function datahubUpdateDuree($em)
+    {
+        try {
+            $sqlrech = " 
         UPDATE datahub 
         SET duree = TRIM(duree)
             
@@ -253,20 +245,20 @@ public function datahubUpdateDuree($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
-}
 
-public function datahubUpdateTypeAppel($em){
-    
-    try {
-        $sqlrech = " 
+    public function datahubUpdateTypeAppel($em)
+    {
+        try {
+            $sqlrech = " 
         UPDATE datahub 
         SET type_appel = TRIM(type_appel)
             
@@ -274,20 +266,20 @@ public function datahubUpdateTypeAppel($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
-}
 
-public function datahubUpdateSensAppel($em){
-    
-    try {
-        $sqlrech = " 
+    public function datahubUpdateSensAppel($em)
+    {
+        try {
+            $sqlrech = " 
         UPDATE datahub 
         SET sens_appel = TRIM(sens_appel)
             
@@ -295,20 +287,20 @@ public function datahubUpdateSensAppel($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
-}
 
-public function datahubUpdateIMEI($em){
-    
-    try {
-        $sqlrech = " 
+    public function datahubUpdateIMEI($em)
+    {
+        try {
+            $sqlrech = " 
         UPDATE datahub 
         SET imei = TRIM(imei)
             
@@ -316,20 +308,20 @@ public function datahubUpdateIMEI($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
-}
 
-public function datahubUpdateIMSI($em){
-    
-    try {
-        $sqlrech = " 
+    public function datahubUpdateIMSI($em)
+    {
+        try {
+            $sqlrech = " 
         UPDATE datahub 
         SET imsi = TRIM(imsi)
             
@@ -337,20 +329,20 @@ public function datahubUpdateIMSI($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
-}
 
-public function datahubUpdateLocalisation($em){
-    
-    try {
-        $sqlrech = " 
+    public function datahubUpdateLocalisation($em)
+    {
+        try {
+            $sqlrech = " 
         UPDATE datahub 
         SET localisation = TRIM(localisation)
             
@@ -358,22 +350,22 @@ public function datahubUpdateLocalisation($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
-}
 
 
 
 
 
-    public function insertNumeroApp($em) {
-
+    public function insertNumeroApp($em)
+    {
         try {
             $sqlrech = " 
             INSERT INTO numero (descriptif)
@@ -399,15 +391,13 @@ public function datahubUpdateLocalisation($em){
         }
 
         return 1;
-    
     }
 
 
 
 
-    public function insertNumeroAb($em) {
-
-
+    public function insertNumeroAb($em)
+    {
         try {
             $sqlrech = "         
                 INSERT INTO numero (descriptif)
@@ -430,8 +420,6 @@ public function datahubUpdateLocalisation($em){
             var_dump($e->getMessage());
         }
         return 1;
-
-
     }
 
 
@@ -440,9 +428,8 @@ public function datahubUpdateLocalisation($em){
 
 
 
-    public function insertNumOp($em) {
-
-
+    public function insertNumOp($em)
+    {
         try {
             $sqlrech = "         
                update  numero  set  operateur_id  =
@@ -480,13 +467,11 @@ public function datahubUpdateLocalisation($em){
             var_dump($e->getMessage());
         }
         return 1;
-
-
     }
 
 
-    public function insertIdNumToPerson($em){
-
+    public function insertIdNumToPerson($em)
+    {
         try {
             $sqlrech = "
             UPDATE personne p SET p.numero_id =
@@ -502,9 +487,6 @@ public function datahubUpdateLocalisation($em){
             var_dump($e->getMessage());
         }
         return 1;
-    
-    
-    
     }
 
 
@@ -540,10 +522,10 @@ public function datahubUpdateLocalisation($em){
 
 
 
-public function insertPersonneAb($em){
-
-    try {
-        $sqlrech = "         
+    public function insertPersonneAb($em)
+    {
+        try {
+            $sqlrech = "         
             INSERT IGNORE INTO personne (contact)
             SELECT DISTINCT d.abonne
             FROM  datahub d     
@@ -552,18 +534,15 @@ public function insertPersonneAb($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
-
-
-
-}
 
 
 
@@ -571,10 +550,10 @@ public function insertPersonneAb($em){
 
 
 
-public function insertPersonneAp($em){
-
-    try {
-        $sqlrech = "         
+    public function insertPersonneAp($em)
+    {
+        try {
+            $sqlrech = "         
             INSERT IGNORE INTO personne (contact,nom)
             SELECT DISTINCT d.appele,d.identite_appele from datahub d
 WHERE d.appele not in  (select contact from personne)
@@ -582,28 +561,25 @@ WHERE d.appele not in  (select contact from personne)
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e ){
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
-
-
-
-}
 
 
 
 
 
 
-public function insertAppel($em){
-
-    try {
-        $sqlrech = "
+    public function insertAppel($em)
+    {
+        try {
+            $sqlrech = "
         INSERT into appel(peronne_one_id,personne_two_id,date,duree,type_appel,sens_appel)
         SELECT a1.id, a2.id,STR_TO_DATE(CONCAT(d.date,d.heure),'%d/%m/%Y %h:%i:%s') ,d.duree,d.type_appel,d.sens_appel from datahub d INNER JOIN personne a1 on a1.contact = d.abonne INNER JOIN personne a2 ON a2.contact = d.appele WHERE
  CONCAT(a1.id,a2.id,STR_TO_DATE(CONCAT(d.date,d.heure),'%d/%m/%Y %h:%i:%s')) not in (SELECT concat(peronne_one_id,personne_two_id,date) as temps from appel) ;
@@ -612,23 +588,21 @@ public function insertAppel($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e ){
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
 
 
-
-}
-
-
-public function insertAntenne($em){
-    try {
-        $sqlrech = "         
+    public function insertAntenne($em)
+    {
+        try {
+            $sqlrech = "         
             INSERT IGNORE INTO antenne (nom)
             SELECT DISTINCT localisation 
             FROM  datahub  d
@@ -642,27 +616,21 @@ public function insertAntenne($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
 
 
-
-}
-
-
-
-
-
-
-public function insertPortable($em){
-    try {
-        $sqlrech = "         
+    public function insertPortable($em)
+    {
+        try {
+            $sqlrech = "         
             INSERT IGNORE INTO portable (personne_id,antenne_id,imei,imsi)
             SELECT  a1.id ,a.id,d.imei,d.imsi
             FROM datahub d INNER JOIN personne a1 on a1.contact = d.abonne INNER JOIN personne a2 ON a2.contact = d.appele INNER JOIN antenne a ON a.nom= d.localisation
@@ -673,24 +641,32 @@ public function insertPortable($em){
             ";
            
                       
-        $stmt = $em->getConnection()->prepare($sqlrech);
-        $stmt->execute();
-    } catch (\Symfony\Component\Form\Exception\Exception $e) {
-        $stmt = null;
-        $res = null;
-        var_dump($e->getMessage());
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
     }
-    return 1;
+
+
+
+   
+
+
+
+
+
+
+
+
+
 
 
 
 }
-
-
-
-
-
-
 
 
 
@@ -751,7 +727,7 @@ public function insertPortable($em){
 
 
     
-    }
+    
 
 
 

@@ -4,6 +4,7 @@ namespace App\Controller\Ads;
 
 use App\Entity\Cas;
 use APP\Entity\User;
+use App\Entity\Appel;
 use App\Form\CasType;
 use App\Entity\Upload;
 use App\Entity\Personne;
@@ -11,6 +12,8 @@ use App\Form\NumeroType;
 use App\Form\UploadType;
 use App\Form\PersonneType;
 use App\Form\registerNomType;
+use App\Form\RechercheCasType;
+use App\Repository\AppelRepository;
 use App\Repository\DatahubRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -208,6 +211,7 @@ $user = $this->getUser();
             $num= $form->get('contact')->getData();
             $cas = $form->get('cas')->getData();
             $per= $this->getDoctrine()->getRepository(Personne::class)->findOneBy(['contact'=> $num]);
+            $ident = $per->getId();
            // $cas->setPersonne($per);
            foreach($cas as $c){
                $per->addCa($c);
@@ -223,7 +227,7 @@ $user = $this->getUser();
           
            
             $this->addFlash('success', 'enregistrement réussie');
-           return $this->redirectToRoute("ads_accueil");
+           return $this->redirectToRoute("ads_search_releve",['id'=>$ident]);
         }
          
        
@@ -233,6 +237,58 @@ $user = $this->getUser();
         ]);
             
     }
+
+
+
+     /**
+     * @Route("/searchReleve/{id}",name="ads_search_releve",defaults={ "id" = 1})
+     */
+
+    public function searchReleve(Request $request,$id, AppelRepository $appeldata,EntityManagerInterface $entityManager):Response
+    {
+        $appel = new Appel();
+
+        $form = $this->createForm(RechercheCasType::class);
+        $form->handleRequest($request);
+
+        $user = $this->getUser();
+        
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+           $dateD= $form->get('dateI')->getData();
+           $stringDate = $dateD->format('Y-m-d ');
+
+           // $dateD = "2020-01-15";
+            $dateF = date('Y-m-d', strtotime( $stringDate . ' + 14 days'));
+
+          // $call= $this->getDoctrine()->getRepository(Appel::class)->findby(['peronneOne'=>$id]);
+        $call= $appeldata->AppelByDate($id,$stringDate,$dateF);
+           $nom = "koffi";
+            
+
+           return $this->render('ads/listCasReleve.html.twig', [
+            'user'=>$user,
+            'nom'=>$nom,
+            'call'=>$call
+            
+        ]);     
+           
+        }
+ 
+        return $this->render('ads/cas.html.twig', [
+            'user'=>$user,
+            'form' => $form->createView()
+            
+        ]);
+         
+       
+       
+    }
+
+
+
+    
 
 
 

@@ -27,111 +27,43 @@
                <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <h3 class="box-title m-b-0">Renseigné le numero du patient et enregistré ses cas contacts</h3>
-                            <p class="text-muted m-b-30">Informations cas contact </p>
-                            
-                            {{ form_start(form,{'attr':{'data-toogle':'validator'}}) }} 
-                            
-                                <div class="form-group">
-                                    
-                                    {{form_row(form.contact)}}
-                                </div>
+                            <h3 class="box-title m-b-0">Rechercher les cas contacts sur une periode de 2 semaines</h3>
+                            <p class="text-muted m-b-30">Renseigné la date de debut de symptome </p>
 
-                               
-<div id="cas" data-prototype="{{form_row(form.cas.vars.prototype)|e('html_attr') }}">
-                                    
-           </div> 
-            <span></span>
+
+                             {{ form_start(form) }}
+       <div class="form-group">
+        {{ form_row(form.dateI) }}
+          </div>
+
+
+
+          
 
 
             
-                                    <div class="form-group">
-                                           {{form_row(form.cas)}}
-                                          
-                                      </div>
-
-                                      
-                              
-                                    
-                                
-
-                                
-                                <div class="form-group">
+       <div class="form-group">
                                     <button type="submit" class="btn btn-rounded btn-sm btn-primary">valider</button>
                                 </div>
 
-                               </div>
 
 
-                                   
+                            
+     {{ form_end(form) }}                       
+{% endfor %}
+
+
+
+         
                 </div>
             </div>
         </div>
     </div>
 
-                
-
-  {{ form_end(form) }}
-
-
- 
-{% endfor %}
  {% endblock %}
 
-{% block javascript %} 
 
 
-     
-<script>
-let collection , boutonAjout, span;
-window.onload=()=>{
-    collection = document.querySelector("#cas");
-    span= collection.querySelector("span");
-    boutonAjout = document.createElement("button");
-    boutonAjout.className = "ajout-cas btn secondary";
-    boutonAjout.innerText = "ajouter un cas contact";
-
-
-    let nouveauBouton = span.append(boutonAjout);
-
-    collection.dataset.index = collection.querySelectorAll("input").length;
-    boutonAjout.AddEventListener("click", function(){
-              addButton(collection, nouveauBouton);
-    });
-
-}
-
-function addButton(collection, nouveauBouton){
-    let prototype = collection.dataset.prototype;
-    let index = collection.dataset.index;
-    
-    prototype = prototype.replace(/__name__/g, index);
-
-     let content = document.createElement("html");
-            content.innerHTML = prototype;
-    let newForm = content.querySelector("div");
-
-    let boutonSuppr = document.createElement("button");
-            boutonSuppr.type = "button";
-            boutonSuppr.className = "btn red";
-            boutonSuppr.id = "delete-cas-" + index;
-            boutonSuppr.innerText = "Supprimer ce cas contact";
-
-             newForm.append(boutonSuppr);
-            collection.dataset.index++;
-            let boutonAjout = collection.querySelector(".ajout-cas");
-            span.insertBefore(newForm, boutonAjout);
-
-             boutonSuppr.addEventListener("click", function(){
-                this.previousElementSibling.parentElement.remove();
-            })
-
-
-}
-
-</script>
-
-        
-
+{% block javascript %}    
 {{  parent() }} 
 {% endblock %}
