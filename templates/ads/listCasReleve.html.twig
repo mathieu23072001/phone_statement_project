@@ -38,6 +38,7 @@
                             <h3 class="box-title m-b-0">Cas contact</h3>
                             <p class="text-muted m-b-30">Selectionnez les personnes reconnues par l'infecté comme cas contact</p>
                             <div class="table-responsive">
+                            <form method="post" action="{{path('ads_cas_Ajout')}}">
                                 <table id="myTable" class="table table-striped">
                                     <thead>
                                         <tr>
@@ -53,13 +54,29 @@
                                             <td>{{ call.personneTwo.nom}}</td>
                                             <td>{{ call.personneTwo.contact}}</td>
                 
-                                            <td><a href=""><button type="button" class="btn btn-primary">Choisir</button></a></td>
+                                            <td><input type="checkbox" name="call[{{call.personneTwo.id}}]"  value ="{{call.personneTwo.id}}"></td>
                                             
                                         </tr>
+
+                                        
+
+
+                        
+                            
                                         
                                     </tbody>
                                        {% endfor %} 
                                 </table>
+                                
+
+                                  <div class="form-group">
+                                    <button type="submit"  class="btn btn-rounded btn-sm btn-primary">valider</button>
+                                </div>
+                               
+                                <input type= "hidden" name="id" value=" {{app.request.attributes.get('id')}}">
+                                
+
+                                </form>
                             </div>
                         </div>
                     </div>

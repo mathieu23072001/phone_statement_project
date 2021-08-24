@@ -1,4 +1,4 @@
-{% extends "baseSupAd.html.twig" %}
+{% extends "base.html.twig" %}
 
      {% block stylesheets %}
      {{  parent() }}
@@ -9,21 +9,6 @@
        {% endblock %}
 
   {% block body %}
-{% for membre in app.user.membres %}
-  <div class="row bg-title">
- 
-                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Centre : {{ membre.cds.nom}} </h4>
-                </div>
-                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12"> 
-                    <o class="breadcrumb">
-                        <li>agent de sante </li>
-                        <li class="active"> importation de releve</li>
-                    </o>
-                </div>
-                
-                <!-- /.col-lg-12 -->
-            </div>
 
     <div class="chart" id="basic-example"></div>
     
@@ -43,105 +28,36 @@
     },
     ceo = {
         text: {
-            name: {{n|raw}},
-            title: "Chief executive officer",
-            contact: "Tel: 01 213 123 134",
+            name: "{{hum.nom}}",
+            title: "Parent de la chaine",
+            contact: "{{hum.numero}}",
         },
         image: "../headshots/2.jpg"
     },
-
-    cto = {
+   {% for c in cas %}
+    cdo{{loop.index}} = {
         parent: ceo,
         text:{
-            name: "Joe Linux",
-            title: "Chief Technology Officer",
-        },
-        stackChildren: true,
-        image: "../headshots/1.jpg"
-    },
-    cbo = {
-        parent: ceo,
-        stackChildren: true,
-        text:{
-            name: "Linda May",
-            title: "Chief Business Officer",
-        },
-        image: "../headshots/5.jpg"
-    },
-    cdo = {
-        parent: ceo,
-        text:{
-            name: "John Green",
-            title: "Chief accounting officer",
-            contact: "Tel: 01 213 123 134",
+            name: "{{c.nom}}",
+            title: "Un fils de la chaine",
+            contact: "{{c.contact}}",
         },
         image: "../headshots/6.jpg"
-    },
-    cio = {
-        parent: cto,
-        text:{
-            name: "Ron Blomquist",
-            title: "Chief Information Security Officer"
-        },
-        image: "../headshots/8.jpg"
-    },
-    ciso = {
-        parent: cto,
-        text:{
-            name: "Michael Rubin",
-            title: "Chief Innovation Officer",
-            contact: {val: "we@aregreat.com", href: "mailto:we@aregreat.com"}
-        },
-        image: "../headshots/9.jpg"
-    },
-    cio2 = {
-        parent: cdo,
-        text:{
-            name: "Erica Reel",
-            title: "Chief Customer Officer"
-        },
-        link: {
-            href: "http://www.google.com"
-        },
-        image: "../headshots/10.jpg"
-    },
-    ciso2 = {
-        parent: cbo,
-        text:{
-            name: "Alice Lopez",
-            title: "Chief Communications Officer"
-        },
-        image: "../headshots/7.jpg"
-    },
-    ciso3 = {
-        parent: cbo,
-        text:{
-            name: "Mary Johnson",
-            title: "Chief Brand Officer"
-        },
-        image: "../headshots/4.jpg"
-    },
-    ciso4 = {
-        parent: cbo,
-        text:{
-            name: "Kirk Douglas",
-            title: "Chief Business Development Officer"
-        },
-        image: "../headshots/11.jpg"
     }
+    ,
+
+   {% endfor %} 
 
     chart_config = [
         config,
         ceo,
-        cto,
-        cbo,
-        cdo,
-        cio,
-        ciso,
-        cio2,
-        ciso2,
-        ciso3,
-        ciso4
+        {% for c in cas %}
+        cdo{{loop.index}}
+        {% if loop.index != cas|length %}
+    ,
+         {% endif %}
+        {% endfor %} 
+       
     ];
 
 
@@ -153,6 +69,5 @@ new Treant( chart_config );
 
 
     </script>
-    {% endfor %}
 
  {% endblock %}

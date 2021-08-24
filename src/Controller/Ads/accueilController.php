@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 
 /**
@@ -289,6 +290,70 @@ $user = $this->getUser();
 
 
     
+     /**
+     * @Route("/Ajoutcas",name="ads_cas_Ajout")
+     */
+
+    public function AjoutCas(Request $request)
+    {
+        $cas = new Cas();
+        $personne = new Personne();
+        
+        $chs = $request->request->get('call');
+        $id = $request->request->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $query1 = $em->createQuery('SELECT c.nom as nom, c.numero as contact from App:Cas c inner join c.personne p where p.id= :id' );
+        $query1->setParameter('id', $id);
+        $cas = $query1->getResult();
+        
+        $query2 = $em->createQuery('SELECT  p.nom as nom, p.contact as numero from App:Personne p where p.id= :id' );
+        $query2->setParameter('id', $id);
+        $hum = $query2->getSingleResult();
+        //$valider = $_POST['valider'];
+        
+        
+       
+   
+        //dd(json_encode($hum));
+        if($chs == null) {
+            $n= "koffi";
+            return $this->render('ads/treant.html.twig',[
+                'hum2'=> json_encode($hum),
+                'cas2'=>json_encode($cas),
+                'hum'=> $hum,
+                'n'=> json_encode($n),
+                'cas'=>$cas    
+            ]);
+           
+         }
+
+    $table= [];
+    $i = 0;
+     foreach ($chs as $ch) {
+         $table[$i] = new Cas();
+         $per= $em->getRepository(Personne::class)->find($ch);
+         $table[$i]->setNom($per->getNom());
+         $table[$i]->setNumero($per->getContact());
+         $table[$i]->setPersonne( $em->getRepository(Personne::class)->find($id));
+         $em->persist($table[$i]);
+         $i++;
+        
+     }
+     $em->flush();
+    
+     
+
+        $n= "koffi";
+         dd(json_encode($cas));
+        return $this->render('ads/treant.html.twig',[
+            'hum'=> json_encode($hum),
+            'cas'=>json_encode($cas),
+            'hum2'=> $hum,
+            'n'=> json_encode($n),
+            'cas2'=>$cas    
+        ]);
+       
+    }
 
 
 
