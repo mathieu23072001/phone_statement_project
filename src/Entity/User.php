@@ -40,6 +40,11 @@ class User implements UserInterface
      */
     private $membres;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $type;
+
     public function __construct()
     {
         $this->membres = new ArrayCollection();
@@ -152,6 +157,18 @@ class User implements UserInterface
                 $membre->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(?int $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

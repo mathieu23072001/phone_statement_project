@@ -302,26 +302,30 @@ $user = $this->getUser();
         $chs = $request->request->get('call');
         $id = $request->request->get('id');
         $em = $this->getDoctrine()->getManager();
-        $query1 = $em->createQuery('SELECT c.nom as nom, c.numero as contact from App:Cas c inner join c.personne p where p.id= :id' );
-        $query1->setParameter('id', $id);
-        $cas = $query1->getResult();
+      //  $query1 = $em->createQuery('SELECT c.nom as nom, c.numero as contact from App:Cas c inner join c.personne p where p.id= :id' );
+       // $query1->setParameter('id', $id);
+       // $cas = $query1->getResult();
         
-        $query2 = $em->createQuery('SELECT  p.nom as nom, p.contact as numero from App:Personne p where p.id= :id' );
-        $query2->setParameter('id', $id);
-        $hum = $query2->getSingleResult();
+     //   $query2 = $em->createQuery('SELECT  p.nom as nom, p.contact as numero from App:Personne p where p.id= :id' );
+      //  $query2->setParameter('id', $id);
+      //  $hum = $query2->getSingleResult();
         //$valider = $_POST['valider'];
         
-        
-       
-   
         //dd(json_encode($hum));
         if($chs == null) {
-            $n= "koffi";
+
+            $query1 = $em->createQuery('SELECT DISTINCT c.nom as nom, c.numero as contact from App:Cas c inner join c.personne p where p.id= :id' );
+            $query1->setParameter('id', $id);
+            $cas = $query1->getResult();
+            
+            $query2 = $em->createQuery('SELECT  p.nom as nom, p.contact as numero from App:Personne p where p.id= :id' );
+            $query2->setParameter('id', $id);
+            $hum = $query2->getSingleResult();
+    
             return $this->render('ads/treant.html.twig',[
                 'hum2'=> json_encode($hum),
                 'cas2'=>json_encode($cas),
-                'hum'=> $hum,
-                'n'=> json_encode($n),
+                'hum'=> $hum,      
                 'cas'=>$cas    
             ]);
            
@@ -332,25 +336,34 @@ $user = $this->getUser();
      foreach ($chs as $ch) {
          $table[$i] = new Cas();
          $per= $em->getRepository(Personne::class)->find($ch);
-         $table[$i]->setNom($per->getNom());
-         $table[$i]->setNumero($per->getContact());
-         $table[$i]->setPersonne( $em->getRepository(Personne::class)->find($id));
-         $em->persist($table[$i]);
-         $i++;
+         $cont1 = $per->getContact();
+         $idd = $em->getRepository(Personne::class)->find($id);
         
+         $cont2 = $em->getRepository(Cas::class)->findOneby(['numero'=>$cont1,'personne'=>$idd]);
+         if (!$cont2) {
+             $table[$i]->setNom($per->getNom());
+             $table[$i]->setNumero($per->getContact());
+             $table[$i]->setPersonne($em->getRepository(Personne::class)->find($id));
+             $em->persist($table[$i]);
+             $i++;
+         }
      }
      $em->flush();
     
+     $em = $this->getDoctrine()->getManager();
+     $query1 = $em->createQuery('SELECT DISTINCT c.nom as nom, c.numero as contact from App:Cas c inner join c.personne p where p.id= :id' );
+     $query1->setParameter('id', $id);
+     $cas = $query1->getResult();
      
+     $query2 = $em->createQuery('SELECT  p.nom as nom, p.contact as numero from App:Personne p where p.id= :id' );
+     $query2->setParameter('id', $id);
+     $hum = $query2->getSingleResult();
 
-        $n= "koffi";
-         dd(json_encode($cas));
+        
+        // dd(json_encode($cas));
         return $this->render('ads/treant.html.twig',[
-            'hum'=> json_encode($hum),
-            'cas'=>json_encode($cas),
-            'hum2'=> $hum,
-            'n'=> json_encode($n),
-            'cas2'=>$cas    
+            'hum'=> $hum,
+            'cas'=>$cas,  
         ]);
        
     }
@@ -359,16 +372,22 @@ $user = $this->getUser();
 
 
      /**
-     * @Route("/CasGraphe",name="ads_cas_graphe")
+     * @Route("/ListPatient",name="ads_patient_list")
      */
 
-    public function CasGraphe(Request $request):Response
+    public function PatientList(Request $request)
     {
         $user = $this->getUser();
-        $nom = "koffi";
+        $cas = new Cas();
+        $em = $this->getDoctrine()->getManager();
+
+        $cas = $em->getRepository(Cas::class)->findAll();
+     
         
-        return $this->render('sms/treant.html.twig', [
-            'n'=> json_encode($nom),
+   
+        
+        return $this->render('ads/patientList.html.twig', [
+            'cas'=> $cas,
             'user'=>$user
             
         ]);
@@ -377,6 +396,69 @@ $user = $this->getUser();
        
     }
 
+
+
+     /**
+     * @Route("/ListCas",name="ads_cas_list")
+     */
+
+    public function CasList(Request $request)
+    {
+        $user = $this->getUser();
+        $cas = new Cas();
+        $em = $this->getDoctrine()->getManager();
+
+        $cas = $em->getRepository(Cas::class)->findAll();
+     
+        
+   
+        
+        return $this->render('ads/casList.html.twig', [
+            'cas'=> $cas,
+            'user'=>$user
+            
+        ]);
+         
+       
+       
+    }
+
+
+
+
+
+    
+     /**
+     * @Route("/CasGraphe/{id}",name="ads_cas_graphe")
+     */
+
+    public function CasGraphe(Request $request,$id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query1 = $em->createQuery('SELECT DISTINCT c.nom as nom, c.numero as contact from App:Cas c inner join c.personne p where p.id= :id' );
+        $query1->setParameter('id', $id);
+        $cas = $query1->getResult();
+        
+        $query2 = $em->createQuery('SELECT  p.nom as nom, p.contact as numero from App:Personne p where p.id= :id' );
+        $query2->setParameter('id', $id);
+        $hum = $query2->getSingleResult();
+       
+
+        return $this->render('ads/treant.html.twig',[
+            'hum'=> $hum,      
+            'cas'=>$cas    
+        ]);
+        
+   
+         
+       
+       
+    }
+
+
+
+
+    
      
      
     

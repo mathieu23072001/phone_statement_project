@@ -9,10 +9,9 @@
        {% endblock %}
 
   {% block body %}
-
     <div class="chart" id="basic-example"></div>
     
-  
+
     <script>
  
 
@@ -32,7 +31,7 @@
             title: "Parent de la chaine",
             contact: "{{hum.numero}}",
         },
-        image: "../headshots/2.jpg"
+        image: "../headshots/49.jpg"
     },
    {% for c in cas %}
     cdo{{loop.index}} = {
@@ -42,7 +41,7 @@
             title: "Un fils de la chaine",
             contact: "{{c.contact}}",
         },
-        image: "../headshots/6.jpg"
+        image: "../headshots/48.png"
     }
     ,
 
@@ -69,5 +68,6 @@ new Treant( chart_config );
 
 
     </script>
+    
 
  {% endblock %}

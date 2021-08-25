@@ -43,11 +43,11 @@ class registerController extends AbstractController
         
         
     // var_dump($fonction);
-       $user= $this->getDoctrine()->getRepository(User::class)->findOneBy(['roles'=>["ROLE_RDC"] ]);
-        $r= $this->getDoctrine()->getRepository(Membre::class)->findBy(['cds'=> $cds,'user'=>$users]);
+       $user= $this->getDoctrine()->getRepository(User::class)->findBy(['type'=>1 ]);
+        $r= $this->getDoctrine()->getRepository(Membre::class)->findOneBy(['cds'=> $cds,'user'=>$user]);
        //$r = $cdsMembre->getUser()->getRoles();
        
-        var_dump($user);
+        
         
         $membre = new Membre();
         $form = $this->createForm(MembreType::class, $membre);
@@ -69,6 +69,7 @@ class registerController extends AbstractController
                 $membre->getUser()->setPassword($hash);
                 $membre->getUser()->setRoles(["ROLE_RDC"]);
                 $membre->setCds($cds);
+                $membre->getUser()->setType(1);
            
 
                 $em->persist($membre);
@@ -87,6 +88,7 @@ class registerController extends AbstractController
                 $membre->getUser()->setPassword($hash);
                 $membre->getUser()->setRoles(["ROLE_ADS"]);
                 $membre->setCds($cds);
+                $membre->getUser()->setType(0);
            
 
                 $em->persist($membre);
