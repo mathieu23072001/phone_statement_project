@@ -51,10 +51,10 @@
                                     {% for c in cas %}
                                     <tbody>
                                         <tr>
-                                            <td>{{ c.personne.nom }}</td>
-                                            <td>{{ c.personne.contact }}</td>
+                                            <td>{{ c.nom }}</td>
+                                            <td>{{ c.contact }}</td>
                                             
-                                            <td><a href="{{ path('ads_cas_graphe',{'id': c.personne.id}) }}"><button type="button" class="btn btn-primary">Afficher graphe</button></a></td>
+                                            <td><a href="{{ path('ads_cas_graphe',{'id': c.id}) }}"><button type="button" class="btn btn-primary">Afficher graphe</button></a></td>
                                             
                                         </tr>
                                         

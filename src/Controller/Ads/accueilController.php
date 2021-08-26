@@ -380,9 +380,16 @@ $user = $this->getUser();
         $user = $this->getUser();
         $cas = new Cas();
         $em = $this->getDoctrine()->getManager();
+      
+            //  $cas = $em->getRepository(Cas::class)->findAll();
 
-        $cas = $em->getRepository(Cas::class)->findAll();
-     
+           // $query1 = $em->createQuery('SELECT DISTINCT p.id as id ,p.nom as nom, p.contact as contact  from App:Personne p where p.id = (select DISTINCT IDENTITY(c.personne) from App:Cas c )');
+
+           // $query1 = $em->createQuery('SELECT DISTINCT c.personne as personne   from App:Cas c where personne = (select DISTINCT p.id from App:Personne p )');
+            $query1 = $em->createQuery('SELECT DISTINCT p from App:Personne p inner join p.cas c');
+        
+            $cas = $query1->getResult();
+        
         
    
         
