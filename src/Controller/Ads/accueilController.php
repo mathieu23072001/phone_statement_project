@@ -24,6 +24,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Doctrine\ORM\Query\ResultSetMapping;
+use telesign\sdk\messaging\MessagingClient;
+
 
 
 /**
@@ -108,7 +110,7 @@ $user = $this->getUser();
 
 
 
-            //$hubdata->insertCsvData($entityManager,$fileFolder."".$filePathName);
+           // $hubdata->insertCsvData($entityManager,$fileFolder."".$filePathName);
             $hubdata->datahubAb($entityManager);
               $hubdata->datahubAp($entityManager);
               
@@ -463,7 +465,25 @@ $user = $this->getUser();
     }
 
 
+/**
+     * @Route("/sms", name="ads_sms")
+     */
+    public function adsSms(Request $request): Response
+    {
+        //$mobile = $request->get('mobile');
+       // $message = $request->get('message');
 
+        $customer_id = "EBC52519-57DD-49EB-A636-FB47C7DBC02F";
+  $api_key = "7lQlJGp6XJlxA5UFHMisnrb3zUBFigtS/t1jCF+G8DWKcGX0hcRxMqljWDfhtoigyFq9x8SMxpauTmhYYXJ/Aw==";
+  $phone_number = "22892855872";
+  $message = "Il est très probable que vous aillez été en contact avec une personne infectée. Rendez-vous sur ce lien pour prendre un rendez-vous de dépistage";
+  $message_type = "ARN";
+  $messaging = new MessagingClient($customer_id, $api_key);
+  $response = $messaging->message($phone_number, $message, $message_type);
+
+        return $this->render('ads/accueil.html.twig');
+           
+    }
 
     
      

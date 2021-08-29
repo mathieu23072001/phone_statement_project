@@ -21,10 +21,6 @@
 <link  href = " //fonts.googleapis.com/icon?family=Material+Icons " rel = " stylesheet " > 
 <link  href = ' //fonts.googleapis.com/css?family=Source+Sans+Pro: 300,400,600,700 ' rel =' feuille de style ' >
         {% block stylesheets %}
-
- <link rel="stylesheet" href="{{asset('Graphe/css/Treant.css')}}">
-    <link rel="stylesheet" href="{{asset('Graphe/css/basic-example.css')}}">
-
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" >  
  <!-- Bootstrap Core CSS -->
     <link href="{{ asset('optimum/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -132,17 +128,6 @@
 
  {% block javascripts %}
 
- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    
-    <script src="{{asset('Maps/js/index.js')}}"></script>
-  
-  <script src="{{asset('Graphe/js/raphael.js')}}"></script>
-            <script src="{{asset('Graphe/js/Treant.js')}}"></script> 
-        
- 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
     
 	 <script src="{{asset('optimum/bootstrap/dist/js/tether.min.js')}}"></script> 
     <script src="{{asset('optimum/plugins/bower_components/jquery/dist/jquery.min.js')}}"></script>
@@ -201,20 +186,16 @@
 
     
     </head>
-
     <body>
 
     {{ include ('layout/menuSupAd.html.twig')}}
      <div id="page-wrapper">
         <div class="container-fluid">
-        {% block body %}  {% endblock %} 
-       
+        {% block body %}{% endblock %} 
         </div>
 
-       {{ include ('layout/footer.html.twig')}}
+        {{ include ("layout/footer.html.twig") }}
       </div>
-
-        
 
 
 
