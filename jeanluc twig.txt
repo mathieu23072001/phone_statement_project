@@ -23,8 +23,14 @@
 
         <!-- Fichiers JS -->
         <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+        <script type="text/javascript" 
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+
+  
+
         
-        <script>
  
         // Variables globales
 let ville = distance = ""
@@ -46,25 +52,14 @@ window.onload = () => {
      // Gestion des champs
     let champCentre = document.getElementById('champ-ville')
     let champDistance = document.getElementById('champ-distance')
-    let valeurDistance = document.getElementById('valeur-distance');
-
-    const dataToObj = (data)=>{
-        const dictionnary = [];
-        for(property in data){
-            if(isNaN(parseFloat(property))){
-                dictionnary[property] = data[property]
-            }
-        }
-        return dictionnary;
-    }
+    let valeurDistance = document.getElementById('valeur-distance')
 
    champCentre.addEventListener("change",function(){
             // On envoie le requête ajax vers Nominatim
-
+            
             ajaxGet(`https://nominatim.openstreetmap.org/search?q=${this.value}&format=json&addressdetails=1&limit=1&polygon_svg=1`)
         .then(reponse => {
             // On convertit la réponse en objet Javascript
-           
             let data = JSON.parse(reponse)
 
             // On stocke les coordonnées dans ville
@@ -72,27 +67,59 @@ window.onload = () => {
 
             // On centre la carte sur la ville
             carte.panTo(ville)
+             
         })
 
 
-   });
+   })
 
-
+   
     champDistance.addEventListener("change", function(){
 
            distance = this.value
-
+              
             valeurDistance.innerText = distance + " km"
+           
+
+
+
 
             // On vérifie si on a une ville
         if(ville != ""){
+
+            $.ajax({  
+               url:        'admin/accueil',  
+               type:       'POST',   
+               data :       ville,
+               dataType:   'json',  
+               async:      true,  
+               
+               success: function(data, status) {  
+                  alert("YYYOOOOUUUUPPPPIII");
+                  
+
+               },  
+               error : function(xhr, textStatus, errorThrown) {  
+                  alert('Ajax request failed.');  
+               }  
+            });  
+
+
+
+
+
+
+
+
+            
             // On envoie la requête
-            ajaxGet(`{{path('admin_accueil')}}?lat=${ville[0]}&lon=${ville[1]}&distance=${distance}`)
+            ajaxGet(`http://localhost:8000/admin/accueil?lat=${ville[0]}&lon=${ville[1]}&distance=${distance}`)
             .then(reponse => {
-                  // On supprime toutes les couches de la carte
+                 // On supprime toutes les couches de la carte
                 carte.eachLayer(function(layer){
                     if(layer.options.name != 'tiles') carte.removeLayer(layer)
                 })
+
 
                 //On trace un cercle correspondant à la distance souhaitée
                 let circle = L.circle(ville, {
@@ -101,28 +128,16 @@ window.onload = () => {
                     fillOpacity: 0.3,
                     radius: distance * 1000
                 }).addTo(carte)
-
+                
                 // On boucle sur les données
-                let donnees = JSON.parse(reponse);
-
-                console.log({donnees});
-
-                donnees.map((markerItemRef, index)=>{
-                    const markerItem = dataToObj(markerItemRef);
-                    
-                    let marker = L.marker([parseFloat(markerItem.latitude), parseFloat(markerItem.longitude)]).addTo(carte)
-                    marker.bindPopup(markerItem.nom+" <br/>"+ markerItem.quartier)
-                });
-
-                /*Object.entries(donnees).forEach(agence => {
+                let donnees = JSON.parse(reponse)
+                alert(donnees);
+                Object.entries(donnees).forEach(resultat => {
                     // On crée le marqueur
-
-                    console.log({agence:agence[1]}); return;
+                    let marker = L.marker([resultat[1].latitude, resultat[1].longitude]).addTo(carte)
+                    marker.bindPopup(resultat[1].nom)
                     
-                    let marker = L.marker([parseFloat(agence[1].latitute), parseFloat(agence[1].longitude)]).addTo(carte)
-                    marker.bindPopup(agence[1].nom)
-                    
-                })*/
+                })
                 // On centre la carte sur le cercle
                 let bounds = circle.getBounds()
                 carte.fitBounds(bounds)
@@ -168,8 +183,3 @@ window.onload = () => {
 
     </body>
 </html>
-
-
-
-
-

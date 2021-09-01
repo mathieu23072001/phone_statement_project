@@ -37,13 +37,14 @@ class accueilController extends AbstractController
 
     public function Admin(Request $request)
     {
-        if ($request->query->get('lat')) {  
+        if ($request->isXmlHttpRequest()) {  
             // Ajax request  
-            //$data = $request->request->get('ville');
-            $lat = $request->query->get('lat');
-            $lon = $request->query->get('lon');
-            $distance = $request->query->get('distance');
-        
+            $data = $request->request->get('ville');
+            $lat = $data[0];
+            $lon = $data[1];
+            $distance = $request->request->get('distance');
+            //  dd($latitude);
+            //  dd($longitude);
             //  dd($distance);
             if($lat != null && $lon != null && $distance != null){
                 try{
@@ -54,7 +55,7 @@ class accueilController extends AbstractController
                     echo 'Erreur : '. $e->getMessage();
                     die();
                 }
-                $sql = 'SELECT id, nom, latitude, longitude, quartier, ( 6371 * acos( cos( radians(:latitude) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:longitude) ) + sin( radians(:latitude) ) * sin( radians( latitude ) ) ) ) AS distance FROM `cds` HAVING distance < :distance ORDER BY distance';
+                $sql = 'SELECT id, nom, latitude, longitude, ( 6371 * acos( cos( radians(:latitude) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:longitude) ) + sin( radians(:latitude) ) * sin( radians( latitude ) ) ) ) AS distance FROM `cds` HAVING distance < :distance ORDER BY distance';
                 $query = $db->prepare($sql);
       
                 $query->bindValue(':latitude', $lat, PDO::PARAM_STR);    
@@ -65,15 +66,8 @@ class accueilController extends AbstractController
                 $result = $query->fetchAll();
                 http_response_code(200);
                 $resultat = json_encode($result);
-            //    echo json_encode($result);
-               return new JsonResponse($result);
-                // return $this->render('admin/accueil1.html.twig',[
-                //     "agence"=>$resultat
-                // ]);
-
-                // return new ;
-
-
+                echo json_encode($result);
+                return new JsonResponse($resultat);
             } else {  
                 // Normal request  
          } 
@@ -84,12 +78,15 @@ class accueilController extends AbstractController
     ]);*/
     
 
-        }else{
+        }
 
-           
+        else{
+
+            return $this->render('admin/accueil1.html.twig');
           // return $this->redirectToRoute("admin_add_cds");
         }
-        return $this->render('admin/accueil1.html.twig');
+       
+
     }
 
 
