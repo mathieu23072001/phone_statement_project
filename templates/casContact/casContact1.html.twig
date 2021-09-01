@@ -87,7 +87,7 @@ window.onload = () => {
             // On vérifie si on a une ville
         if(ville != ""){
             // On envoie la requête
-            ajaxGet(`{{path('admin_accueil')}}?lat=${ville[0]}&lon=${ville[1]}&distance=${distance}`)
+            ajaxGet(`{{path('casContact_accueil1')}}?lat=${ville[0]}&lon=${ville[1]}&distance=${distance}`)
             .then(reponse => {
                   // On supprime toutes les couches de la carte
                 carte.eachLayer(function(layer){

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <!-- Fichiers CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+        <link rel="stylesheet" href="{{asset('Maps/css/style.css')}}">
+    </head>
+    <body>
+        <div id="map"></div>
+         
+        <p>
+            <label for="champ-distance">Distance : </label>
+            <input type="range" min="1" max="200" id="champ-distance">
+        </p>
+        <p id="valeur-distance"></p>
+
+        <!-- Fichiers JS -->
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+        
+       
+
+<script>
+let distance = ""
+
+window.onload = () => {
+    // On intialise la carte
+    let carte = L.map('map').setView([ 6.1372, 1.2125], 13)
+
+
+     // On charge les "tuiles"
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        // Il est toujours bien de laisser le lien vers la source des données
+        attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+        minZoom: 1,
+        maxZoom: 20,
+        name: 'tiles' // Permettra de ne pas supprimer cette couche
+    }).addTo(carte) 
+    
+     let champDistance = document.getElementById('champ-distance')
+
+
+    
+    let valeurDistance = document.getElementById('valeur-distance');
+
+
+const dataToObj = (data)=>{
+        const dictionnary = [];
+        for(property in data){
+            if(isNaN(parseFloat(property))){
+                dictionnary[property] = data[property]
+            }
+        }
+        return dictionnary;
+    }
+
+
+
+
+var afficherGeoLocPosition = function(geolocPosition) {
+  console.log('<br>longitude ' + geolocPosition.coords.longitude);
+  console.log('<br>latitude ' + geolocPosition.coords.latitude);
+  //document.write('<br>altitude ' + geolocPosition.coords.altitude); 
+  
+
+  user = [geolocPosition.coords.latitude, geolocPosition.coords.longitude]
+
+   carte.panTo(user)
+
+    let marker = L.marker([parseFloat(geolocPosition.coords.latitude), parseFloat(geolocPosition.coords.longitude)]).addTo(carte)
+         
+                    marker.bindPopup("votre position") 
+                    
+                    
+             champDistance.addEventListener("change", function(){
+
+               distance = this.value
+
+            valeurDistance.innerText = distance + " km"
+
+
+            
+
+   
+// On envoie la requête
+            ajaxGet(`{{path('casContact_accueil2')}}?lat=${geolocPosition.coords.latitude}&lon=${geolocPosition.coords.longitude}&distance=${distance}`)
+            .then(reponse => {
+                  // On supprime toutes les couches de la carte
+                carte.eachLayer(function(layer){
+                    if(layer.options.name != 'tiles') carte.removeLayer(layer)
+                })
+
+                //On trace un cercle correspondant à la distance souhaitée
+                let circle = L.circle(user, {
+                    color: "#839c49",
+                    fillColor: "#839c49",
+                    fillOpacity: 0.3,
+                    radius: distance * 1000
+                }).addTo(carte)
+
+                // On boucle sur les données
+                let donnees = JSON.parse(reponse);
+
+                console.log({donnees});
+
+                donnees.map((markerItemRef, index)=>{
+                    const markerItem = dataToObj(markerItemRef);
+                    
+                    let marker = L.marker([parseFloat(markerItem.latitude), parseFloat(markerItem.longitude)]).addTo(carte)
+                    marker.bindPopup(markerItem.nom+" <br/>"+ markerItem.quartier)
+                });
+
+                /*Object.entries(donnees).forEach(agence => {
+                    // On crée le marqueur
+
+                    console.log({agence:agence[1]}); return;
+                    
+                    let marker = L.marker([parseFloat(agence[1].latitute), parseFloat(agence[1].longitude)]).addTo(carte)
+                    marker.bindPopup(agence[1].nom)
+                    
+                })*/
+                // On centre la carte sur le cercle
+                let bounds = circle.getBounds()
+                carte.fitBounds(bounds)
+               
+            })
+     
+
+
+
+
+
+
+
+                    })
+
+}
+ 
+if(navigator.geolocation) {
+  // geolocalisation supportée
+  navigator.geolocation.getCurrentPosition(afficherGeoLocPosition);
+ carte.panTo(afficherGeoLocPosition);
+
+
+  
+
+} else {
+  // geolocalisation non supportée
+}
+
+
+}
+/**
+ * Cette fonction effectue un appel Ajax vers une url et retourne une promesse
+ * @param {string} url 
+ */
+
+ function ajaxGet(url){
+    return new Promise(function(resolve, reject){
+        // Nous allons gérer la promesse
+        let xmlhttp = new XMLHttpRequest()
+
+        xmlhttp.onreadystatechange = function(){
+            if(xmlhttp.readyState == 4){
+                if(xmlhttp.status == 200){
+                    // On "résoud" la promesse
+                    resolve(xmlhttp.response)
+                }else{
+                    reject(xmlhttp)
+                }
+            }
+        }
+
+        xmlhttp.onerror = function(error){
+            reject(error)
+        }
+
+        xmlhttp.open('get', url, true)
+        xmlhttp.send()
+    })
+}
+
+
+
+
+
+
+
+
+
+</script>
+
+    </body>
+</html>
+
+
+
+
+

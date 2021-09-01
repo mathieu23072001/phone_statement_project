@@ -30,70 +30,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class accueilController extends AbstractController
 {
     
-  
     /**
      * @Route("/accueil",name="admin_accueil")
      */
 
-    public function Admin(Request $request)
-    {
-        if ($request->query->get('lat')) {  
-            // Ajax request  
-            //$data = $request->request->get('ville');
-            $lat = $request->query->get('lat');
-            $lon = $request->query->get('lon');
-            $distance = $request->query->get('distance');
-        
-            //  dd($distance);
-            if($lat != null && $lon != null && $distance != null){
-                try{
-                    // Connexion à la bdd
-                    $db = new PDO('mysql:host=localhost;dbname=bdtest', 'root','');
-                    $db->exec('SET NAMES "UTF8"');
-                } catch (PDOException $e){
-                    echo 'Erreur : '. $e->getMessage();
-                    die();
-                }
-                $sql = 'SELECT id, nom, latitude, longitude, quartier, ( 6371 * acos( cos( radians(:latitude) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:longitude) ) + sin( radians(:latitude) ) * sin( radians( latitude ) ) ) ) AS distance FROM `cds` HAVING distance < :distance ORDER BY distance';
-                $query = $db->prepare($sql);
-      
-                $query->bindValue(':latitude', $lat, PDO::PARAM_STR);    
-                $query->bindValue(':longitude', $lon, PDO::PARAM_STR);
-                $query->bindValue(':distance', $distance, PDO::PARAM_INT);    
-                $query->execute();
-
-                $result = $query->fetchAll();
-                http_response_code(200);
-                $resultat = json_encode($result);
-            //    echo json_encode($result);
-               return new JsonResponse($result);
-                // return $this->render('admin/accueil1.html.twig',[
-                //     "agence"=>$resultat
-                // ]);
-
-                // return new ;
+public function Admin(){
 
 
-            } else {  
-                // Normal request  
-         } 
 
-        
-    /*return $this->render('admin/accueil1.html.twig',[
-        'resultat'=>$resultat
-    ]);*/
+
+  return $this->render('admin/accueil.html.twig');
     
-
-        }else{
-
-           
-          // return $this->redirectToRoute("admin_add_cds");
-        }
-        return $this->render('admin/accueil1.html.twig');
-    }
-
-
-
+}
 
 
 
