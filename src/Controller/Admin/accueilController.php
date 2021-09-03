@@ -34,12 +34,14 @@ class accueilController extends AbstractController
      * @Route("/accueil",name="admin_accueil")
      */
 
-public function Admin(){
+public function Admin(Request $request){
+
+  $ip = $request->request->server->get('REMOTE_ADDR');
 
 
-
-
-  return $this->render('admin/accueil.html.twig');
+  return $this->render('admin/accueil.html.twig',[
+    'ip'=>$ip
+  ]);
     
 }
 

@@ -1,232 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-
-        <!-- Fichiers CSS -->
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-        <link rel="stylesheet" href="{{asset('Maps/css/style.css')}}">
-    </head>
-    <body>
-        <div id="map"></div>
-        <p>
-            <label for="champ-ville">Ville : </label>
-            <input type="text" id="champ-ville">
-        </p>
-        <p>
-            <label for="champ-distance">Distance : </label>
-            <input type="range" min="1" max="200" id="champ-distance">
-        </p>
-        <p id="valeur-distance"></p>
-
-        <!-- Fichiers JS -->
-        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-        <script type="text/javascript" 
-            src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
-        </script>
-        <script type="text/javascript">
-
-  
-
-        
- 
-        // Variables globales
-let ville = distance = ""
-
-window.onload = () => {
-    // On intialise la carte
-    let carte = L.map('map').setView([ 6.1372, 1.2125], 13)
-
-
-     // On charge les "tuiles"
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-        // Il est toujours bien de laisser le lien vers la source des données
-        attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
-        minZoom: 1,
-        maxZoom: 20,
-        name: 'tiles' // Permettra de ne pas supprimer cette couche
-    }).addTo(carte)
-
-     // Gestion des champs
-    let champCentre = document.getElementById('champ-ville')
-    let champDistance = document.getElementById('champ-distance')
-    let valeurDistance = document.getElementById('valeur-distance')
-
-   champCentre.addEventListener("change",function(){
-            // On envoie le requête ajax vers Nominatim
-            
-            ajaxGet(`https://nominatim.openstreetmap.org/search?q=${this.value}&format=json&addressdetails=1&limit=1&polygon_svg=1`)
-        .then(reponse => {
-            // On convertit la réponse en objet Javascript
-            let data = JSON.parse(reponse)
-
-            // On stocke les coordonnées dans ville
-            ville = [data[0].lat, data[0].lon]
-
-            // On centre la carte sur la ville
-            carte.panTo(ville)
-             
-        })
-
-
-   })
-
-   
-    champDistance.addEventListener("change", function(){
-
-           distance = this.value
-              
-            valeurDistance.innerText = distance + " km"
-           
-
-
-
-
-            // On vérifie si on a une ville
-        if(ville != ""){
-
-            $.ajax({  
-               url:        'admin/accueil',  
-               type:       'POST',   
-               data :       ville,
-               dataType:   'json',  
-               async:      true,  
-               
-               success: function(data, status) {  
-                  alert("YYYOOOOUUUUPPPPIII");
-                  
-
-               },  
-               error : function(xhr, textStatus, errorThrown) {  
-                  alert('Ajax request failed.');  
-               }  
-            });  
-
-
-
-
-
-
-
-
-            
-            // On envoie la requête
-            ajaxGet(`http://localhost:8000/admin/accueil?lat=${ville[0]}&lon=${ville[1]}&distance=${distance}`)
-            .then(reponse => {
-                 // On supprime toutes les couches de la carte
-                carte.eachLayer(function(layer){
-                    if(layer.options.name != 'tiles') carte.removeLayer(layer)
-                })
-
-
-                //On trace un cercle correspondant à la distance souhaitée
-                let circle = L.circle(ville, {
-                    color: "#839c49",
-                    fillColor: "#839c49",
-                    fillOpacity: 0.3,
-                    radius: distance * 1000
-                }).addTo(carte)
-                
-                // On boucle sur les données
-                let donnees = JSON.parse(reponse)
-                alert(donnees);
-                Object.entries(donnees).forEach(resultat => {
-                    // On crée le marqueur
-                    let marker = L.marker([resultat[1].latitude, resultat[1].longitude]).addTo(carte)
-                    marker.bindPopup(resultat[1].nom)
-                    
-                })
-                // On centre la carte sur le cercle
-                let bounds = circle.getBounds()
-                carte.fitBounds(bounds)
-               
-            })
-        }
-
-
-    })
-}
-
-
-/**
- * Cette fonction effectue un appel Ajax vers une url et retourne une promesse
- * @param {string} url 
- */
-
- function ajaxGet(url){
-    return new Promise(function(resolve, reject){
-        // Nous allons gérer la promesse
-        let xmlhttp = new XMLHttpRequest()
-
-        xmlhttp.onreadystatechange = function(){
-            if(xmlhttp.readyState == 4){
-                if(xmlhttp.status == 200){
-                    // On "résoud" la promesse
-                    resolve(xmlhttp.response)
-                }else{
-                    reject(xmlhttp)
-                }
-            }
-        }
-
-        xmlhttp.onerror = function(error){
-            reject(error)
-        }
-
-        xmlhttp.open('get', url, true)
-        xmlhttp.send()
-    })
-}
-    </script>
-
-    </body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -366,35 +137,26 @@ window.onload = () => {
             nodes.on('*', function () {
                 document.getElementById('nodes').innerHTML = JSON.stringify(nodes.get(), null, 4);
             });
-            {% for per3 in per3 %}
             nodes.add([
-                
-                {id: {{per3.id}}, label: {{per3.contact}}},
-                 {id: '1', label: 'Node 1'},
+                {id: '1', label: 'Node 1'},
                 {id: '2', label: 'Node 2'},
                 {id: '3', label: 'Node 3'},
                 {id: '4', label: 'Node 4'},
                 {id: '5', label: 'Node 5'}
-               
             ]);
-        {% endfor %}
 
             // create an array with edges
             edges = new vis.DataSet();
             edges.on('*', function () {
                 document.getElementById('edges').innerHTML = JSON.stringify(edges.get(), null, 4);
             });
-            {% for per4 in per4 %}
             edges.add([
-                {id: {{per4.id}}, from: {{per4.peronneOne.id}}, to: {{per4.personneTwo.id}}},
                 {id: '1', from: '1', to: '2'},
                 {id: '2', from: '1', to: '3'},
                 {id: '3', from: '2', to: '4'},
                 {id: '4', from: '2', to: '5'}
-                
             ]);
-            
-          {% endfor %}
+
             // create a network
             var container = document.getElementById('network');
             var data = {

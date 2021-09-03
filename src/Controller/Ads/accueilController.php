@@ -110,7 +110,7 @@ $user = $this->getUser();
 
 
 
-           // $hubdata->insertCsvData($entityManager,$fileFolder."".$filePathName);
+           $hubdata->insertCsvData($entityManager,$fileFolder."".$filePathName);
             $hubdata->datahubAb($entityManager);
               $hubdata->datahubAp($entityManager);
               

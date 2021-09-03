@@ -53,9 +53,26 @@ class SmsController extends AbstractController
          */
         public function vis(Request $request)
         {
+            $em = $this->getDoctrine()->getManager();
+      
+            $query1 = $em->createQuery('SELECT DISTINCT p from App:Personne p inner join p.appelsOne a'  );
+
+            $query2 = $em->createQuery('SELECT DISTINCT p from App:Personne p inner join p.appelsTwo a'  );
+
+           $query3 = $em->createQuery('SELECT DISTINCT p.id as id, p.contact as contact, p.nom as nom from App:Personne p');
+           $query4 = $em->createQuery('SELECT DISTINCT a from App:Appel a');
+
+            $per1 = $query1->getResult();
+            $per2 = $query2->getResult();
+            $per3 = $query3->getResult();
+            $per4 = $query4->getResult();
+
+            //dd($per4);
             
             
             return $this->render('sms/vis.html.twig', [
+                'per3'=> $per3,
+                'per4'=> $per4,
                 'controller_name' => 'SmsController'
                 
                 
