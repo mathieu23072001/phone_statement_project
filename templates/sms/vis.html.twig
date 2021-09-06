@@ -9,6 +9,7 @@
     <style type="text/css">
         html, body {
             font: 11pt arial;
+             text-align: center;
         }
 
         h1 {
@@ -23,19 +24,29 @@
 
         table.view {
             width: 100%;
+            text-align: center;
+             margin-left: -200px; 
+            position: absolute;
+               left: 0%;
+            
         }
 
         table td {
             vertical-align: top;
+            text-align: center;
+            
         }
 
         table table {
             background-color: #f5f5f5;
             border: 1px solid #e5e5e5;
+             text-align: center;
+              
         }
 
         table table td {
             vertical-align: middle;
+             text-align: center;
         }
 
         input[type=text], pre {
@@ -44,7 +55,7 @@
 
         pre {
             margin: 0;
-            padding: 5px;
+            padding: 0px;
             font-size: 10pt;
         }
 
@@ -172,6 +183,7 @@
 
         }
 
+
     </script>
     
 </head>
@@ -179,95 +191,40 @@
 <body onload="draw();">
 
 <p>
-    This example demonstrates dynamically adding, updating and removing nodes
-    and edges using a DataSet.
+   <center> <h1>Réseaux Montrant les relations entre les différents suspects </h1></center>
 </p>
 
-<h1>Adjust</h1>
-<table>
-    <tr>
-        <td>
-            <h2>Node</h2>
-            <table>
-                <tr>
-                    <td></td>
-                    <td><label for="node-id">Id</label></td>
-                    <td><input id="node-id" type="text" value="6"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><label for="node-label">Label</label></td>
-                    <td><input id="node-label" type="text" value="Node 6"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Action</td>
-                    <td>
-                        <button id="node-add" onclick="addNode();">Add</button>
-                        <button id="node-update" onclick="updateNode();">Update</button>
-                        <button id="node-remove" onclick="removeNode();">Remove</button>
-                    </td>
-                </tr>
-            </table>
-        </td>
-        <td>
-            <h2>Edge</h2>
-            <table>
-                <tr>
-                    <td></td>
-                    <td><label for="edge-id">Id</label></td>
-                    <td><input id="edge-id" type="text" value="5"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><label for="edge-from">From</label></td>
-                    <td><input id="edge-from" type="text" value="3"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><label for="edge-to">To</label></td>
-                    <td><input id="edge-to" type="text" value="4"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Action</td>
-                    <td>
-                        <button id="edge-add" onclick="addEdge();">Add</button>
-                        <button id="edge-update" onclick="updateEdge();">Update</button>
-                        <button id="edge-remove" onclick="removeEdge();">Remove</button>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-
-</table>
-
-<h1>View</h1>
+<center>
 <table class="view">
     <colgroup>
-        <col width="25%">
-        <col width="25%">
-        <col width="50%">
+        <col width="0%">
+        <col width="0%">
+        <col width="200%">
     </colgroup>
     <tr>
         <td>
-            <h2>Nodes</h2>
+           
             <pre id="nodes"></pre>
         </td>
 
         <td>
-            <h2>Edges</h2>
+            
             <pre id="edges"></pre>
+           
         </td>
-
+     
         <td>
-            <h2>Network</h2>
+            <h2>Réseaux</h2>
 
-            <div id="network"></div>
+           <div id="network"></div> 
         </td>
+        
     </tr>
 </table>
+</center>
+ <script> document.getElementById('edges').style.visibility = 'hidden';</script>
+
+ <script> document.getElementById('nodes').style.visibility = 'hidden';</script>
 
 </body>
 </html>

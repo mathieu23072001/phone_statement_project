@@ -5,6 +5,7 @@ namespace App\Controller\CasContact;
 use PDO;
 use connect;
 use PDOException;
+use App\Entity\CDS;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -154,7 +155,7 @@ public function casContact2(Request $request){
            
           // return $this->redirectToRoute("admin_add_cds");
         }
-        return $this->render('CasContact/casContact2.html.twig');
+        return $this->render('casContact/casContact2.html.twig');
     }
 
 
@@ -162,8 +163,37 @@ public function casContact2(Request $request){
 
 
 
+/**
+     * @Route("/Test",name="casContact_Test")
+     */
 
+    public function Test(){
+
+
+        $db = new PDO('mysql:host=localhost;dbname=bdtest', 'root','');
+        $db->exec('SET NAMES "UTF8"');
+        $em = $this->getDoctrine()->getManager();
+       
+        $query = $em->createQuery('SELECT c.nom as nom, c.latitude as latitude, c.longitude as longitude from App:CDS c' );
+        
+        $result = $query->getResult();
+        
+       $resultat =   $result;
+            
+//
+// On encode en json et on envoie
     
+
+        
+
+
+        return $this->render('casContact/test.html.twig',[
+            'resultat'=> $resultat
+            
+        ]);
+    
+
+    }
 
      
      

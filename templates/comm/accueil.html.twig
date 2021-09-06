@@ -1,0 +1,40 @@
+{% extends "baseSupAd.html.twig" %}
+
+{% block stylesheets %} {{  parent() }} {% endblock %}
+
+{% block title %} {{  parent() }} {% endblock %}
+
+
+{% block body %}
+
+
+        
+
+{% for membre in app.user.membres %}
+
+<div class="row bg-title">
+ 
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title"> Centre : {{ membre.cds.nom}} </h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-4 col-xs-12"> 
+                    <o class="breadcrumb">
+                        <li>Agent de sante </li>
+                        <li class="active"> Page d'accueil</li>
+                    </o>
+                </div>
+                
+                <!-- /.col-lg-12 -->
+            </div>
+
+<img src="{{ asset('bienvenue.jpg')}}" width="100%" height="100%">
+
+
+
+  
+
+{% endfor %}
+
+{% endblock %}
+
+{% block javascript %} {{  parent() }} {% endblock %}

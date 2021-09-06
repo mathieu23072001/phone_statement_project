@@ -36,12 +36,10 @@ class accueilController extends AbstractController
 
 public function Admin(Request $request){
 
-  $ip = $request->request->server->get('REMOTE_ADDR');
+ 
 
 
-  return $this->render('admin/accueil.html.twig',[
-    'ip'=>$ip
-  ]);
+  return $this->render('admin/accueil.html.twig');
     
 }
 

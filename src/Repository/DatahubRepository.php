@@ -61,7 +61,7 @@ class DatahubRepository extends ServiceEntityRepository
             OPTIONAlLY ENCLOSED BY '\"' 
             ESCAPED BY '\\\\'
             LINES TERMINATED BY '\\r\\n'
-            
+            IGNORE 1 LINES
             (abonne,appele,identite_appele,date,heure,
             duree,type_appel, sens_appel,imsi, imei, localisation); ";
             $stmt = $em->getConnection()->prepare($sqlrech);

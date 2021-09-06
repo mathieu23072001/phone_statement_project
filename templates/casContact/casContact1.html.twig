@@ -89,6 +89,7 @@ window.onload = () => {
             // On envoie la requête
             ajaxGet(`{{path('casContact_accueil1')}}?lat=${ville[0]}&lon=${ville[1]}&distance=${distance}`)
             .then(reponse => {
+                console.log({reponse});
                   // On supprime toutes les couches de la carte
                 carte.eachLayer(function(layer){
                     if(layer.options.name != 'tiles') carte.removeLayer(layer)
