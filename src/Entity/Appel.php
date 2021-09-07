@@ -47,6 +47,16 @@ class Appel
      */
     private $personneTwo;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Portable::class, inversedBy="appels")
+     */
+    private $portable;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Antenne::class, inversedBy="appels")
+     */
+    private $antenne;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +130,30 @@ class Appel
     public function setPersonneTwo(?Personne $personneTwo): self
     {
         $this->personneTwo = $personneTwo;
+
+        return $this;
+    }
+
+    public function getPortable(): ?Portable
+    {
+        return $this->portable;
+    }
+
+    public function setPortable(?Portable $portable): self
+    {
+        $this->portable = $portable;
+
+        return $this;
+    }
+
+    public function getAntenne(): ?Antenne
+    {
+        return $this->antenne;
+    }
+
+    public function setAntenne(?Antenne $antenne): self
+    {
+        $this->antenne = $antenne;
 
         return $this;
     }

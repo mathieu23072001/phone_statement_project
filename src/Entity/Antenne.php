@@ -25,15 +25,17 @@ class Antenne
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity=Portable::class, mappedBy="antenne")
+     * @ORM\OneToMany(targetEntity=Appel::class, mappedBy="antenne")
      */
-    private $portables;
+    private $appels;
 
     public function __construct()
     {
-        $this->portables = new ArrayCollection();
+        $this->appels = new ArrayCollection();
     }
 
+   
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -52,32 +54,37 @@ class Antenne
     }
 
     /**
-     * @return Collection|Portable[]
+     * @return Collection|Appel[]
      */
-    public function getPortables(): Collection
+    public function getAppels(): Collection
     {
-        return $this->portables;
+        return $this->appels;
     }
 
-    public function addPortable(Portable $portable): self
+    public function addAppel(Appel $appel): self
     {
-        if (!$this->portables->contains($portable)) {
-            $this->portables[] = $portable;
-            $portable->setAntenne($this);
+        if (!$this->appels->contains($appel)) {
+            $this->appels[] = $appel;
+            $appel->setAntenne($this);
         }
 
         return $this;
     }
 
-    public function removePortable(Portable $portable): self
+    public function removeAppel(Appel $appel): self
     {
-        if ($this->portables->removeElement($portable)) {
+        if ($this->appels->removeElement($appel)) {
             // set the owning side to null (unless already changed)
-            if ($portable->getAntenne() === $this) {
-                $portable->setAntenne(null);
+            if ($appel->getAntenne() === $this) {
+                $appel->setAntenne(null);
             }
         }
 
         return $this;
     }
+
+  
+
+    
+
 }

@@ -39,11 +39,7 @@ class Personne
      */
     private $numero;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Portable::class, mappedBy="personne")
-     */
-    private $portables;
-
+   
     /**
      * @ORM\OneToMany(targetEntity=Appel::class, mappedBy="peronneOne")
      */
@@ -127,36 +123,10 @@ class Personne
         return $this;
     }
 
-    /**
-     * @return Collection|Portable[]
-     */
-    public function getPortables(): Collection
-    {
-        return $this->portables;
-    }
 
-    public function addPortable(Portable $portable): self
-    {
-        if (!$this->portables->contains($portable)) {
-            $this->portables[] = $portable;
-            $portable->setPersonne($this);
-        }
+   
 
-        return $this;
-    }
-
-    public function removePortable(Portable $portable): self
-    {
-        if ($this->portables->removeElement($portable)) {
-            // set the owning side to null (unless already changed)
-            if ($portable->getPersonne() === $this) {
-                $portable->setPersonne(null);
-            }
-        }
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection|Appel[]
      */

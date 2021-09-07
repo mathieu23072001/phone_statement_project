@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PortableRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,14 +30,16 @@ class Portable
     private $imsi;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="portables")
+     * @ORM\OneToMany(targetEntity=Appel::class, mappedBy="portable")
      */
-    private $personne;
+    private $appels;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Antenne::class, inversedBy="portables")
-     */
-    private $antenne;
+    public function __construct()
+    {
+        $this->appels = new ArrayCollection();
+    }
+
+  
 
     public function getId(): ?int
     {
@@ -66,27 +70,38 @@ class Portable
         return $this;
     }
 
-    public function getPersonne(): ?Personne
+    /**
+     * @return Collection|Appel[]
+     */
+    public function getAppels(): Collection
     {
-        return $this->personne;
+        return $this->appels;
     }
 
-    public function setPersonne(?Personne $personne): self
+    public function addAppel(Appel $appel): self
     {
-        $this->personne = $personne;
+        if (!$this->appels->contains($appel)) {
+            $this->appels[] = $appel;
+            $appel->setPortable($this);
+        }
 
         return $this;
     }
 
-    public function getAntenne(): ?Antenne
+    public function removeAppel(Appel $appel): self
     {
-        return $this->antenne;
-    }
-
-    public function setAntenne(?Antenne $antenne): self
-    {
-        $this->antenne = $antenne;
+        if ($this->appels->removeElement($appel)) {
+            // set the owning side to null (unless already changed)
+            if ($appel->getPortable() === $this) {
+                $appel->setPortable(null);
+            }
+        }
 
         return $this;
     }
+
+   
+
+    
+
 }

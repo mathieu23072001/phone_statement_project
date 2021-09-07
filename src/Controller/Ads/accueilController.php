@@ -110,7 +110,7 @@ $user = $this->getUser();
 
 
 
-           $hubdata->insertCsvData($entityManager,$fileFolder."".$filePathName);
+          // $hubdata->insertCsvData($entityManager,$fileFolder."".$filePathName);
             $hubdata->datahubAb($entityManager);
               $hubdata->datahubAp($entityManager);
               
@@ -140,7 +140,7 @@ $user = $this->getUser();
             
           
             
-              return $this->redirectToRoute("ads_register_cas");
+              return $this->redirectToRoute("ads_accueil");
                
         }
       

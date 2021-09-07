@@ -14,7 +14,7 @@ class UploadType extends AbstractType
     {
         $builder
         ->add('name', FileType::class, array(
-            'required'=>FALSE,
+            'required'=>true,
             'label'=>'Curriculum vitae',
             'attr'=>array('class'=>'dropify','placeholder'=>'choisissez votre cv')
             

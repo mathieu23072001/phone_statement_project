@@ -432,29 +432,26 @@ class DatahubRepository extends ServiceEntityRepository
     {
         try {
             $sqlrech = "         
-               update  numero  set  operateur_id  =
-               case 
-               when INSTR(SUBSTR(descriptif,1,3),'90') then
-                 1
-               
-              when INSTR(SUBSTR(descriptif,1,3), '91') then
-              1
-             
-             when INSTR(SUBSTR(descriptif,1,3), '92') then
-               1
-              
-             when INSTR(SUBSTR(descriptif,1,3), '70') then
+            update  numero  set  operateur_id  =
+            case 
+            when INSTR(SUBSTR(descriptif,1,3),'99') then
+              2
+            
+           when INSTR(SUBSTR(descriptif,1,3), '98') then
+           2
+          
+          when INSTR(SUBSTR(descriptif,1,3), '97') then
+            2
+           
+          when INSTR(SUBSTR(descriptif,1,3), '96') then
+             2
+
+            
+       
+              Else
                 1
 
-                when INSTR(SUBSTR(descriptif,1,3), '93') then
-                1
-   
-
-                                     
-                 Else
-                   2
-
-                 END
+              END
                 
                 ";
                
@@ -580,8 +577,8 @@ WHERE d.appele not in  (select contact from personne)
     {
         try {
             $sqlrech = "
-        INSERT into appel(peronne_one_id,personne_two_id,date,duree,type_appel,sens_appel)
-        SELECT a1.id, a2.id,STR_TO_DATE(CONCAT(d.date,d.heure),'%d/%m/%Y %h:%i:%s') ,d.duree,d.type_appel,d.sens_appel from datahub d INNER JOIN personne a1 on a1.contact = d.abonne INNER JOIN personne a2 ON a2.contact = d.appele WHERE
+        INSERT into appel(peronne_one_id,personne_two_id,date,duree,type_appel,sens_appel,portable_id,antenne_id)
+        SELECT a1.id, a2.id,STR_TO_DATE(CONCAT(d.date,d.heure),'%d/%m/%Y %h:%i:%s') ,d.duree,d.type_appel,d.sens_appel,p.id,l.id from datahub d INNER JOIN personne a1 on a1.contact = d.abonne INNER JOIN personne a2 ON a2.contact = d.appele INNER JOIN portable p ON (p.imei = d.imei AND p.imsi = d.imsi) INNER JOIN antenne l ON l.nom = d.localisation WHERE
  CONCAT(a1.id,a2.id,STR_TO_DATE(CONCAT(d.date,d.heure),'%d/%m/%Y %h:%i:%s')) not in (SELECT concat(peronne_one_id,personne_two_id,date) as temps from appel) ;
 
   
@@ -631,11 +628,14 @@ WHERE d.appele not in  (select contact from personne)
     {
         try {
             $sqlrech = "         
-            INSERT IGNORE INTO portable (personne_id,antenne_id,imei,imsi)
-            SELECT  a1.id ,a.id,d.imei,d.imsi
-            FROM datahub d INNER JOIN personne a1 on a1.contact = d.abonne INNER JOIN personne a2 ON a2.contact = d.appele INNER JOIN antenne a ON a.nom= d.localisation
-            where CONCAT(a1.id,a2.id,STR_TO_DATE(CONCAT(d.date,d.heure),'%d/%m/%Y %h:%i:%s')) not in (SELECT concat(peronne_one_id,personne_two_id,date) as temps from appel) ;
-
+            INSERT IGNORE INTO portable (imei,imsi)
+            SELECT DISTINCT d.imei,d.imsi
+            FROM datahub d 
+            where d.imei not in(
+                select p.imei from portable p
+            ) AND  d.imsi not in(
+                select p.imsi from portable p
+            );
 
             
             ";
