@@ -29,7 +29,7 @@
 <center>
 <!-- /.row -->
  
-{{ form_start(form,{'attr':{'class':'form-horizontal form-material'}}) }}
+<form method="post" action="{{path('ads_import')}}"  enctype="multipart/form-data">
                <div class="row">
                     <div class="col-sm-12 ol-md-12 col-xs-12">
                         <div class="white-box">
@@ -37,7 +37,9 @@
                             <h3 class="box-title">Releve telephonique</h3>
                             <label for="input-file-now-custom-2">Deposez ici le fichier du releve telephonique</label>
                             
-                            {{form_widget(form.name,{'attr':{'id':'input-file-now-custom-2'}})}}
+                            
+
+                            <input type="file" name = "fichier" id="fichier" onchange="return Validation()"> 
                         </div>
                     </div>
                     
@@ -50,16 +52,54 @@
           
         </div>
         <div class="col-sm-offset-3 col-sm-5">
-                                  <button type="submit" class="btn btn-info btn-rounded btn-sm" onclick="return confirm('Etes vous sure de vouloir enregister ce fichier?');"> <i class="fa fa-plus"></i>&nbsp;&nbsp;Enregister</button>
+                                  <button type="submit" name= "submit" class="btn btn-info btn-rounded btn-sm" onclick="return confirm('Etes vous sure de vouloir enregister ce fichier?');"> <i class="fa fa-plus"></i>&nbsp;&nbsp;Enregister</button>
                                 
                             </div>
-         {{ form_end(form) }}
+         </form>
 
         
          <p ><font color=""><h3> Assurez-vous que le fichier importé est bien enregistré sous format csv separateur point virgule   </h3></font></p>
 </center>
 
 {% endfor %}
+
+<script>
+
+
+function Validation() 
+{ 
+var fichier = document.getElementById('fichier'); 
+var valeur = fichier.value; 
+var extensions = /(\.csv)$/i; 
+	if (!extensions.exec(valeur))
+	{ 
+		alert('Format de fichier non valide'); 
+		fichier.value = ''; 
+		return false; 
+	}  
+	else  
+	{ 
+		if (fichier.files && fichier.files[0])
+		{ 
+			alert('Format de fichier valide');
+		} 
+	} 
+} 
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
 {% endblock %}
 
 {% block javascript %} {{  parent() }} {% endblock %}

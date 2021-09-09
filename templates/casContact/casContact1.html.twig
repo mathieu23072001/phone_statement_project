@@ -8,9 +8,12 @@
         <!-- Fichiers CSS -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
         <link rel="stylesheet" href="{{asset('Maps/css/style.css')}}">
+          <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+         <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
     </head>
     <body>
         <div id="map"></div>
+        <br/>
         <p>
             <label for="champ-ville">Ville : </label>
             <input type="text" id="champ-ville">
@@ -112,7 +115,7 @@ window.onload = () => {
                     const markerItem = dataToObj(markerItemRef);
                     
                     let marker = L.marker([parseFloat(markerItem.latitude), parseFloat(markerItem.longitude)]).addTo(carte)
-                    marker.bindPopup(markerItem.nom+" <br/>"+ markerItem.quartier)
+                    marker.bindPopup("nom: "+markerItem.nom+" <br/>"+"quartier: " +markerItem.quartier+"<br/>"+"contact: "+markerItem.contact+"<br/>"+"email: "+markerItem.email+"<br/>"+"site web: "+markerItem.site_w)
                 });
 
                 /*Object.entries(donnees).forEach(agence => {
@@ -166,6 +169,14 @@ window.onload = () => {
     })
 }
     </script>
+
+
+
+
+    <br/><br/>
+
+ <center><a class="main-btn rounded-three" href="{{path('site')}}"><button type="button" class="btn btn-primary">page d'accueil</button></a></center>
+
 
     </body>
 </html>

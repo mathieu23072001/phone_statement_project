@@ -35,8 +35,8 @@
                     <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span class="hide-menu"> Gerer cas contact <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">3</span></span></a>
                         <ul class="nav nav-second-level">
 						
-                             <li> <a href="{{ path('ads_import') }}"><i class="fa fa-file" aria-hidden="true"></i><span class="hide-menu">Importé fichier</span></a></li>
-                             <li> <a href="{{ path('ads_register_cas') }}"><i class="fa fa-link" aria-hidden="true"></i><span class="hide-menu">Associer nom</span></a></li>
+                             
+        
                              <li> <a href="{{ path('ads_register_cas_contact') }}"><i class="fa fa-male" aria-hidden="true"></i><span class="hide-menu">Enregistrer cas contact</span></a></li>
                               <li> <a href="{{ path('ads_search_releve') }}"><i class="fa fa-search" aria-hidden="true"></i><span class="hide-menu">Rechercher dans releve</span></a></li>
                              <li> <a href="{{ path('ads_patient_list') }}"><i class="fa fa-list" aria-hidden="true"></i><span class="hide-menu">Liste patient</span></a></li>
@@ -73,6 +73,64 @@
                 {% endfor %}
                      {% endif %}
 
+
+
+ {% if is_granted('ROLE_COMM') %}      
+
+{% for commissaire in app.user.commissaires %}
+
+
+<li class="user-pro">
+                        <a href="#" class="waves-effect"> <img src="{{ asset('optimum/images/pp.png')}}" alt="user-img"  class="img-circle"> <span class="hide-menu">{% for commissaire in app.user.commissaires %} {{commissaire.nom}}{% endfor %}<span class="fa arrow"></span></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="javascript:void(0)"><i class="ti-user"></i> My Profile</a></li>
+                            <li><a href="javascript:void(0)"><i class="ti-email"></i> Inbox</a></li>
+                            <li><a href="javascript:void(0)"><i class="ti-settings"></i> Account Setting</a></li>
+                            <li><a href="{{ path('app_login') }}"><i class="fa fa-power-off"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                    <li> <a href="{{ path('comm_accueil') }}" class="waves-effect"><i class="ti-dashboard p-r-10"></i> <span class="hide-menu"><B>Dashboard</B></span></a> </li>
+                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span class="hide-menu"> Gerer suspect <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">3</span></span></a>
+                        <ul class="nav nav-second-level">
+						
+                             <li> <a href="#"><i class="fa fa-phone" aria-hidden="true"></i><span class="hide-menu">Details appels</span></a></li>
+                             <li> <a href="{{path('comm_vis')}}"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hide-menu">Graphe enquete</span></a></li>
+                            
+							  
+							
+                        
+        
+                
+						
+                      </ul>
+                    </li>
+                    
+					
+					
+                   
+                    
+                   
+					
+					
+					
+                    
+                   
+                    
+                    <li><a href="{{ path('app_logout') }}" class="waves-effect"><i class="icon-logout fa-fw"></i> <span class="hide-menu">Log out</span></a></li>
+                </ul>
+            </div>
+        </div>
+      
+                 
+
+                {% endfor %}
+                     {% endif %}
+
+        
+
+
+
                      
                       {% if is_granted('ROLE_ADMIN') %}
 
@@ -101,10 +159,10 @@
                             
                       </ul>
                     </li>
-                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="icon-envelope p-r-10"></i> <span class="hide-menu"> Gerer etudiants <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">6</span></span></a>
+                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="icon-envelope p-r-10"></i> <span class="hide-menu"> Gerer données <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">6</span></span></a>
                         <ul class="nav nav-second-level">
-                            <li> <a href=""><i class="fa fa-folder"></i> candidatures</a></li>
-                            <li> <a href=""><i class="ti-user"></i>Stagiaires</a></li>
+                            <li> <a href="{{path('admin_import')}}"><i class="fa fa-folder"></i>Importer fichiers</a></li>
+                            <li> <a href="{{path('admin_register_cas')}}"><i class="ti-user"></i>Associer nom</a></li>
                             <li> <a href=""><i class="ti-user"></i>Non stagiaires</a></li>
                         </ul>
                     </li>

@@ -49,6 +49,26 @@ class CDS
      */
     private $color;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $siteW;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $contact;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $horaire;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $email;
+
     public function __construct()
     {
         $this->membres = new ArrayCollection();
@@ -145,6 +165,54 @@ class CDS
     public function setColor(?string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    public function getSiteW(): ?string
+    {
+        return $this->siteW;
+    }
+
+    public function setSiteW(?string $siteW): self
+    {
+        $this->siteW = $siteW;
+
+        return $this;
+    }
+
+    public function getContact(): ?string
+    {
+        return $this->contact;
+    }
+
+    public function setContact(?string $contact): self
+    {
+        $this->contact = $contact;
+
+        return $this;
+    }
+
+    public function getHoraire(): ?string
+    {
+        return $this->horaire;
+    }
+
+    public function setHoraire(?string $horaire): self
+    {
+        $this->horaire = $horaire;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

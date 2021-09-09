@@ -45,9 +45,15 @@ class User implements UserInterface
      */
     private $type;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commissaire::class, mappedBy="user")
+     */
+    private $commissaires;
+
     public function __construct()
     {
         $this->membres = new ArrayCollection();
+        $this->commissaires = new ArrayCollection();
     }
 
    
@@ -169,6 +175,36 @@ class User implements UserInterface
     public function setType(?int $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commissaire[]
+     */
+    public function getCommissaires(): Collection
+    {
+        return $this->commissaires;
+    }
+
+    public function addCommissaire(Commissaire $commissaire): self
+    {
+        if (!$this->commissaires->contains($commissaire)) {
+            $this->commissaires[] = $commissaire;
+            $commissaire->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommissaire(Commissaire $commissaire): self
+    {
+        if ($this->commissaires->removeElement($commissaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commissaire->getUser() === $this) {
+                $commissaire->setUser(null);
+            }
+        }
 
         return $this;
     }

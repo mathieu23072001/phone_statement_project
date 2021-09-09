@@ -43,6 +43,6 @@ security:
          - { path: ^/membre, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/ads, roles: ROLE_ADS }
          - { path: ^/rdc, roles: ROLE_RDC }
-         - { path: ^/comm, roles: ROLE_COMMISSAIRE }
+         - { path: ^/comm, roles: ROLE_COMM }
          - { path: ^/casContact, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 

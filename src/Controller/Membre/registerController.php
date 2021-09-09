@@ -3,9 +3,11 @@
 namespace App\Controller\Membre;
 
 use App\Entity\CDS;
+use APP\Entity\User;
 use App\Entity\Membre;
 use App\Form\MembreType;
-use APP\Entity\User;
+use App\Entity\Commissaire;
+use App\Form\CommissaireType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,7 +78,7 @@ class registerController extends AbstractController
                 $em->flush();
 
                 $this->addFlash('success', 'enregistrement réussie');
-                return $this->redirectToRoute("app_login");
+                return $this->redirectToRoute("membre_register_success");
             }
            
             if( $r!=null && $role == "responsable de centre"){
@@ -95,7 +97,7 @@ class registerController extends AbstractController
                 $em->flush();
 
                 $this->addFlash('success', 'enregistrement réussie');
-                return $this->redirectToRoute("app_login");
+                return $this->redirectToRoute("membre_register_success");
             }
            
         
@@ -140,9 +142,68 @@ class registerController extends AbstractController
 
 
 
+    /**
+     * @Route("/register_succes",name="membre_register_success")
+     */
+
+    public function registerSuccess(Request $request)
+    {
+     
+
+        
+        
+
+        
+        return $this->render('traitementOK.html.twig',[
+            
+        ] );
+    }
 
 
 
+
+
+
+
+
+
+
+     /**
+     * @Route("/registerComm",name="membre_comm_register")
+     */
+
+public function RegisterComm(Request $request,UserPasswordEncoderInterface $encoder):Response{
+
+    $comm = new Commissaire();
+    $form = $this->createForm(CommissaireType::class, $comm);
+    
+    $form->handleRequest($request);
+    $em = $this->getDoctrine()->getManager();
+  
+    if ($form->isSubmitted() && $form->isValid()) {
+      $hash= $encoder->encodePassword($comm->getUser(), $comm->getUser()->getPassword());
+  
+      $comm->getUser()->setPassword($hash);
+      $comm->getUser()->setRoles(["ROLE_COMM"]);
+      $comm->getUser()->setType(3);
+  
+      $em->persist($comm);
+      $em->flush();
+  
+      return $this->redirectToRoute("membre_register_success");
+  
+  
+  
+  
+  
+  
+    }
+  
+  
+    return $this->render('comm/register.html.twig',['form' => $form->createView()]);
+      
+  }
+  
 
 
 
