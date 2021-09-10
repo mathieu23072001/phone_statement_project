@@ -1,0 +1,77 @@
+{% extends "baseSupAd2.html.twig" %}
+
+{% block stylesheets %} {{  parent() }} {% endblock %}
+
+{% block title %} {{  parent() }} {% endblock %}
+
+{% block javascript %} {{  parent() }} {% endblock %}
+
+
+{% block body %}
+
+
+ 
+
+<div class="row bg-title">
+ 
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">commissaire</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-4 col-xs-12"> 
+                    <o class="breadcrumb">
+                        <li><a href="{{path('comm_accueil')}}">accueil </a> </li>
+                        <li class="active"> Résumé des appels téléphoniques</li>
+                    </o>
+                </div>
+                
+                <!-- /.col-lg-12 -->
+            </div>
+  
+
+               
+
+
+
+               <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Appels téléphoniques</h3>
+                            <p class="text-muted m-b-30">Selectionnez un centre de sante et inscrivez-vous</p>
+                            <div class="table-responsive">
+                                <table id="myTable" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>NUMERO</th>
+                                            <th>NB.AP.ENTRANTS</th>
+                                            <th>NB.AP.SORTANTS</th>
+                                            <th>TOTAL APPEL</th>
+                                            <th>NUMERO CORRESPONDANT</th>
+                                             <th>DETAILS APPELS</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><a href="#"><button type="button" class="btn btn-primary">Details</button></a></td>
+                                            
+                                        </tr>
+                                        
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  </div>
+       
+ {% endblock %}
+
+ 
+

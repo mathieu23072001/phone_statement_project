@@ -74,7 +74,7 @@ var afficherGeoLocPosition = function(geolocPosition) {
 
     let marker = L.marker([parseFloat(geolocPosition.coords.latitude), parseFloat(geolocPosition.coords.longitude)]).addTo(carte)
          
-                    marker.bindPopup("votre position") 
+                    marker.bindPopup("votre position"+"<br/>"+"latitude: "+geolocPosition.coords.latitude+"<br/>"+"longitude: "+geolocPosition.coords.longitude) 
                     
                     
              champDistance.addEventListener("change", function(){
@@ -111,7 +111,7 @@ var afficherGeoLocPosition = function(geolocPosition) {
                     const markerItem = dataToObj(markerItemRef);
                     
                     let marker = L.marker([parseFloat(markerItem.latitude), parseFloat(markerItem.longitude)]).addTo(carte)
-                    marker.bindPopup("nom: "+markerItem.nom+" <br/>"+"quartier: " +markerItem.quartier+"<br/>"+"contact: "+markerItem.contact+"<br/>"+"email: "+markerItem.email+"<br/>"+"site web: "+markerItem.site_w)
+                    marker.bindPopup("nom: "+markerItem.nom+" <br/>"+"quartier: " +markerItem.quartier+"<br/>"+"contact: "+markerItem.contact+"<br/>"+"email: "+markerItem.email+"<br/>"+"site web: "+markerItem.site_w+"<br/>"+"horaire: "+markerItem.horaire)
                 });
 
                 /*Object.entries(donnees).forEach(agence => {

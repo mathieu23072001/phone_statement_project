@@ -55,7 +55,7 @@ class casController extends AbstractController
                     echo 'Erreur : '. $e->getMessage();
                     die();
                 }
-                $sql = 'SELECT id, nom, latitude, longitude, quartier,email,contact,site_w,( 6371 * acos( cos( radians(:latitude) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:longitude) ) + sin( radians(:latitude) ) * sin( radians( latitude ) ) ) ) AS distance FROM `cds` HAVING distance < :distance ORDER BY distance';
+                $sql = 'SELECT id, nom, latitude, longitude, quartier,email,contact,site_w,horaire,( 6371 * acos( cos( radians(:latitude) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:longitude) ) + sin( radians(:latitude) ) * sin( radians( latitude ) ) ) ) AS distance FROM `cds` HAVING distance < :distance ORDER BY distance';
                 $query = $db->prepare($sql);
       
                 $query->bindValue(':latitude', $lat, PDO::PARAM_STR);    
@@ -120,7 +120,7 @@ public function casContact2(Request $request){
                     echo 'Erreur : '. $e->getMessage();
                     die();
                 }
-                $sql = 'SELECT id, nom, latitude, longitude, quartier, email,contact,site_w,( 6371 * acos( cos( radians(:latitude) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:longitude) ) + sin( radians(:latitude) ) * sin( radians( latitude ) ) ) ) AS distance FROM `cds` HAVING distance < :distance ORDER BY distance';
+                $sql = 'SELECT id, nom, latitude, longitude, quartier, email,contact,site_w,horaire,( 6371 * acos( cos( radians(:latitude) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:longitude) ) + sin( radians(:latitude) ) * sin( radians( latitude ) ) ) ) AS distance FROM `cds` HAVING distance < :distance ORDER BY distance';
                 $query = $db->prepare($sql);
       
                 $query->bindValue(':latitude', $lat, PDO::PARAM_STR);    

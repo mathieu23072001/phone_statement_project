@@ -46,6 +46,38 @@ public function Comm(Request $request){
     
 }
 
+
+
+ /**
+     * @Route("/appel",name="comm_appel")
+     */
+
+    public function CommAppel(Request $request){
+
+        try{
+            // Connexion à la bdd
+            $db = new PDO('mysql:host=localhost;dbname=bdtest', 'root','');
+            $db->exec('SET NAMES "UTF8"');
+        } catch (PDOException $e){
+            echo 'Erreur : '. $e->getMessage();
+            die();
+        }
+
+        $sql = 'select distinct peronne_one_id, personne_two_id , count(sens_appel) as E, count(sens_appel) as S from appel a1 INNER JOIN personne p1 ON a1.peronne_one_id = p1.id inner join personne p2 ON p2.id= a1.personne_two_id
+        
+        group by peronne_one_id, personne_two_id
+        ';
+
+    $query = $db->prepare($sql);
+    $query->execute();
+    $result = $query->fetchAll();
+  dd($result);
+
+
+        return $this->render('comm/appel.html.twig');
+          
+      }
+
  
 
 

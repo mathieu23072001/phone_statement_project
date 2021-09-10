@@ -115,7 +115,7 @@ window.onload = () => {
                     const markerItem = dataToObj(markerItemRef);
                     
                     let marker = L.marker([parseFloat(markerItem.latitude), parseFloat(markerItem.longitude)]).addTo(carte)
-                    marker.bindPopup("nom: "+markerItem.nom+" <br/>"+"quartier: " +markerItem.quartier+"<br/>"+"contact: "+markerItem.contact+"<br/>"+"email: "+markerItem.email+"<br/>"+"site web: "+markerItem.site_w)
+                    marker.bindPopup("nom: "+markerItem.nom+" <br/>"+"quartier: " +markerItem.quartier+"<br/>"+"contact: "+markerItem.contact+"<br/>"+"email: "+markerItem.email+"<br/>"+"site web: "+markerItem.site_w+"<br/>"+"horaire: "+markerItem.horaire)
                 });
 
                 /*Object.entries(donnees).forEach(agence => {

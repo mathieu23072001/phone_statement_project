@@ -125,7 +125,7 @@
 	<link href="{{ asset('optimum/fullcalendar/css/style.css')}}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{asset('optimum/date/daterangepicker.css')}}" />
     <!-- Flashy CSS -->
-
+<link href="{{ asset('optimum/plugins/bower_components/bootstrap-table/dist/bootstrap-table.min.css')}}" rel="stylesheet" type="text/css" />
      
 <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
@@ -135,7 +135,21 @@
  {% block javascripts %}
 
 
+ <script src="{{ asset('optimum/plugins/bower_components/jquery-datatables-editable/jquery.dataTables.js')}}"></script>
+    <script src="{{ asset('optimum/plugins/bower_components/datatables/dataTables.bootstrap.js')}}"></script>
+    <script src="{{ asset('optimum/plugins/bower_components/tiny-editable/mindmup-editabletable.js')}}"></script>
+    <script src="{{ asset('optimum/plugins/bower_components/tiny-editable/numeric-input-example.js')}}"></script>
+    <script src="{{asset('optimum/plugins/bower_components/datatables/jquery.dataTables.min.js')}}"></script>
 
+<script src="{{asset('assets/javascripts/tables/examples.datatables.default.js')}}"></script>
+		<script src="{{asset('assets/javascripts/tables/examples.datatables.tabletools.js')}}"></script>
+	 
+<script src="{{asset('optimum/js/jquery.PrintArea.js')}}" type="text/JavaScript"></script>
+
+
+
+    
+    
  
 
  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
