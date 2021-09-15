@@ -5,9 +5,11 @@ namespace App\Controller\Comm;
 use PDO;
 use connect;
 use PDOException;
+use App\Entity\Appel;
 use App\Entity\Commissaire;
 use App\Form\CommissaireType;
 use Doctrine\ORM\EntityManagerInterface;
+use Picqer\Barcode\BarcodeGeneratorHTML;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -52,29 +54,73 @@ public function Comm(Request $request){
      * @Route("/appel",name="comm_appel")
      */
 
-    public function CommAppel(Request $request){
-
-        try{
-            // Connexion à la bdd
-            $db = new PDO('mysql:host=localhost;dbname=bdtest', 'root','');
-            $db->exec('SET NAMES "UTF8"');
-        } catch (PDOException $e){
-            echo 'Erreur : '. $e->getMessage();
-            die();
-        }
-
-        $sql = 'select distinct peronne_one_id, personne_two_id , count(sens_appel) as E, count(sens_appel) as S from appel a1 INNER JOIN personne p1 ON a1.peronne_one_id = p1.id inner join personne p2 ON p2.id= a1.personne_two_id
-        
-        group by peronne_one_id, personne_two_id
-        ';
-
-    $query = $db->prepare($sql);
-    $query->execute();
-    $result = $query->fetchAll();
-  dd($result);
+    public function CommAppel(Request $request){ 
+      
+      try{
+      // Connexion à la bdd
+      $db = new PDO('mysql:host=localhost;dbname=bdtest', 'root','');
+      $db->exec('SET NAMES "UTF8"');
+  } catch (PDOException $e){
+      echo 'Erreur : '. $e->getMessage();
+      die();
+  }
 
 
-        return $this->render('comm/appel.html.twig');
+      $appels= $this->getDoctrine()->getRepository(Appel::class)->findAll();
+    $tab1= [];
+    $tab2= [];
+    $tab3= array();
+    $i = 0;
+    $j = 0;
+    foreach($appels as $appel ){
+    // $id1= $appel->getPeronneOne()->getId();
+    //  $id2= $appel->getPersonneTwo()->getId();
+     $tab1[$i] = $appel->getPeronneOne()->getId();
+     $tab2[$j] = $appel->getPersonneTwo()->getId();
+     $tab3[0]= array($appel->getPeronneOne()->getId(),$appel->getPersonneTwo()->getId());
+     
+
+     $sql = 'SELECT count(a.sens_appel) as sortie, a.peronne_one_id,a.personne_two_id from appel a, personne p1, personne p2 where  p1.id = :r1  AND p2.id = :r2 AND sens_appel = "S" ';
+     $query = $db->prepare($sql);
+     $query->bindValue(':r1', $tab1[$i], PDO::PARAM_STR);    
+     $query->bindValue(':r2', $tab2[$j], PDO::PARAM_STR); 
+     $query->execute();
+     $result = $query->fetchAll(); 
+
+
+   //   $em = $this->getDoctrine()->getManager();
+    //  $query1 = $em->createQuery('SELECT DISTINCT p.nom as nom, p.contact as contact from App:Personne p  where p.id= :id' );
+    //  $query1->setParameter('id', $tab[$i]);
+    //  $pers1 = $query1->getResult();
+
+
+     // $query2 = $em->createQuery('SELECT DISTINCT p.nom as nom, p.contact as contact from App:Personne p  where p.id= :id' );
+     // $query2->setParameter('id', $tab[$j]);
+     // $pers2 = $query2->getResult();
+
+      //$query3 = $em->createQuery('SELECT count(*) as entree from App:Appel a inner join a.peronneOne p1 inner join a.personneTwo p2 where p1.id= :id1 AND p2.id= :id2');
+      //$query3->setParameter('id1',$tab[$i]);
+      //$query3->setParameter('id2',$tab[$j]);
+      //$result = $query3->getResult();
+     $i++;
+     $j++;
+    // dd($result);
+    
+    }
+   // $i++;
+   // $j++;
+   dd($result);
+
+
+
+
+
+
+    
+        return $this->render('comm/appel.html.twig',[
+          
+          
+        ]);
           
       }
 
