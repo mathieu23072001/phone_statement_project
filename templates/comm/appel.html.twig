@@ -58,7 +58,7 @@
                                             <td>{{data.personne1}}</td>
                                             <td>{{data.entree.0.nbre}} </td>
                                             <td>{{data.sortie.0.nbre}}</td>
-                                            <td>blala</td>
+                                            <td>{% set total= data.entree.0.nbre + data.sortie.0.nbre %} {{total}}</td>
                                             <td>{{data.personne2}}</td>
                                         
                                             
