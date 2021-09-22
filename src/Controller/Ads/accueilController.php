@@ -26,7 +26,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 
 /**
@@ -358,7 +359,65 @@ class accueilController extends AbstractController
     }
 
     
-     
+
+
+    /**
+     * @Route("/printCas", name="ads_print_cas")
+     */
+    
+     public function PrintCas(){
+
+
+        $user = $this->getUser();
+        $cas = new Cas();
+        $em = $this->getDoctrine()->getManager();
+
+        $cas = $em->getRepository(Cas::class)->findAll();
+       
+
+
+
+
+
+ 
+ // Configure Dompdf according to your needs
+ $pdfOptions = new Options();
+ $pdfOptions->set('defaultFont', 'Arial');
+ 
+ // Instantiate Dompdf with our options
+ $dompdf = new Dompdf($pdfOptions);
+ 
+ // Retrieve the HTML generated in our twig file
+ $html = $this->renderView('ads/casList.html.twig', [
+     'title' => "Liste des cas contacts",
+     'cas'=> $cas,
+     'user'=>$user
+ ]);
+ 
+ // Load HTML to Dompdf
+ $dompdf->loadHtml($html);
+ 
+ // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+ $dompdf->setPaper('A4', 'portrait');
+
+ // Render the HTML as PDF
+ $dompdf->render();
+
+ // Output the generated PDF to Browser (inline view)
+ $dompdf->stream("mypdf.pdf", [
+     "Attachment" => false
+ ]);
+
+
+
+
+
+
+
+
+
+
+     }
      
     
 }

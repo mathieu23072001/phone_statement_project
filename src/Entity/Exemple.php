@@ -17,8 +17,25 @@ class Exemple
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $creatAt;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCreatAt(): ?\DateTimeImmutable
+    {
+        return $this->creatAt;
+    }
+
+    public function setCreatAt(?\DateTimeImmutable $creatAt): self
+    {
+        $this->creatAt = $creatAt;
+
+        return $this;
     }
 }

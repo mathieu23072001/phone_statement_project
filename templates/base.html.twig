@@ -17,6 +17,27 @@
             {#{{ encore_entry_script_tags('app') }}#}
             <script src="{{asset('Graphe/js/raphael.js')}}"></script>
             <script src="{{asset('Graphe/js/Treant.js')}}"></script> 
+
+
+
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script>
+    function printDiv() {
+        var divToPrint = document.getElementById('basic-example');
+        newWin = window.open("");
+        newWin.document.write(divToPrint.outerHTML);
+        newWin.print();
+        newWin.close();
+   }
+</script>
+
+
+
+
         
 
         {% endblock %}

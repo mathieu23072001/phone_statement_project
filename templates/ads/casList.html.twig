@@ -4,7 +4,10 @@
 
 {% block title %} {{  parent() }} {% endblock %}
 
-{% block javascript %} {{  parent() }} {% endblock %}
+{% block javascript %}
+
+ {{  parent() }}
+  {% endblock %}
 
 
 {% block body %}
@@ -41,10 +44,10 @@
                                 <table id="myTable" class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Nom</th>
-                                            <th>Numero</th>
-                                            <th> Etat <th>
-                                            
+                                            <th >Nom</th>
+                                            <th >Numero</th>
+                                            <th  > Etat </th>
+                                            <th  > Action </th>
                                             
                                         </tr>
                                     </thead>
@@ -52,21 +55,41 @@
                                     <tbody>
                                         <tr>
                                             <td>{{ c.nom }}</td>
-                                            <td>{{ c.numero }}</td>
-                                            <td>zidvizvizirhv</td>
-                                            <td><a href="{{ path('ads_sms') }}"><button type="button" class="btn btn-primary">Envoyez sms</button></a></td>
+                                            <td >{{ c.numero }}</td>
+                                            <td  >zidvizvizirhv</td>
+                                            <td ><a href="{{ path('ads_sms') }}"><button type="button" class="btn btn-primary">Envoyez sms</button></a></td>
                                             
                                         </tr>
-                                        
+                                   
+
+
                                     </tbody>
                                     {% endfor %}
+                                    
+                                   
                                 </table>
-                            </div>
+                            </div>     
+                         <button type = "button" class= "btn btn-primary" onclick = "return printDiv()">imprimer</button> 
+
+
                         </div>
                     </div>
                   </div>
                   </div>
-      {% endfor %} 
+      {% endfor %}
+      
+    
+
+
+
+
+
+
+
+
+
+
+
  {% endblock %}
 
  

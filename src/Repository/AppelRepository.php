@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use PDO;
 use App\Entity\Appel;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Appel|null find($id, $lockMode = null, $lockVersion = null)
@@ -62,4 +63,37 @@ class AppelRepository extends ServiceEntityRepository
       ;
          return $query->getQuery()->getResult();
     }
+
+    public function detailsAppel($em,$id1,$id2,$sens)
+    {
+        try {
+            $sqlrech = " 
+       
+
+            SELECT count(a.sens_appel) as nbre
+   
+      from appel a  where  a.peronne_one_id = :r1  AND a.personne_two_id = :r2 AND sens_appel= :sens 
+            
+            
+            ";
+           
+                      
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->bindValue(':r1',$id1,PDO::PARAM_INT);
+            $stmt->bindValue(':r2',$id2,PDO::PARAM_INT);
+            $stmt->bindValue(':sens',$sens,PDO::PARAM_STR);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return $stmt->fetchAll() ;
+    }
+
+
+
+
+
+
 }

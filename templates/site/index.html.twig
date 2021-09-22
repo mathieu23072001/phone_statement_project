@@ -13,7 +13,7 @@
     <title>Smart - Multi-purpose Landing Page Template</title>
 
     <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="{{asset('assets/images/favicon.png')}}" type="image/png">
+    <link rel="shortcut icon" href="{{asset('assets/images/saasib.jpg')}}" type="image/png">
 
     <!--====== Bootstrap css ======-->
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
@@ -71,7 +71,7 @@
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg">
                             <a class="navbar-brand" href="#">
-                                <img src="{{asset('assets/images/logo.png')}}" alt="Logo">
+                                <img src="{{asset('assets/images/saasib.jpg')}}" alt="Logo">
                             </a>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarEight" aria-controls="navbarEight" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,7 +85,8 @@
                                     <li class="nav-item active">
                                         <a class="page-scroll" href="{{path('site')}}">Accueil</a>
                                     </li>
-                                    <li class="nav-item">
+
+                                   <!-- <li class="nav-item">
                                         <a class="page-scroll" href="#about">ABOUT</a>
                                     </li>
                                     <li class="nav-item">
@@ -93,10 +94,12 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="page-scroll" href="#pricing">PRICING</a>
-                                    </li>
+                                    </li>-->
                                     <li class="nav-item">
+
                                     
-                                 <a class="page-scroll" href="{{path('app_login')}}">CONNEXION1</a>
+                                    
+                                 <a class="page-scroll" href="{{path('app_login')}}">CONNEXION</a>
                                     
                                        
                                     </li>
@@ -129,7 +132,7 @@
                     </ol>
 
                     <div class="carousel-inner">
-                        <div class="carousel-item bg_cover active" style="background-image: url({{asset('assets/images/slider-1.jpg')}})">
+                        <div class="carousel-item bg_cover active" style="background-image: url({{asset('assets/images/recherche.jpg')}})">
                             <div class="carousel-caption">
                                 <div class="container">
                                     <div class="row justify-content-center">
@@ -145,12 +148,12 @@
                             </div> <!-- carousel caption -->
                         </div> <!-- carousel-item -->
 
-                        <div class="carousel-item bg_cover" style="background-image: url({{asset('assets/images/slider-2.jpg')}})">
+                        <div class="carousel-item bg_cover" style="background-image: url({{asset('assets/images/stopcovid.jpg')}})">
                             <div class="carousel-caption">
                                 <div class="container">
                                     <div class="row justify-content-center">
                                         <div class="col-xl-6 col-lg-7 col-sm-10">
-                                            <h2 class="carousel-title">Based on Latest Bootstrap & HTML5</h2>
+                                            <h2 class="carousel-title">STOP COVID</h2>
                                             <ul class="carousel-btn rounded-buttons">
                                                 <li><a class="main-btn rounded-three" href="#">GET STARTED</a></li>
                                                 <li><a class="main-btn rounded-one" href="#">DOWNLOAD</a></li>
@@ -161,15 +164,31 @@
                             </div> <!-- carousel caption -->
                         </div> <!-- carousel-item -->
 
-                        <div class="carousel-item bg_cover" style="background-image: url({{asset('assets/images/slider-3.jpg')}})">
+                        <div class="carousel-item bg_cover" style="background-image: url({{asset('assets/images/investigation.jpg')}})">
                             <div class="carousel-caption">
                                 <div class="container">
                                     <div class="row justify-content-center">
                                         <div class="col-xl-6 col-lg-7 col-sm-10">
-                                            <h2 class="carousel-title">Multi-purpose Landing Page Template</h2>
+                                            <h2 class="carousel-title">Investigation</h2>
                                             <ul class="carousel-btn rounded-buttons">
-                                                <li><a class="main-btn rounded-three" href="#">GET STARTED</a></li>
-                                                <li><a class="main-btn rounded-one" href="#">DOWNLOAD</a></li>
+                                                <li><a class="main-btn rounded-three" href="#">Fiabilité</a></li>
+                                                <li><a class="main-btn rounded-one" href="#">Sécurité</a></li>
+                                            </ul>
+                                        </div>
+                                    </div> <!-- row -->
+                                </div> <!-- container -->
+                            </div> <!-- carousel caption -->
+                        </div> <!-- carousel-item -->
+
+                        <div class="carousel-item bg_cover" style="background-image: url({{asset('assets/images/stopcovid_0.jpg')}})">
+                            <div class="carousel-caption">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-xl-6 col-lg-7 col-sm-10">
+                                            <h2 class="carousel-title"></h2>
+                                            <ul class="carousel-btn rounded-buttons">
+                                                <li><a class="main-btn rounded-three" href="#"></a></li>
+                                                <li><a class="main-btn rounded-one" href="#"></a></li>
                                             </ul>
                                         </div>
                                     </div> <!-- row -->
@@ -210,13 +229,13 @@
                    
                 </ul>
             </div> <!-- menu -->
-            <div class="sidebar-social d-flex align-items-center justify-content-center">
+            {# <div class="sidebar-social d-flex align-items-center justify-content-center">
                 <span>FOLLOW US</span>
                 <ul>
                     <li><a href="#"><i class="lni-twitter-original"></i></a></li>
                     <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
                 </ul>
-            </div> <!-- sidebar social -->
+            </div> <!-- sidebar social --> #}
         </div> <!-- content -->
     </div>
     <div class="overlay-right"></div>

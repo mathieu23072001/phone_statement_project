@@ -17,8 +17,8 @@ class Appel
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
+   /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $date;
 
@@ -62,12 +62,12 @@ class Appel
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?\DateTimeImmutable
     {
         return $this->date;
     }
 
-    public function setDate(?\DateTimeInterface $date): self
+    public function setDate(?\DateTimeImmutable $date): self
     {
         $this->date = $date;
 

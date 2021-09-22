@@ -41,7 +41,7 @@
                                 <table id="myTable" class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>NUMERO</th>
+                                            <th>NUMERO CIBLE</th>
                                           
                                             <th>NB.AP.ENTRANTS</th>
                                             <th>NB.AP.SORTANTS</th>
@@ -52,14 +52,15 @@
                                             
                                         </tr>
                                     </thead>
-                                  
+                                  {% for data in data %}
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{{data.personne1}}</td>
+                                            <td>{{data.entree.0.nbre}} </td>
+                                            <td>{{data.sortie.0.nbre}}</td>
+                                            <td>blala</td>
+                                            <td>{{data.personne2}}</td>
+                                        
                                             
                                         
                                             <td><a href="#"><button type="button" class="btn btn-primary">Details</button></a></td>
@@ -67,6 +68,7 @@
                                         </tr>
                                         
                                     </tbody>
+                                    {% endfor %}
                                    
                                 </table>
                             </div>
