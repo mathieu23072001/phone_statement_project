@@ -34,7 +34,11 @@
 
                <div class="row">
                     <div class="col-sm-12">
-                        <div class="white-box">
+
+                        
+
+
+                        <div class="white-box printableArea">
                             <h3 class="box-title m-b-0">Liste des patients</h3>
                             <p class="text-muted m-b-30">Cliquez sur cas contact pour afficher les cas contacts du patient</p>
                             <div class="table-responsive">
@@ -64,7 +68,9 @@
                             </div>
 
 
-                         <button type = "button" class= "btn btn-primary" onclick = "return printDiv()">imprimer</button> 
+                                        <button id="print" class="btn btn-rounded btn-sm btn-info" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>
+                         
+
 
 
 
@@ -72,6 +78,7 @@
                         </div>
                     </div>
                   </div>
+                  
                   </div>
       {% endfor %} 
  {% endblock %}

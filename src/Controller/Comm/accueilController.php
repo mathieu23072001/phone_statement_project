@@ -56,7 +56,7 @@ public function Comm(Request $request){
      * @Route("/appel",name="comm_appel")
      */
 
-    public function CommAppel(Request $request,AppelRepository $appDetails){ 
+    public function CommAppel(Request $request,AppelRepository $appDetails,AppelRepository $distinct){ 
 
       $entityManager = $this->getDoctrine()->getManager();
 
@@ -68,31 +68,54 @@ public function Comm(Request $request){
         echo 'Erreur : '. $e->getMessage();
         die();
     }
+
+
+   
+   
+
+
+
       
-      $appels= $this->getDoctrine()->getRepository(Appel::class)->findAll();
+     // $appels= $this->getDoctrine()->getRepository(Appel::class)->findAll();
+      $appels = $distinct->findDistinctAll($entityManager);
+
+     
+     // dd($appels);
     $tab1= [];
     $tab2= [];
     
     $data = [];
   
     $i = 0;
-   
     
+  
     foreach($appels as $appel ){
-   
-     $tab1[$i] = $appel->getPeronneOne()->getId();
-     $tab2[$i] = $appel->getPersonneTwo()->getId();
-      $data[$i]['personne1'] =  $appel->getPeronneOne()->getId();
-      $data[$i]['personne2'] =   $appel->getPersonneTwo()->getId();
-      $data[$i]['sortie'] = $appDetails->detailsAppel($entityManager,$data[$i]['personne1'],$data[$i]['personne2'],"S");
-      $data[$i]['entree'] = $appDetails->detailsAppel($entityManager,$data[$i]['personne1'],$data[$i]['personne2'],"E");
-
-
-
      
+    
+    
+     
+    
+     // $data[$i]['personne1'] =  $appel->getPeronneOne()->getId();
+       $data[$i]['personne1'] = $appel['id1'];
+  
+       $data[$i]['nom1'] = $appel['nom1'];
+       $data[$i]['contact1'] = $appel['contact1'];
+     // $data[$i]['personne2'] =   $appel->getPersonneTwo()->getId();
+      $data[$i]['personne2'] = $appel['id2'];
+       $data[$i]['nom2'] = $appel['nom2'];
+       $data[$i]['contact2']= $appel['contact2'];
+     
+      
+          $data[$i]['sortie'] = $appDetails->detailsAppel($entityManager, $data[$i]['personne1'], $data[$i]['personne2'], "S");
+          $data[$i]['entree'] = $appDetails->detailsAppel($entityManager, $data[$i]['personne1'], $data[$i]['personne2'], "E");
+      
+
+    // $var1 = $data[$i]['personne1'];
+    // $var2 = $data[$i]['personne2'];
 
       //$appDetails->detailsAppel($entityManager,$data[$i]['personne1'],$data[$i]['personne2'],$data[$i]['sens']);
 
+     
 
      $i++;
     
@@ -101,7 +124,7 @@ public function Comm(Request $request){
     
     }
   
-     //dd($data);
+    //dd($data);
     
         return $this->render('comm/appel.html.twig',[
          'data'=> $data
@@ -153,18 +176,103 @@ public function Comm(Request $request){
 
 
         /**
-         * @Route("/itineraire", name="comm_itineraire")
+         * @Route("/itineraire/{id}", name="comm_itineraire")
          */
-        public function itineraire(Request $request){
+        public function itineraire(Request $request,$id){
+           
+          try{
+            // Connexion à la bdd
+            $db = new PDO('mysql:host=localhost;dbname=bdtest', 'root','');
+            $db->exec('SET NAMES "UTF8"');
+        } catch (PDOException $e){
+            echo 'Erreur : '. $e->getMessage();
+            die();
+        }
+        $sql = 'SELECT a.nom as nomA,p.nom as nom,p.contact as contact,ap.date as dte, ap.duree as duree,po.imei as imei,po.imsi as imsi, a.longitude as longitude, a.latitude as latitude from antenne a inner join appel ap on a.id = ap.antenne_id inner join portable po on po.id = ap.portable_id inner join personne p on p.id = ap.personne_two_id  where ap.peronne_one_id = :id';
+        $query = $db->prepare($sql);
+
+        $query->bindValue(':id', $id, PDO::PARAM_STR);
+        $query->execute();
+
+        $result = $query->fetchAll();
+       // dd($result);
+        
+
+
+
 
 
           return $this->render('comm/itineraire.html.twig', [
            
+            'result'=> $result
+            
+        ]);
+
+        }
+
+
+
+
+
+          /**
+         * @Route("/personneCible", name="comm_personne_cible")
+         */
+        public function Cible(){
+
+          try{
+            // Connexion à la bdd
+            $db = new PDO('mysql:host=localhost;dbname=bdtest', 'root','');
+            $db->exec('SET NAMES "UTF8"');
+        } catch (PDOException $e){
+            echo 'Erreur : '. $e->getMessage();
+            die();
+        }
+        $sql = 'SELECT DISTINCT p.id as id, p.nom as nom, p.contact as contact, po.imei as imei,po.imsi as imsi from personne p inner join appel a on p.id = a.peronne_one_id inner join portable po on po.id= a.portable_id';
+        $query = $db->prepare($sql);
+
+         
+        $query->execute();
+
+        $result = $query->fetchAll();
+        
+
+
+
+
+          return $this->render('comm/cible.html.twig', [
+           'result'=> $result
             
             
         ]);
 
         }
+
+
+     
+          /**
+         * @Route("/detailsAppel/{id1}/{id2}", name="comm_details_appel")
+         */
+
+      public function detailsAppel($id1, $id2){
+
+       
+
+       $appels= $this->getDoctrine()->getRepository(Appel::class)->findby(['peronneOne'=>$id1,'personneTwo'=>$id2]);
+       // dd($appels);
+       foreach($appels as $appel){
+           $one = $appel->getPeronneOne()->getNom();
+           $two = $appel->getPersonneTwo()->getNom();
+
+       }
+
+
+       return $this->render('comm/details.html.twig',[
+         'appels'=> $appels,
+         'one'=>$one,
+         'two'=>$two
+       ]);
+
+      }
         
      
      

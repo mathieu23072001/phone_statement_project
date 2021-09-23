@@ -70,9 +70,10 @@ class AppelRepository extends ServiceEntityRepository
             $sqlrech = " 
        
 
-            SELECT count(a.sens_appel) as nbre
+            SELECT DISTINCT count(a.sens_appel) as nbre
    
       from appel a  where  a.peronne_one_id = :r1  AND a.personne_two_id = :r2 AND sens_appel= :sens 
+      
             
             
             ";
@@ -92,6 +93,40 @@ class AppelRepository extends ServiceEntityRepository
     }
 
 
+
+
+
+    public function findDistinctAll( $em){
+
+      
+        try {
+            $sqlrech = " 
+       
+
+            SELECT DISTINCT p1.id as id1, p2.id as id2 ,p1.nom as nom1, p1.contact as contact1, p2.nom as nom2, p2.contact as contact2
+   
+      from appel a inner join  personne p1 on p1.id = a.peronne_one_id inner join personne p2 on p2.id = a.personne_two_id
+      
+            
+            
+            ";
+           
+                      
+            $stmt = $em->getConnection()->prepare($sqlrech);
+          
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return $stmt->fetchAll() ;
+
+
+
+        
+     }
+ 
 
 
 

@@ -1,0 +1,86 @@
+{% extends "baseSupAd2.html.twig" %}
+
+{% block stylesheets %} {{  parent() }} {% endblock %}
+
+{% block title %} {{  parent() }} {% endblock %}
+
+{% block javascript %} {{  parent() }} {% endblock %}
+
+
+{% block body %}
+
+
+ 
+
+<div class="row bg-title">
+ 
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">commissaire</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-4 col-xs-12"> 
+                    <o class="breadcrumb">
+                        <li><a href="{{path('comm_accueil')}}">accueil </a> </li>
+                        <li class="active"> Liste des personne cibles</li>
+                    </o>
+                </div>
+                
+                <!-- /.col-lg-12 -->
+            </div>
+  
+
+               
+
+
+
+               <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Personnes cibles</h3>
+                            <p class="text-muted m-b-30">Consulter l'itinéraire d'une personne cible</p>
+                            <div class="table-responsive">
+                                <table id="myTable" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>NUMERO CIBLE</th>
+                                            
+                                            <th>NOM CIBLE</th>
+                                            <th>IMEI</th>
+                                            <th>IMSI</th>
+                                        
+                                            
+                                           
+                                             <th>ITINERAIRE</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                  {% for result in result %}
+                                    <tbody>
+                                        <tr>
+                                            <td>{{result.contact}}</td>
+                                            
+                                            <td>{{result.nom}} </td>
+                                            <td>{{result.imei}}</td>
+                                            <td>{{result.imsi}}</td>
+                                        
+                                        
+                                        
+                                            
+                                        
+                                            <td><a href="{{ path('comm_itineraire',{'id': result.id}) }}"><button type="button" class="btn btn-primary">Voir</button></a></td>
+                                            
+                                        </tr>
+                                        
+                                    </tbody>
+                                    {% endfor %}
+                                   
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  </div>
+       
+ {% endblock %}
+
+ 
+

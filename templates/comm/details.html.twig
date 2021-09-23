@@ -20,7 +20,7 @@
                 <div class="col-lg-9 col-sm-8 col-md-4 col-xs-12"> 
                     <o class="breadcrumb">
                         <li><a href="{{path('comm_accueil')}}">accueil </a> </li>
-                        <li class="active"> Résumé des appels téléphoniques</li>
+                        <li class="active"> Détails de l'appel</li>
                     </o>
                 </div>
                 
@@ -29,65 +29,69 @@
   
 
                
-
+            
 
 
                <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box printableArea">
-                            <h3 class="box-title m-b-0"> Résumés des appels téléphoniques</h3>
-                            <p class="text-muted m-b-30">Selectionnez un centre de sante et inscrivez-vous</p>
+                            <h3 class="box-title m-b-0">Details des appels entre {{one }} et {{two}}</h3>
+                            <p class="text-muted m-b-30">Consulter les détails de l'appel</p>
                             <div class="table-responsive">
                                 <table id="" class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>NUM CIBLE</th>
-                                            <th>NOM CIBLE </th>
-                                            <th>NB.AP.ENTRANTS</th>
-                                            <th>NB.AP.SORTANTS</th>
-                                            <th>TOTAL APPEL</th>
-                                            <th>NUM CONTACT</th>
-                                            <th>NOM CONTACT </th>
+                                        
+                                            
+                                            
+                                            
+                                            <th>date</th>
+                                            <th>duree</th>
+                                            <th>Type</th>
+                                            <th> sens </th>
+                                            <th> antenne cible</th>
+                                            <th>telephone cible</th>
+                                        
+                                            
+                                            
+                                            
                                             
                                            
-                                             <th>DETAILS</th>
+                                        
                                             
                                         </tr>
                                     </thead>
-                                  {% for data in data %}
+                                {% for appels in appels %}
                                     <tbody>
                                         <tr>
-                                            <td>{{data.contact1}}</td>
-                                            <td>{{data.nom1}}</td>
+                                            <td>{{appels.date|date("Y-m-d  H:i:s")}}</td>
                                             
-                                            <td>{{data.entree.0.nbre}} </td>
-                                            <td>{{data.sortie.0.nbre}}</td>
-                                            <td>{% set total= data.entree.0.nbre + data.sortie.0.nbre %} {{total}}</td>
-                                            <td>{{data.contact2}}</td>
-                                            <td>{{data.nom2}}</td>
+                                            <td>{{appels.duree}} </td>
+                                            <td>{{appels.typeAppel}}</td>
+                                            <td>{{appels.sensAppel}}</td>
+                                            <td>{{appels.antenne.nom}}</td>
+                                            <td>imei : {{appels.portable.imei}}, imsi: {{appels.portable.imsi}}</td>
+                                        
                                         
                                         
                                             
                                         
-                                                    <td><a href="{{ path('comm_details_appel',{'id1': data.personne1,'id2':data.personne2}) }}"><button type="button" class="btn btn-primary">Voir</button></a></td>
+                                        
                                             
                                         </tr>
                                         
                                     </tbody>
-                                    {% endfor %}
-                                   
-                                </table>
-
                                 
+                                 {% endfor %}
+                                </table>
                             </div>
 
-                             <button id="print" class="btn btn-rounded btn-sm btn-info" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>
+                            <button id="print" class="btn btn-rounded btn-sm btn-info" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>
                         </div>
                     </div>
+                  </div>
+                  </div>
 
-                  </div>
-                  </div>
-       
  {% endblock %}
 
  

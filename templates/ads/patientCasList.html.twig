@@ -10,6 +10,7 @@
 
   {% block body %}
 
+<div class="white-box printableArea">
 
 
     <div class="chart" id="basic-example"></div>
@@ -73,9 +74,12 @@ new Treant( chart_config );
     </script>
     
 
+ <center><button id="print" class="btn btn-rounded btn-sm btn-info" type="button"> <span><i class="fa fa-print"></i> Print</span> </button></center>
 
 
-<a href="{{ path('ads_sms') }}"> <center top="3em"><h1> Envoyez sms </h1></center> </a>
+
+</div>
+  
 
   
 

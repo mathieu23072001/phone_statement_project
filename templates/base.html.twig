@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{asset('Graphe/css/basic-example.css')}}">
 
 
+
         {% endblock %}
 
         {% block javascripts %}
@@ -25,15 +26,30 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
+
+
+<script src="{{asset('optimum/js/jquery.PrintArea.js')}}" type="text/JavaScript"></script>
+
 <script>
-    function printDiv() {
-        var divToPrint = document.getElementById('basic-example');
-        newWin = window.open("");
-        newWin.document.write(divToPrint.outerHTML);
-        newWin.print();
-        newWin.close();
-   }
-</script>
+    $(document).ready(function() {
+        $("#print").click(function() {
+            var mode = 'iframe'; //popup
+            var close = mode == "popup";
+            var options = {
+                mode: mode,
+                popClose: close
+            };
+            $("div.printableArea").printArea(options);
+        });
+    });
+    </script>
+	
+
+
+
+
+
+
 
 
 
@@ -49,7 +65,7 @@
         
         {% endblock %}
         
-       <a href="{{ path('ads_sms') }}"> <center top="3em"><h1> Envoyez sms </h1></center> </a>
+      
         
     </body>
 </html>

@@ -326,7 +326,7 @@ class accueilController extends AbstractController
         $hum = $query2->getSingleResult();
        
 
-        return $this->render('ads/treant.html.twig',[
+        return $this->render('ads/patientCasList.html.twig',[
             'hum'=> $hum,      
             'cas'=>$cas    
         ]);
@@ -349,12 +349,17 @@ class accueilController extends AbstractController
         $customer_id = "EBC52519-57DD-49EB-A636-FB47C7DBC02F";
   $api_key = "7lQlJGp6XJlxA5UFHMisnrb3zUBFigtS/t1jCF+G8DWKcGX0hcRxMqljWDfhtoigyFq9x8SMxpauTmhYYXJ/Aw==";
   $phone_number = "22892855872";
-  $message = "Il est très probable que vous aillez été en contact avec une personne infectée. Rendez-vous sur ce lien pour prendre un rendez-vous de dépistage";
+  $message = "Il est très probable que vous aiyez été en contact avec une personne infectée du covid 19. Rendez-vous sur ce lien pour prendre un rendez-vous de dépistage";
   $message_type = "ARN";
   $messaging = new MessagingClient($customer_id, $api_key);
   $response = $messaging->message($phone_number, $message, $message_type);
 
-        return $this->render('ads/accueil.html.twig');
+      //  return $this->render('ads/accueil.html.twig');
+
+
+        return $this->redirectToRoute("ads_sms_success");
+
+
            
     }
 
@@ -362,51 +367,21 @@ class accueilController extends AbstractController
 
 
     /**
-     * @Route("/printCas", name="ads_print_cas")
+     * @Route("/smsSucces", name="ads_sms_success")
      */
     
-     public function PrintCas(){
-
-
-        $user = $this->getUser();
-        $cas = new Cas();
-        $em = $this->getDoctrine()->getManager();
-
-        $cas = $em->getRepository(Cas::class)->findAll();
-       
+     public function SmsSucces(){
 
 
 
+        
 
+        return $this->render('ads/traitementOK.html.twig',[
+            
+        ] );
+    }
 
  
- // Configure Dompdf according to your needs
- $pdfOptions = new Options();
- $pdfOptions->set('defaultFont', 'Arial');
- 
- // Instantiate Dompdf with our options
- $dompdf = new Dompdf($pdfOptions);
- 
- // Retrieve the HTML generated in our twig file
- $html = $this->renderView('ads/casList.html.twig', [
-     'title' => "Liste des cas contacts",
-     'cas'=> $cas,
-     'user'=>$user
- ]);
- 
- // Load HTML to Dompdf
- $dompdf->loadHtml($html);
- 
- // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
- $dompdf->setPaper('A4', 'portrait');
-
- // Render the HTML as PDF
- $dompdf->render();
-
- // Output the generated PDF to Browser (inline view)
- $dompdf->stream("mypdf.pdf", [
-     "Attachment" => false
- ]);
 
 
 
@@ -417,7 +392,20 @@ class accueilController extends AbstractController
 
 
 
-     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
      
     
 }
