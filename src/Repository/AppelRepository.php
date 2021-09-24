@@ -131,4 +131,36 @@ class AppelRepository extends ServiceEntityRepository
 
 
 
+     public function AppelByDate2( $stringDate , $dateF){
+
+        $query =  $this->createQueryBuilder('a');
+        $query->where('a.date BETWEEN :stringDate AND :dateF')
+        ->setParameter('stringDate', $stringDate)
+        ->setParameter('dateF', $dateF);
+     
+       ;
+          return $query->getQuery()->getResult();
+     }
+
+
+
+     public function AppelByDate3( $id ,$stringDate , $dateF){
+
+        $query =  $this->createQueryBuilder('a');
+        $query->where('a.date BETWEEN :stringDate AND :dateF');
+        $query->andWhere('a.peronneOne =:id')
+
+        ->setParameter('id', $id)
+        ->setParameter('stringDate', $stringDate)
+        ->setParameter('dateF', $dateF);
+     
+       ;
+          return $query->getQuery()->getResult();
+     }
+ 
+
+
+
+
+
 }

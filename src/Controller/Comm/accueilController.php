@@ -273,7 +273,107 @@ public function Comm(Request $request){
        ]);
 
       }
+      
+      
+
+
+
+       /**
+         * @Route("/searchDays/", name="comm_search_days")
+         */
+
+public function SearchDays(Request $request,AppelRepository $appeldata): Response{
+
+ 
+    $date = $request->get('date');
+    $debut = $request->get('debut');
+    $fin = $request->get('fin');
+
+   $dateD = $date." ".$debut.':00';
+ 
+   $dateF =  $date." ".$fin.':00';
+  
+   $call = $appeldata->AppelByDate2($dateD,$dateF);
+
+  // dd($call);
+
+
+  
+
+
+  return $this->render('comm/searchDays.html.twig',[
+    'call'=> $call
+  ]);
+
+
+  
+
+}
+
+
+
+
+ /**
+         * @Route("/searchOneCible/", name="comm_search_oneCible")
+         */
+
+        public function SearchOnecible(Request $request,AppelRepository $appeldata): Response{
+
+          
+              $cible = $request->get('cible');
+              $debut = $request->get('debut');
+              $fin = $request->get('fin');
+              $fin= $fin." ".'23:59:59';
+            
+          
+          
+              $personne= $this->getDoctrine()->getRepository(Personne::class)->findOneby(['contact'=>$cible]);
+          
+            //  $id = $personne->getId();
+            // $nom = $personne->getNom();
+            //  $num = $personne->getContact();
+           
+              
+
+              $call = $appeldata->AppelByDate3($personne, $debut, $fin);
+          
+             foreach($call as $call1){
+
+                     $nom= $call1->getPeronneOne()->getNom();
+                     $num = $call1->getPeronneOne()->getContact();
+             }
+
+
+              return $this->render('comm/searchOneCible.html.twig',[
+                'call'=> $call,
+                'nom'=>$nom,
+                'num'=>$num
+               
+              ]);
+          
+
+            
+
+             
+
+          }
+        // dd($call);
+      
+      
         
+      
+      
+      
+      
+        
+      
+      
+      
+
+
+
+
+
      
      
     
