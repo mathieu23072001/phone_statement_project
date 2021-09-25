@@ -90,7 +90,31 @@
                             <li><a href="{{ path('app_login') }}"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
                     </li>
-                    <li> <a href="{{ path('comm_accueil') }}" class="waves-effect"><i class="ti-dashboard p-r-10"></i> <span class="hide-menu"><B>Dashboard</B></span></a> </li>
+                    
+                 <li> <a href="{{ path('comm_accueil') }}" class="waves-effect"><i class="ti-dashboard p-r-10"></i> <span class="hide-menu"><B>Dashboard</B></span></a> </li>
+
+
+     <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-database"></i> <span class="hide-menu"> Gerer données <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">3</span></span></a>
+                        <ul class="nav nav-second-level">
+						
+                              
+                             <li> <a href="{{path('comm_import_cible')}}"><i class="fa fa-folder" aria-hidden="true"></i><span class="hide-menu">Importer fichier</span></a></li>
+                              <li> <a href="{{path('comm_add_name')}}"><i class="ti-user" aria-hidden="true"></i><span class="hide-menu">Associé nom-numero</span></a></li>
+                             
+                            
+							  
+							
+                        
+        
+                
+						
+                      </ul>
+                    </li>
+
+
+
+
+
                     <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span class="hide-menu"> Gerer suspect <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">3</span></span></a>
                         <ul class="nav nav-second-level">
 						
@@ -182,7 +206,7 @@
                             
                       </ul>
                     </li>
-                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="icon-envelope p-r-10"></i> <span class="hide-menu"> Gerer données <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">6</span></span></a>
+                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-database"></i> <span class="hide-menu"> Gerer données <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">6</span></span></a>
                         <ul class="nav nav-second-level">
                             <li> <a href="{{path('admin_import')}}"><i class="fa fa-folder"></i>Importer fichiers</a></li>
                             <li> <a href="{{path('admin_register_cas')}}"><i class="ti-user"></i>Associer nom</a></li>

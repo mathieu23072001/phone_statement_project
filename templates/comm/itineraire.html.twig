@@ -47,7 +47,7 @@ window.onload = () => {
                     {% set latitude = result.latitude %}
                     {% set longitude = result.longitude %}
 
-                  ["{{longitude}}","{{latitude}}"],
+                  ["{{latitude}}","{{longitude}}"],
                     {% endfor %}
                 ]
             };   
@@ -91,7 +91,7 @@ window.onload = () => {
  for (a in res2["ant"]) {
           // Nous définissons l'icône à utiliser pour le marqueur, sa taille affichée (iconSize), sa position (iconAnchor) et le décalage de son ancrage (popupAnchor)
            
-     let marker = L.marker([parseFloat(res2["ant"][a].longitude), parseFloat(res2["ant"][a].latitude)]).addTo(carte); // pas de addTo(macarte), l'affichage sera géré par la bibliothèque des clusters
+     let marker = L.marker([parseFloat(res2["ant"][a].latitude), parseFloat(res2["ant"][a].longitude)]).addTo(carte); // pas de addTo(macarte), l'affichage sera géré par la bibliothèque des clusters
             marker.bindPopup("Antenne: "+res2["ant"][a].antenne+"<br/>"
                             +"Correspondant: "+res2["ant"][a].nom+"<br/>"
                             +"numero: "+res2["ant"][a].contact+"<br/>"
