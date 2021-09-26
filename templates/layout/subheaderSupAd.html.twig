@@ -262,11 +262,14 @@
 							 
                             
 						<li><a href="{{path('rdc_agent_sante')}}"><i class="fa fa-user"></i><span class="hide-menu">agents de santé</span></a></li>
+                        <li><a href ="{{path('rdc_patient_list')}}"><i class = "fa fa-list"></i><span class="hide-menu">liste patient</span></a></li>
+
+                        
                       </ul>
                     </li>
                     <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-area-chart"></i> <span class="hide-menu"> Statistiques <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">6</span></span></a>
                         <ul class="nav nav-second-level">
-                            <li> <a href=""><i class="fa fa-user"></i>nombre de cas enregistré</a></li>
+                            <li> <a href="{{path('rdc_statistique')}}"><i class="fa fa-user"></i>nombre de cas enregistré</a></li>
                             
                             
                         </ul>

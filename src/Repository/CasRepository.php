@@ -47,4 +47,21 @@ class CasRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+
+
+
+    /**
+     * Returns number of "cas" par day
+     * @return void 
+     */
+    public function countByDate(){
+        $query = $this->createQueryBuilder('c')
+        ->select('SUBSTRING(c.creatAt, 1, 10) as dateCas, COUNT(c) as count')
+             ->groupBy('dateCas')
+         ;
+         return $query->getQuery()->getResult();
+
+    }
 }

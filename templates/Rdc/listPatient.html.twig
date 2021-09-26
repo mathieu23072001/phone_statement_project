@@ -1,0 +1,88 @@
+{% extends "baseSupAd.html.twig" %}
+
+{% block stylesheets %} {{  parent() }} {% endblock %}
+
+{% block title %} {{  parent() }} {% endblock %}
+
+{% block javascript %} {{  parent() }} {% endblock %}
+
+
+{% block body %}
+
+
+ {% for membre in app.user.membres %}
+
+<div class="row bg-title">
+ 
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Centre : {{ membre.cds.nom}}</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-4 col-xs-12"> 
+                    <o class="breadcrumb">
+                        <li>responsable de centre </li>
+                        <li class="active"> Liste des patients</li>
+                    </o>
+                </div>
+                
+                <!-- /.col-lg-12 -->
+            </div>
+  
+
+               
+
+
+
+               <div class="row">
+                    <div class="col-sm-12">
+
+                        
+
+
+                        <div class="white-box printableArea">
+                            <h3 class="box-title m-b-0">Liste des patients</h3>
+                            <p class="text-muted m-b-30">Cliquez sur cas contact pour afficher les cas contacts du patient</p>
+                            <div class="table-responsive">
+                                <table id="myTable" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Numero</th>
+                
+                                            <th>Action</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    {% for c in cas %}
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ c.nom }}</td>
+                                            <td>{{ c.contact }}</td>
+                                            
+                                            <td><a href="{{ path('rdc_cas_graphe',{'id': c.id}) }}"><button type="button" class="btn btn-primary">Afficher graphe</button></a></td>
+                                            
+                                            
+                                        </tr>
+                                        
+                                    </tbody>
+                                    {% endfor %}
+                                </table>
+                            </div>
+
+
+                                        <button id="print" class="btn btn-rounded btn-sm btn-info" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>
+                         
+
+
+
+
+                            
+                        </div>
+                    </div>
+                  </div>
+                  
+                  </div>
+      {% endfor %} 
+ {% endblock %}
+
+ 
+

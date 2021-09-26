@@ -1,0 +1,71 @@
+{% extends "baseSupAd.html.twig" %}
+
+{% block stylesheets %} {{  parent() }} {% endblock %}
+
+{% block title %} {{  parent() }} {% endblock %}
+
+{% block javascript %}
+
+ {{  parent() }}
+  {% endblock %}
+
+
+{% block body %}
+
+{% for membre in app.user.membres %}
+ 
+
+
+<div class="row bg-title">
+ 
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Centre : {{ membre.cds.nom}}</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-4 col-xs-12"> 
+                    <o class="breadcrumb">
+                        <li>Responsable de centre </li>
+                        <li class="active">  Page d'accueil</li>
+                    </o>
+                </div>
+                
+                <!-- /.col-lg-12 -->
+            </div>
+
+<h3>Nombre de cas par jour</h3>
+
+
+
+
+
+
+
+
+<canvas id="cas" width="400" height="100"></canvas>
+
+
+<script>
+let offres = document.querySelector("#cas")
+    let casGraph = new Chart(cas, {
+        type: "line",
+        data: {
+            labels: {{dates|raw}},
+            datasets: [{
+                label: "Nombres de cas par jour",
+                data: {{casCount|raw}},
+                backgroundColor: ["turquoise","pink","blue","red","orange","green","grey"]
+                
+            
+            }]
+        }
+    })
+
+</script>
+
+
+
+
+
+
+        {% endfor %}
+
+ {% endblock %}

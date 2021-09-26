@@ -1,0 +1,88 @@
+{% extends "base.html.twig" %}
+
+     {% block stylesheets %}
+     {{  parent() }}
+      {% endblock %}
+      
+      {% block javascripts %}
+      {{  parent() }}
+       {% endblock %}
+
+  {% block body %}
+
+<div class="white-box printableArea">
+
+
+    <div class="chart" id="basic-example"></div>
+    
+
+    <script>
+ 
+
+    var config = {
+        container: "#basic-example",
+        
+        connectors: {
+            type: 'step'
+        },
+        node: {
+            HTMLclass: 'nodeExample1'
+        }
+    },
+    ceo = {
+        text: {
+            name: "{{hum.nom}}",
+            title: "Parent de la chaine",
+            contact: "{{hum.numero}}",
+        },
+        image: "../headshots/49.jpg"
+    },
+   {% for c in cas %}
+    cdo{{loop.index}} = {
+        parent: ceo,
+        text:{
+            name: "{{c.nom}}",
+            title: "Un fils de la chaine",
+            contact: "{{c.contact}}",
+        },
+        image: "../headshots/48.png"
+    }
+    ,
+
+   {% endfor %} 
+
+    chart_config = [
+        config,
+        ceo,
+        {% for c in cas %}
+        cdo{{loop.index}}
+        {% if loop.index != cas|length %}
+    ,
+         {% endif %}
+        {% endfor %} 
+       
+    ];
+
+
+new Treant( chart_config );
+
+
+
+       
+
+
+    </script>
+    
+
+ <center><button id="print" class="btn btn-rounded btn-sm btn-info" type="button"> <span><i class="fa fa-print"></i> Print</span> </button></center>
+
+
+
+</div>
+  
+
+  
+
+
+
+ {% endblock %}

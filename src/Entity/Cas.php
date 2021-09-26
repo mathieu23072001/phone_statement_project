@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CasRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=CasRepository::class)
@@ -31,6 +32,12 @@ class Cas
      * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="cas")
      */
     private $personne;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $creatAt;
 
     public function getId(): ?int
     {
@@ -72,4 +79,11 @@ class Cas
 
         return $this;
     }
+
+    public function getCreatAt(): ?\DateTimeImmutable
+    {
+        return $this->creatAt;
+    }
+
+   
 }
