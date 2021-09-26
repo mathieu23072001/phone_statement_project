@@ -50,6 +50,11 @@ class User implements UserInterface
      */
     private $commissaires;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $active;
+
     public function __construct()
     {
         $this->membres = new ArrayCollection();
@@ -205,6 +210,18 @@ class User implements UserInterface
                 $commissaire->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActive(): ?int
+    {
+        return $this->active;
+    }
+
+    public function setActive(?int $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

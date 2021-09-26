@@ -1,8 +1,16 @@
 {% extends "baseSupAd.html.twig" %}
 
-{% block stylesheets %} {{  parent() }} {% endblock %}
+{% block stylesheets %}
+
+
+
+ {{  parent() }}
+ 
+  {% endblock %}
 
 {% block title %} {{  parent() }} {% endblock %}
+
+{% block javascript %} {{  parent() }} {% endblock %}
 
 
 {% block body %}
@@ -31,9 +39,9 @@
                             <div class="r-icon-stats">
                                 <i class="ti-user"></i>
                                 <div class="bodystate">
-                                    <h4 style="color:white"> 1</h4>
+                                    <h4 style="color:blue"> {{result1.0.total}}</h4>
                                     <span class="text-muted">
-Total Admin</span>
+administrateur</span>
                                 </div>
                             </div>
                         </div>
@@ -41,11 +49,11 @@ Total Admin</span>
                     <div class="col-md-3 col-sm-6">
                         <div class="white-box">
                             <div class="r-icon-stats">
-                                <i class="ti-shopping-cart"></i>
+                                <i class="ti-user"></i>
                                 <div class="bodystate">
-                                    <h4 style="color:white"> 3</h4>
+                                    <h4 style="color:blue"> {{result2.0.total}}</h4>
                                     <span class="text-muted">
-Active Users</span>
+utilisateur actif</span>
                                 </div>
                             </div>
                         </div>
@@ -53,11 +61,11 @@ Active Users</span>
                     <div class="col-md-3 col-sm-6">
                         <div class="white-box ">
                             <div class="r-icon-stats">
-                                <i class="ti-wallet"></i>
+                                <i class="ti-user"></i>
                                 <div class="bodystate">
-                                    <h4 style="color:white">4</h4>
+                                    <h4 style="color:blue">{{result3.0.total}}</h4>
                                     <span class="text-muted">
-Inactive User</span>
+utilisateur inactif</span>
                                 </div>
                             </div>
                         </div>
@@ -65,11 +73,11 @@ Inactive User</span>
                     <div class="col-md-3 col-sm-6">
                         <div class="white-box">
                             <div class="r-icon-stats">
-                                <i class="ti-wallet"></i>
+                                <i class="ti-user"></i>
                                 <div class="bodystate">
-                                    <h4 style="color:white">5</h4>
+                                    <h4 style="color:blue">{% set total= result2.0.total + result3.0.total %} {{total}}</h4>
                                     <span class="text-muted">
-Total Users</span> 
+utilisateur total</span> 
 
 
                                 </div>
@@ -86,9 +94,9 @@ Total Users</span>
                             <div class="r-icon-stats">
                                 <i class="ti-user"></i>
                                 <div class="bodystate">
-                                    <h4 style="color:white">6</h4>
+                                    <h4 style="color:blue">{{result4.0.total}}/{{result10.0.total}}(inactif)</h4>
                                     <span class="text-muted">
-Total Admin</span>
+<a href ="{{path('admin_list_ads')}}">Agent de sante</a> </span>
                                 </div>
                             </div>
                         </div>
@@ -96,11 +104,11 @@ Total Admin</span>
                     <div class="col-md-3 col-sm-6">
                         <div class="white-box">
                             <div class="r-icon-stats">
-                                <i class="ti-shopping-cart"></i>
+                                <i class="ti-user"></i>
                                 <div class="bodystate">
-                                    <h4 style="color:white">7</h4>
+                                    <h4 style="color:blue">{{result5.0.total}}/{{result9.0.total}}(inactif)</h4>
                                     <span class="text-muted">
-Active Users</span>
+<a href ="{{path('admin_list_rdc')}}">RDC</a></span>
                                 </div>
                             </div>
                         </div>
@@ -108,11 +116,11 @@ Active Users</span>
                     <div class="col-md-3 col-sm-6">
                         <div class="white-box">
                             <div class="r-icon-stats">
-                                <i class="ti-wallet"></i>
+                                <i class="ti-user"></i>
                                 <div class="bodystate">
-                                    <h4 style="color:white">8</h4>
+                                    <h4 style="color:blue">{{result6.0.total}}/{{result8.0.total}}(inactif)</h4>
                                     <span class="text-muted">
-Inactive User</span>
+<a href ="{{path('admin_list_comm')}}">Commissaire</a></span>
                                 </div>
                             </div>
                         </div>
@@ -120,11 +128,11 @@ Inactive User</span>
                     <div class="col-md-3 col-sm-6">
                         <div class="white-box">
                             <div class="r-icon-stats">
-                                <i class="ti-wallet"></i>
+                                <i class="fa fa-hospital-o"></i>
                                 <div class="bodystate">
-                                    <h4 style="color:white">9</h4>
+                                    <h4 style="color:blue">{{result7.0.total}}</h4>
                                     <span class="text-muted">
-Total Users</span>
+<a href ="{{path('admin_list_cds')}}">centre de sante</a></span>
                                 </div>
                             </div>
                         </div>
@@ -133,13 +141,39 @@ Total Users</span>
 
                 </div>
 
+<br/>
+
+ <center><h3> Nombre de personne par centre de santé</h3></center>
 
 
- 
+
+
+
+
+
+
+ <canvas id="cds" width="400" height="100"></canvas>
+
+
+<script>
+let cds = document.querySelector("#cds")
+    let cdsGraph = new Chart(cds, {
+        type: "pie",
+        data: {
+            labels: {{cdsNom|raw}},
+            datasets: [{
+                label: "Répartition des cds",
+                data: {{cdsCount|raw}},
+                backgroundColor: {{cdsColor|raw}}
+            
+            }]
+        }
+    })
+
+</script>
 
 
 
 
 
 {% endblock %}
-{% block javascript %} {{  parent() }} {% endblock %}

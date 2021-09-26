@@ -1,0 +1,129 @@
+{% extends "baseSupAd.html.twig" %}
+
+{% block stylesheets %} {{  parent() }} {% endblock %}
+
+{% block title %} {{  parent() }} {% endblock %}
+
+{% block javascript %}
+
+ {{  parent() }}
+  {% endblock %}
+
+
+{% block body %}
+
+
+ 
+
+<div class="row bg-title">
+ 
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Accueil admin</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-4 col-xs-12"> 
+                    <o class="breadcrumb">
+                        <li>administrateur </li>
+                        <li class="active"> Liste des centres de sante</li>
+                    </o>
+                </div>
+                
+                <!-- /.col-lg-12 -->
+            </div>
+  
+
+               
+
+
+
+               <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box printableArea">
+                            <h3 class="box-title m-b-0">Liste des centres de sante</h3>
+                            <p class="text-muted m-b-30">Consulter la liste des centres de sante</p>
+                            <div class="table-responsive">
+                                <table id="myTable" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th >Nom</th>
+                                            <th >Quartier</th>
+                                            <th > Longitude </th>
+                                        
+                                            <th> Latitude </th>
+                                            <th> Contact </th>
+                                            <th> Horaire </th>
+                                            <th> Site web </th>
+                                             <th> Email</th>
+                                             <th> Position</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                   
+                                    <tbody>
+                                    {% for result in result %}
+                                        <tr>
+                                            <td>{{result.nom}}</td>
+                                            <td >{{result.quartier}}</td>
+                                            <td>{{result.longitude}}</td>
+                                        
+                                            <td>
+                                           {{ result.latitude }}
+                                            </td>
+                                            <td>{{result.contact}}</td>
+                                            <td>{{result.horaire}}</td>
+                                            <td>{{result.siteW}}</td>
+                                            <td>{{result.email}}</td>
+
+                                            <td>
+                                            
+                                             <div class="btn-group m-r-10">
+                                           <button aria-expanded="false" data-toggle="dropdown" class="btn btn-info dropdown-toggle waves-effect waves-light" type="button">déroulez<span class="caret"></span></button>
+                                    <ul role="menu" class="dropdown-menu animated flipInX">
+                                        <li><a href="{{ path('admin_position_cds',{'id': result.id}) }}">Voir </a></li>
+                                        
+                                       
+                                       
+                                    </ul>
+                                            
+                                            
+                                            
+                                            
+                                            </td>
+                                        </tr>
+                                   
+                                     {% endfor %}
+
+                                    </tbody>
+                                    
+                                    
+                                   
+                                </table>
+                            </div>     
+                         
+
+
+
+
+                        </div>
+
+                        <button id="print" class="btn btn-rounded btn-sm btn-info" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>
+                    </div>
+                  </div>
+                  </div>
+      
+      
+    
+
+
+
+
+
+
+
+
+
+
+
+ {% endblock %}
+
+ 
+

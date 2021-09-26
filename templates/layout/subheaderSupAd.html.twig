@@ -192,13 +192,13 @@
                             <li><a href="{{ path('app_login') }}"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
                     </li>
-                    <li> <a href="" class="waves-effect"><i class="ti-dashboard p-r-10"></i> <span class="hide-menu"><B>Dashboard</B></span></a> </li>
-                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-book"></i> <span class="hide-menu"> Gerer CDS <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">3</span></span></a>
+                    <li> <a href="{{path('admin_accueil')}}" class="waves-effect"><i class="ti-dashboard p-r-10"></i> <span class="hide-menu"><B>Dashboard</B></span></a> </li>
+                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-hospital-o"></i> <span class="hide-menu"> Gerer CDS <span class="fa arrow"></span><span class="label label-rouded label-danger pull-right">3</span></span></a>
                         <ul class="nav nav-second-level">
 						
                              <li> <a href="{{ path('admin_add_cds') }}"><i class="fa fa-plus p-r-10"></i><span class="hide-menu">Ajouter un centre</span></a></li>
 
-                             <li> <a href=""><i class="fa fa-list"></i><span class="hide-menu">liste des centres</span></a></li>
+                             <li> <a href="{{path('admin_list_cds')}}"><i class="fa fa-list"></i><span class="hide-menu">liste des centres</span></a></li>
 
 							 
 							  
@@ -210,16 +210,14 @@
                         <ul class="nav nav-second-level">
                             <li> <a href="{{path('admin_import')}}"><i class="fa fa-folder"></i>Importer fichiers</a></li>
                             <li> <a href="{{path('admin_register_cas')}}"><i class="ti-user"></i>Associer nom</a></li>
-                            <li> <a href=""><i class="ti-user"></i>Non stagiaires</a></li>
+                            
                         </ul>
                     </li>
 					
-					<li> <a href="#" class="waves-effect"><i data-icon="/" class="linea-icon linea-basic fa-fw"></i> <span class="hide-menu">Statistiques<span class="fa arrow"></span> <span class="label label-rouded label-info pull-right">25</span> </span></a>
+					<li> <a href="#" class="waves-effect"><i data-icon="/" class="linea-icon linea-basic fa-fw"></i> <span class="hide-menu">Gerer site<span class="fa arrow"></span> <span class="label label-rouded label-info pull-right">25</span> </span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="">offres/specialite</a></li>
-                            <li><a href="">offres/jour</a></li>
+                            <li><a href="#"><i class="fa fa-wrench"></i>Activer maintenance</a></li>
                            
-                            <li><a href="">Etudiants/specialite</a></li>
                             
                         </ul>
                     </li>

@@ -72,6 +72,7 @@ class registerController extends AbstractController
                 $membre->getUser()->setRoles(["ROLE_RDC"]);
                 $membre->setCds($cds);
                 $membre->getUser()->setType(1);
+                $membre->getUser()->setActive(1);
            
 
                 $em->persist($membre);
@@ -91,6 +92,7 @@ class registerController extends AbstractController
                 $membre->getUser()->setRoles(["ROLE_ADS"]);
                 $membre->setCds($cds);
                 $membre->getUser()->setType(0);
+                $membre->getUser()->setActive(1);
            
 
                 $em->persist($membre);
@@ -186,6 +188,7 @@ public function RegisterComm(Request $request,UserPasswordEncoderInterface $enco
       $comm->getUser()->setPassword($hash);
       $comm->getUser()->setRoles(["ROLE_COMM"]);
       $comm->getUser()->setType(3);
+      $comm->getUser()->setActive(1);
   
       $em->persist($comm);
       $em->flush();

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <!-- Fichiers CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+        <link rel="stylesheet" href="{{asset('Maps/css/style.css')}}">
+         <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+         <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    </head>
+    <body>
+        <div id="map"></div>
+         <br/>
+       
+
+        <!-- Fichiers JS -->
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+        
+        <script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'></script>
+
+
+<script>
+
+
+window.onload = () => {
+    // On intialise la carte
+    let carte = L.map('map').setView([ 6.1372, 1.2125], 13)
+
+
+     // On charge les "tuiles"
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        // Il est toujours bien de laisser le lien vers la source des données
+        attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+        minZoom: 1,
+        maxZoom: 20,
+        name: 'tiles' // Permettra de ne pas supprimer cette couche
+    }).addTo(carte) 
+
+
+
+
+    var res2 = {
+            "ant":[
+                {% for result in result %}
+                {% set latitude = result.latitude %}
+                {% set longitude = result.longitude %}
+                {% set nom = result.nom %}
+                {% set quartier = result.quartier %}
+                
+
+
+
+                 {
+                        "latitude": "{{latitude}}",
+                        "longitude": "{{longitude}}",
+                        "nom": "{{nom}}",
+                        "quartier": "{{quartier}}"
+                       
+                    },
+
+                {% endfor %}
+
+            ]
+
+    };
+
+
+
+  
+
+
+ for (a in res2["ant"]) {
+          // Nous définissons l'icône à utiliser pour le marqueur, sa taille affichée (iconSize), sa position (iconAnchor) et le décalage de son ancrage (popupAnchor)
+           
+            cds = [parseFloat(res2["ant"][a].latitude), parseFloat(res2["ant"][a].longitude) ]
+
+      carte.panTo(cds)
+
+
+
+
+     let marker = L.marker([parseFloat(res2["ant"][a].latitude), parseFloat(res2["ant"][a].longitude)]).addTo(carte); // pas de addTo(macarte), l'affichage sera géré par la bibliothèque des clusters
+            marker.bindPopup("nom: "+res2["ant"][a].nom+"<br/>"
+                            +"quartier: "+res2["ant"][a].quartier
+                           
+                            );
+            //markerClusters.addLayer(marker); // Nous ajoutons le marqueur aux groupes
+            }
+
+
+    
+    
+
+    
+
+    
+
+}
+
+    </script>
