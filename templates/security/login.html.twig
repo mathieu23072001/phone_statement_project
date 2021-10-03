@@ -62,13 +62,16 @@ label .password-icon:hover {
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="images/img-01.png" alt="IMG">
-				</div>
 
-				 {% if error %}
+ {% if error %}
         <div class="alert alert-danger">
-        {{error.messageKey|trans(error.messageData,'security')}}
+		Identifiant incorrect ou compte non actif
         </div>
         {% endif %}
+		
+				</div>
+
+				
 
 
 				<form class="login100-form validate-form" id= "login-form" method="post">

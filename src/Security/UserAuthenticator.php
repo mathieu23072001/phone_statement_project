@@ -77,9 +77,18 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+        $mail = $user->getEmail();
 
         if (!$user) {
             throw new UsernameNotFoundException('Email non trouvé.');
+    
+        }
+
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['active'=> 1,'email'=>$mail]);
+        
+        if (!$user) {
+            throw new UsernameNotFoundException('Compte non actif.');
+           
         }
 
         return $user;
@@ -115,19 +124,19 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
         $users= $this->userRepository->findOneBy(['email'=>$request->get('email')]);
-        if($users->getRoles()==['ROLE_ADMIN'] && $users->getActive() == 1){
+        if($users->getRoles()==['ROLE_ADMIN'] ){
         return new RedirectResponse($this->urlGenerator->generate('admin_accueil'));
       }
 
-      if($users->getRoles()==['ROLE_ADS'] && $users->getActive() == 1){
+      if($users->getRoles()==['ROLE_ADS']){
         return new RedirectResponse($this->urlGenerator->generate('ads_accueil'));
       }
 
-      if($users->getRoles()==['ROLE_RDC'] && $users->getActive() == 1){
+      if($users->getRoles()==['ROLE_RDC']){
         return new RedirectResponse($this->urlGenerator->generate('rdc_accueil'));
       }
 
-      if($users->getRoles()==['ROLE_COMM'] && $users->getActive() == 1){
+      if($users->getRoles()==['ROLE_COMM']){
         return new RedirectResponse($this->urlGenerator->generate('comm_accueil'));
       }
 

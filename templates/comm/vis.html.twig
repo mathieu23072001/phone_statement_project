@@ -187,9 +187,15 @@
 
     </script>
     
+   
+
+<link rel="stylesheet" href="{{asset('print.css')}}" type="text/css" media="print" />
 </head>
 
 <body onload="draw();">
+
+
+
  
 <p>
    <center> <h1>Réseaux Montrant les relations entre les différents suspects </h1></center>
@@ -220,40 +226,31 @@
         <td>
             <h2>Réseaux</h2>
 
-           <div id="network" ></div> 
+           <div id="network" ></div>
+           </br> </br>
+           <button onClick = "return imprimer()" name = "impression" id ="impression"> imprimer </button> 
         </td>
+
+        
+
         
     </tr>
 </table>
+
 </div>
+
 </center>
  <script> document.getElementById('edges').style.visibility = 'hidden';</script>
 
  <script> document.getElementById('nodes').style.visibility = 'hidden';</script>
 
+<script type="text/javascript">
+function imprimer(){
+  window.print();
+}
+</script>
 
 
-
-
-
-<script src="{{asset('optimum/js/jquery.PrintArea.js')}}" type="text/JavaScript"></script>
-
-
-
-
-<script>
-    $(document).ready(function() {
-        $("#print").click(function() {
-            var mode = 'iframe'; //popup
-            var close = mode == "popup";
-            var options = {
-                mode: mode,
-                popClose: close
-            };
-            $("div.printableArea").printArea(options);
-        });
-    });
-    </script>
 
 
 </body>

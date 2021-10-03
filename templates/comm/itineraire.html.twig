@@ -88,11 +88,44 @@ window.onload = () => {
     };
 
 
+     // Icon options
+         var iconOptions = {
+            iconUrl: '{{asset('logo.jpg')}}',
+            iconSize: [20, 20]
+         }
+
+
+            // Creating a custom icon
+         var customIcon = L.icon(iconOptions);
+
+
+
+           // Creating Marker Options
+         var markerOptions = {
+             title : "yo",
+            clickable: true,
+            draggable: true,
+            icon: customIcon
+            
+         }
+
+
+
+ var mapIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+
  for (a in res2["ant"]) {
           // Nous définissons l'icône à utiliser pour le marqueur, sa taille affichée (iconSize), sa position (iconAnchor) et le décalage de son ancrage (popupAnchor)
            
-     let marker = L.marker([parseFloat(res2["ant"][a].latitude), parseFloat(res2["ant"][a].longitude)]).addTo(carte); // pas de addTo(macarte), l'affichage sera géré par la bibliothèque des clusters
-            marker.bindPopup("Antenne: "+res2["ant"][a].antenne+"<br/>"
+     let marker = L.marker([parseFloat(res2["ant"][a].latitude), parseFloat(res2["ant"][a].longitude)], {icon: mapIcon}).addTo(carte); // pas de addTo(macarte), l'affichage sera géré par la bibliothèque des clusters
+            marker.bindPopup("Antenne: "+"<a href= {{path('comm_accueil')}}>"+res2["ant"][a].antenne+"</a>"+"<br/>"
                             +"Correspondant: "+res2["ant"][a].nom+"<br/>"
                             +"numero: "+res2["ant"][a].contact+"<br/>"
                             +"date: "+res2["ant"][a].date+"<br/>"
