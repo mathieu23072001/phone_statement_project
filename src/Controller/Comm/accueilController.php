@@ -546,6 +546,81 @@ public function SearchDays(Request $request,AppelRepository $appeldata): Respons
     }
 
      
+
+
+
+
+
+    /**
+     * @Route("/profil",name="comm_profil")
+     */
+
+    public function profil(UserPasswordEncoderInterface $encoder,Request $request):Response{
+
+      $user = $this->getUser();
+
+      $em = $this->getDoctrine()->getManager();
+
+      $comm = $user->getCommissaires();
+
+     
+
+     // dd($membre->getNom());
+
+      if (!empty($_POST)) {
+      
+          foreach($comm as $comm){
+      
+              if(!empty($request->get('nom'))){
+
+                  $nom = $request->get('nom');
+                  $comm->setNom($nom);
+                  
+                }
+
+                if(!empty($request->get('prenoms'))){
+
+                  $prenoms = $request->get('prenoms');
+                  $comm->setPrenoms($prenoms);
+                  
+                }
+
+                if(!empty($request->get('email'))){
+
+                  $email = $request->get('email');
+              
+                  $comm->getUser()->setEmail($email);
+                  
+                }
+
+
+                if(!empty($request->get('password'))){
+                    $pass = $request->get('password');
+
+                  $hash= $encoder->encodePassword($user, $pass);
+
+                  $comm->getUser()->setPassword($hash);
+                  
+                  
+                }
+
+
+          }
+    
+
+          $em->persist($comm);
+          
+          $em->flush();
+
+          return $this->redirectToRoute('comm_profil'); 
+
+
+
+      }
+
+      return $this->render('comm/profil.html.twig');
+   }
+   
      
     
 }

@@ -1,6 +1,10 @@
 {% extends "baseSupAd.html.twig" %}
 
-{% block stylesheets %} {{  parent() }} {% endblock %}
+{% block stylesheets %} 
+
+
+
+{{  parent() }} {% endblock %}
 
 {% block title %} {{  parent() }} {% endblock %}
 
@@ -11,6 +15,7 @@
 
 
 {% block body %}
+
 
 {% for membre in app.user.membres %}
  
@@ -64,8 +69,14 @@ let offres = document.querySelector("#cas")
 
 
 
-
-
         {% endfor %}
+
+        <script type="text/javascript">
+function imprimer(){
+  window.print();
+}
+</script>
+
+<center><button onClick = "return imprimer()" name = "impression" id ="impression"> imprimer </button></center> 
 
  {% endblock %}

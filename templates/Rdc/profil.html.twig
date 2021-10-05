@@ -1,0 +1,175 @@
+{% extends "baseSupAd.html.twig" %}
+
+{% block stylesheets %} {{  parent() }} {% endblock %}
+
+{% block title %} {{  parent() }} {% endblock %}
+
+
+{% block body %}
+
+{% for membre in app.user.membres %}
+
+
+<div class="row bg-title">
+ 
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Centre : {{ membre.cds.nom}} </h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-4 col-xs-12"> 
+                    <o class="breadcrumb">
+                        <li>Responsable de centre  </li>
+                        <li class="active"> Page d'accueil</li>
+                    </o>
+                </div>
+                
+                <!-- /.col-lg-12 -->
+            </div>
+
+<div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading"> Informations personnelles </div>
+                            <div class="panel-wrapper collapse in" aria-expanded="true">
+                                <div class="panel-body">
+                                    <form class="form-horizontal" role="form" method ="post"  "{{path('rdc_profil')}}">
+                                        <div class="form-body">
+                                            <h3 class="box-title">Informations personnelles</h3>
+                                            <hr class="m-t-0 m-b-40">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3"><B>Nom: </B> {{ membre.nom}}  </label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static"> </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3"> <B> Prenoms:</B> {{ membre.prenoms}}</label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static">  </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                            <!--/row-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label"><B> email:</B> {{ app.user.email}} </label>
+                                                        <div class="col-md-9">
+                                                            <p class="form-control-static">  </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                              
+                                                <!--/span-->
+                                                
+                                                <!--/span-->
+                                            </div>
+                                            <!--/row-->
+                                            <!--/row-->
+                                            <h3 class="box-title">Renseignez les données à mettre à jour</h3>
+                                            <hr class="m-t-0 m-b-40">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Nom </label> 
+                                                         
+                                                        <div class="col-md-9">
+
+                                                         <input type="text" name ="nom" class="form-control">
+                                                            
+                                                            <p class="form-control-static"> 
+                                                            
+                                                           
+                                                             </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                 <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Prenoms </label>
+                                                        <div class="col-md-9">
+                                                        <input type="text" name ="prenoms" class="form-control">
+                                                            <p class="form-control-static">  </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Email:</label>
+                                                        <div class="col-md-9">
+
+                                                        <input type="email" name ="email" class="form-control">
+                                                            <p class="form-control-static">  </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Mot de passe </label>
+                                                        <div class="col-md-9">
+                                                        <input type="password" name ="password" class="form-control">
+                                                            <p class="form-control-static">  </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                            <!--/row-->
+                                           
+                                        </div>
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-3 col-md-9">
+                                                            <a href ="{{path('rdc_profil')}}"><button type="submit" class="btn btn-rounded btn-sm btn-info" onclick="return confirm('Voulez vous mettre à jour les données renseignées?');"> <i class="fa fa-pencil"></i> Modifier</button></a>
+                                                            <button type="button" class="btn btn-rounded btn-sm btn-default">Effacer</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6"> </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <!--./row-->
+
+
+
+
+
+
+
+
+
+
+
+ <!-- .row -->
+               
+{% endfor %}
+
+{% endblock %}
+
+{% block javascript %} {{  parent() }} {% endblock %}

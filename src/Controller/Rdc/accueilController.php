@@ -28,6 +28,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\CasRepository;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 
@@ -150,7 +151,76 @@ class accueilController extends AbstractController
     }
    
 
+     
+    /**
+     * @Route("/profil",name="rdc_profil")
+     */
 
+     public function profil(UserPasswordEncoderInterface $encoder,Request $request):Response{
+
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $membre = $user->getMembres();
+
+       
+
+       // dd($membre->getNom());
+
+        if (!empty($_POST)) {
+        
+            foreach($membre as $membre){
+        
+                if(!empty($request->get('nom'))){
+
+                    $nom = $request->get('nom');
+                    $membre->setNom($nom);
+                    
+                  }
+
+                  if(!empty($request->get('prenoms'))){
+
+                    $prenoms = $request->get('prenoms');
+                    $membre->setPrenoms($prenoms);
+                    
+                  }
+
+                  if(!empty($request->get('email'))){
+
+                    $email = $request->get('email');
+                
+                    $membre->getUser()->setEmail($email);
+                    
+                  }
+
+
+                  if(!empty($request->get('password'))){
+                      $pass = $request->get('password');
+
+                    $hash= $encoder->encodePassword($user, $pass);
+
+                    $membre->getUser()->setPassword($hash);
+                    
+                    
+                  }
+
+
+            }
+      
+
+            $em->persist($membre);
+            
+            $em->flush();
+
+            return $this->redirectToRoute('rdc_profil'); 
+
+
+
+        }
+
+        return $this->render('rdc/profil.html.twig');
+     }
      
     
     /**
