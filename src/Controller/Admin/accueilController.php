@@ -241,30 +241,31 @@ $user = $this->getUser();
 
 
        $hubdata->insertCsvData($entityManager,$fileFolder."".$filePathName);
+       //$hubdata->delete($entityManager);
         $hubdata->datahubAb($entityManager);
-          $hubdata->datahubAp($entityManager);
+         $hubdata->datahubAp($entityManager);
           
          $hubdata->datahubUpdateAb($entityManager);
-         $hubdata->datahubUpdateAp($entityManager);
-          $hubdata->datahubUpdateIdentiteAppele($entityManager);
+        $hubdata->datahubUpdateAp($entityManager);
+         $hubdata->datahubUpdateIdentiteAppele($entityManager);
         $hubdata->datahubUpdateDate($entityManager);
-        $hubdata->datahubUpdateHeure($entityManager);
-         $hubdata->datahubUpdateDuree($entityManager);
-        $hubdata->datahubUpdateTypeAppel($entityManager);
-         $hubdata->datahubUpdateSensAppel($entityManager);
+       $hubdata->datahubUpdateHeure($entityManager);
+        $hubdata->datahubUpdateDuree($entityManager);
+       $hubdata->datahubUpdateTypeAppel($entityManager);
+        $hubdata->datahubUpdateSensAppel($entityManager);
           $hubdata->datahubUpdateIMEI($entityManager);
           $hubdata->datahubUpdateIMSI($entityManager);
          $hubdata->datahubUpdateLocalisation($entityManager);
          $hubdata->insertNumeroAb($entityManager);
-          $hubdata->insertNumeroApp($entityManager);    
-        $hubdata->insertNumOp($entityManager);
+         $hubdata->insertNumeroApp($entityManager);    
+       $hubdata->insertNumOp($entityManager);
           $hubdata->insertpersonneAb($entityManager);
-          $hubdata->insertpersonneAp($entityManager);
+         $hubdata->insertpersonneAp($entityManager);
             
-         $hubdata->insertAntenne($entityManager);
-          $hubdata->insertPortable($entityManager);
-          $hubdata->insertIdNumToPerson($entityManager); 
-          $hubdata->insertAppel($entityManager);
+        $hubdata->insertAntenne($entityManager);
+         $hubdata->insertPortable($entityManager);
+         $hubdata->insertIdNumToPerson($entityManager); 
+         $hubdata->insertAppel($entityManager);
          
         
         

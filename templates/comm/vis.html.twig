@@ -229,6 +229,9 @@
            <div id="network" ></div>
            </br> </br>
            <button onClick = "return imprimer()" name = "impression" id ="impression"> imprimer </button> 
+              <div id = "creation">
+           <button onClick = "return telecharger()" > creer</button> 
+           </div>
         </td>
 
         
@@ -243,10 +246,34 @@
  <script> document.getElementById('edges').style.visibility = 'hidden';</script>
 
  <script> document.getElementById('nodes').style.visibility = 'hidden';</script>
+ <script> document.getElementById('creation').style.visibility = 'hidden';</script>
 
 <script type="text/javascript">
 function imprimer(){
   window.print();
+}
+</script>
+
+
+
+<script type="text/javascript">
+function telecharger(){
+    var text = "vous avez mis le site en maintenance";
+    var nom_fichier = ".maintenance";
+
+    download(text,nom_fichier);
+ 
+}
+
+function download(text,nom_fichier){
+
+var element = document.createElement('a');
+                element.setAttribute('href','data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+                element.setAttribute('download',nom_fichier);
+                element.style.display='none';
+                document.body.appendChild(element)
+                element.click()
+                document.body.removeChild(element)
 }
 </script>
 

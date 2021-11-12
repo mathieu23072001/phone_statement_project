@@ -38,7 +38,7 @@
                <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box printableArea">
-                            <h3 class="box-title m-b-0">Liste des agents de sante</h3>
+                            <h3 class="box-title m-b-0">Liste des responsables de centre</h3>
                             <p class="text-muted m-b-30">Activez ou desactivez un responsable de centre</p>
                             <div class="table-responsive">
                                 <table id="myTable" class="table table-striped">
@@ -72,16 +72,9 @@
 
                                             <td>
                                             
-                                             <div class="btn-group m-r-10">
-                                           <button aria-expanded="false" data-toggle="dropdown" class="btn btn-info dropdown-toggle waves-effect waves-light" type="button">déroulez<span class="caret"></span></button>
-                                    <ul role="menu" class="dropdown-menu animated flipInX">
-                                        <li><a href="{{ path('admin_active_userRdc',{'id': result.id}) }}">Activé </a></li>
-                                        <li><a href="{{ path('admin_desactive_userRdc',{'id': result.id}) }}">Desactivé </a></li>
-                                       
-                                       
-                                    </ul>
                                             
                                             
+                                         <a href="{{ path('admin_active_userRdc',{'id': result.id}) }}">Activé </a> / <a href="{{ path('admin_desactive_userRdc',{'id': result.id}) }}">Desactivé </a>    
                                             
                                             
                                             </td>

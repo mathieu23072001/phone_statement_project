@@ -72,16 +72,9 @@
 
                                             <td>
                                             
-                                             <div class="btn-group m-r-10">
-                                           <button aria-expanded="false" data-toggle="dropdown" class="btn btn-info dropdown-toggle waves-effect waves-light" type="button">déroulez<span class="caret"></span></button>
-                                    <ul role="menu" class="dropdown-menu animated flipInX">
-                                        <li><a href="{{ path('admin_active_userAds',{'id': result.id}) }}">Activé </a></li>
-                                        <li><a href="{{ path('admin_desactive_userAds',{'id': result.id}) }}">Desactivé </a></li>
-                                       
-                                       
-                                    </ul>
                                             
                                             
+                                        <a href="{{ path('admin_active_userAds',{'id': result.id}) }}">Activé </a> / <a href="{{ path('admin_desactive_userAds',{'id': result.id}) }}">Desactivé </a>    
                                             
                                             
                                             </td>

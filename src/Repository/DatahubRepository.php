@@ -656,6 +656,29 @@ WHERE d.appele not in  (select contact from personne)
    
 
 
+   /* public function delete($em)
+    {
+        try {
+            $sqlrech = "
+        update datahub 
+        set abonne = select distinct abonne 
+        
+        from datahub where abonne not in (select abonne from datahub where abonne = "");
+            
+            ";
+           
+                      
+            $stmt = $em->getConnection()->prepare($sqlrech);
+            $stmt->execute();
+        } catch (\Symfony\Component\Form\Exception\Exception $e) {
+            $stmt = null;
+            $res = null;
+            var_dump($e->getMessage());
+        }
+        return 1;
+    }
+*/
+
 
 
 
